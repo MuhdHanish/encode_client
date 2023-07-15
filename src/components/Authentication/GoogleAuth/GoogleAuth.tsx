@@ -6,7 +6,6 @@ interface GoogleMethod  {
 }
 
 const GoogleAuth = ({ method, role }: GoogleMethod) => {
-  console.log(role,method)
   return (
     <>
       <div className="flex justify-center border items-center gap-5 rounded-md p-1 w-full shadow-md transition duration-500 hover:scale-105 cursor-pointer ">

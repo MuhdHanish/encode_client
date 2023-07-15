@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
-const EmailOrUsername: React.FC = () => {
+interface EmailOrUsernameProps {
+  role: string,
+  onCredentialChange: (value: string) => void;
+}
+
+const EmailOrUsername: React.FC<EmailOrUsernameProps> = ({ role, onCredentialChange }) => {
+
+  const [credential, setCredential] = useState("");
+  const handleCredentialChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setCredential(value);
+    onCredentialChange(value);
+  }
   return (
     <>
       <div className="flex flex-col">
@@ -13,6 +25,8 @@ const EmailOrUsername: React.FC = () => {
           id="credential"
           className="border text-xs p-2 text-[10px] sm:w-[250px] rounded-md outline-none shadow-md"
           placeholder="email or username"
+          value={credential}
+          onChange={handleCredentialChange}
         />
       </div>
     </>

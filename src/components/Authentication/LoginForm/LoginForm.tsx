@@ -7,6 +7,7 @@ import WhichUser from "../WhichUser/WhichUser";
 
 const LoginForm: React.FC = () => {
   const [role, setRole] = useState<string>("student");
+  const [isOtpSended,setIsOtpSended] = useState<boolean>(false)
   return (
     <div className="flex flex-col items-center justify-center w-full gap-4 ">
       <WhichUser setRole={setRole} role={role} />
@@ -19,7 +20,10 @@ const LoginForm: React.FC = () => {
         <div className="border w-10"></div>
       </div>
       <div>
-        <AuthForm role="student" method="Login"  />
+        <AuthForm
+          role="student"
+          method="Login"
+        />
       </div>
       <div className=" text-primary text-[10px]">
         <div>

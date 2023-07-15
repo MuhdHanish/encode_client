@@ -1,32 +1,33 @@
-import React, { useState } from "react";
+import React,{useState} from "react";
 import GoogleAuth from "../GoogleAuth/GoogleAuth";
 import { Link } from "react-router-dom";
 import AuthForm from "../AuthForm/AuthForm";
 import WhichUser from "../WhichUser/WhichUser";
 
-const RegisterForm: React.FC = () => {
+
+const LoginForm: React.FC = () => {
   const [role, setRole] = useState<string>("student");
   return (
-    <div className="flex flex-col items-center justify-center w-full gap-3 ">
+    <div className="flex flex-col items-center justify-center w-full gap-4 ">
       <WhichUser setRole={setRole} role={role} />
       <div>
-        <GoogleAuth role={role} method="Sign up" />
+        <GoogleAuth role={role} method="Login" />
       </div>
       <div className="text-[10px] text-gray-400 flex justify-center items-center gap-2">
         <div className="border  w-10"></div>
-        <div>Or Sign up with</div>
+        <div>Or Login with</div>
         <div className="border w-10"></div>
       </div>
       <div>
-        <AuthForm role="student" method="Sign up" />
+        <AuthForm role="student" method="Login"  />
       </div>
       <div className=" text-primary text-[10px]">
         <div>
-          <Link to={"/login"}>Already have an account ?</Link>
+          <Link to={"/register"}>Dont have an account ?</Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

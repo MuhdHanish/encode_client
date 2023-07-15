@@ -1,22 +1,26 @@
-import loginPageImg from "../../assets/authentication-images/login-page.png";
-import { ReactNode } from "react";
+import React,{ ReactNode } from "react";
 
 interface AuthenticationProps {
   children: ReactNode;
-  reverse: boolean
+  reverse?: boolean;
+  sideImg?: string;
 }
 
-const Authentication = ({ children,reverse }: AuthenticationProps) => {
+const Authentication:React.FC<AuthenticationProps> = ({ children , sideImg, reverse }) => {
   return (
     <div className="bg-authentication-background bg-cover flex justify-center items-center w-screen h-screen py-10 px-5">
-      <div className="bg-white  w-full sm:max-w-[80%] h-full overflow-auto rounded-md flex justify-center items-center shadow-xl p-3 gap-5">
+      <div
+        className={`bg-white  w-full sm:max-w-[80%] h-full overflow-auto rounded-md flex justify-center items-center shadow-xl p-3 gap-5 ${
+          reverse ? "flex-row-reverse" : "flex-row"
+        }`}
+      >
         <div className="justify-center  items-center   text-center hidden md:flex flex-col sm:w-1/2 relative">
           <div className="font-semibold text-sm w-full">
             <span className="font-bold text-2xl ">En-Code</span> <br />
             Online Learning Platform
           </div>
           <img
-            src={loginPageImg}
+            src={sideImg}
             className="w-full max-h-full"
             alt="login-page-vector"
           />

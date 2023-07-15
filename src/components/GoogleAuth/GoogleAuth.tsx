@@ -13,7 +13,7 @@ const GoogleAuth = ({ method, role }: GoogleMethod) => {
         <FaGooglePlusSquare
           style={{ fontSize: "25", color: "red", borderRadius: "10%" }}
         />
-        <span className="text-[10px] text-gray-400 ">Sign with google</span>
+        <span className="text-[10px] text-gray-400 ">{method} with google</span>
       </div>
     </>
   );

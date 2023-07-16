@@ -33,11 +33,10 @@ export const handleSignupValidation = (
       ],
     };
   }
-
+  
   if (!validateEmail(trimmedEmail)) {
-    return { field: "email", errors: ["Please enter a valid email address"] };
+    return { field: "email", errors: ["Provide a valid email address"] };
   }
-
   if (!validatePassword(trimmedPassword)) {
     return {
       field: "password",
@@ -65,7 +64,7 @@ export const handleLoginValidation = (
   if (!isEmailFormat && !validateUsername(trimmedCredential)) {
     return {
       field: "credential",
-      errors: ["Please enter a valid email address or username"],
+      errors: ["Provide a valid email address or username"],
     };
   }
 
@@ -73,11 +72,11 @@ export const handleLoginValidation = (
     return {
       field: "password",
       errors: [
-        "Must be at least 8 characters",
+        "At least 8 characters",
         "One uppercase letter",
-        "One lowercase letter",
+        "One uppercase letter",
         "One digit",
-        "One special character",
+        "One special charecter",
       ],
     };
   }

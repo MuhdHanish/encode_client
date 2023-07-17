@@ -25,9 +25,9 @@ const login = async ({ credential, password }:UserCredentials): Promise<User|Err
   try {
     const response = await axiosInstance.post(`/login`, { identifier: credential, password });
     const { user, accessToken, refreshToken } = response.data as ResponseData;
-    localStorage.setItem(accessToken as string, "accessToken");
-    localStorage.setItem(refreshToken as string,"refreshToken");
-    localStorage.setItem(JSON.stringify(user),"user");
+    localStorage.setItem("accessToken", accessToken as string);
+    localStorage.setItem("refreshToken", refreshToken as string);
+    localStorage.setItem("user", JSON.stringify(user));
     store.dispatch(saveUser(user as User));
     return Promise.resolve(user as User);
   } catch (error) {

@@ -2,10 +2,10 @@ import { FaGooglePlusSquare } from "react-icons/fa";
 
 interface GoogleMethod  {
   method: string,
-  role:string
+  role?:string
 }
 
-const GoogleAuth = ({ method, role }: GoogleMethod) => {
+const GoogleAuth = ({ method }: GoogleMethod) => {
   return (
     <>
       <div className="flex justify-center border items-center gap-5 rounded-md p-1 w-full shadow-md transition duration-500 hover:scale-105 cursor-pointer ">

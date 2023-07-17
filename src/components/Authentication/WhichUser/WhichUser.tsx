@@ -2,7 +2,7 @@ import React from 'react'
 
 interface WhichUserProps  {
  role: string,
- setRole: (role:string) => void
+ setRole: (role:string) => void,
 }
 
 const WhichUser:React.FC<WhichUserProps> = ({setRole,role}) => {

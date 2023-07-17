@@ -6,7 +6,7 @@ import {BsExclamationCircle } from "react-icons/bs";
   
   const ErrorTooltip: React.FC<ErrorTooltipProps> = ({setHover}) => {
     return (
-      <div className="absolute right-2.5" onMouseOver={() => setHover(true)}  onMouseLeave={() => setHover(false)}>
+      <div className="absolute right-2.5 cursor-pointer" onMouseOver={() => setHover(true)}  onMouseLeave={() => setHover(false)}>
         <div className="flex items-center">
           <BsExclamationCircle style={{ color: "red", fontSize: "13px" }} />
         </div>

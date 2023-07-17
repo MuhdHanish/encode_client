@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Login from "../../AuthFroms/Login";
+import Login from "../AuthFroms/Login";
 import WhichUser from "../WhichUser/WhichUser";
 import GoogleAuth from "../GoogleAuth/GoogleAuth";
 

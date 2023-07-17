@@ -1,11 +1,11 @@
 import React from 'react'
-import NavBar from '../../components/NavBar/NavBar'
+import StudentHome from '../../components/Home/StudentHome/StudentHome'
 
 const StudentHomePage:React.FC = () => {
   return (
-    <div className='w-screen h-screen'>
-     <NavBar/>
-    </div>
+    <>
+     <StudentHome/>
+    </>
   )
 }
 

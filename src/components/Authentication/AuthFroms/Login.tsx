@@ -1,4 +1,6 @@
+import { AxiosError } from "axios";
 import React, { useState } from "react";
+import { User } from "../../../dtos/User";
 import handleForm from "../../../utils/handleFormState";
 import { handLogin } from "../../../utils/handleLogin";
 import { useNavigate } from "react-router-dom";
@@ -6,11 +8,7 @@ import { apiError } from "../../../api/ApiInterface";
 import PasswordField from "../AuthenticationComponents/Login/LoginPasswordFeild";
 import CredentialField from "../AuthenticationComponents/Login/CredentialFeild";
 
-interface LoginProps {
-  role: string;
-}
-
-const Login: React.FC<LoginProps> = ({ role }) => {
+const Login: React.FC = () => {
 
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState<string>("");
@@ -23,11 +21,14 @@ const Login: React.FC<LoginProps> = ({ role }) => {
     event.preventDefault();
     handLogin({
       UseruserCredential: loginState.credential as string, UseruserPassword: loginState.password as string, setError
-    }).then((res) => {if (res) {
-          if (role === "student") navigate("/", { replace: true });
-          else if (role === "tutor") navigate("/tutor", { replace: true });
-          else if (role === "admin") navigate("/admin", { replace: true });}})
-      .catch((err: apiError) => {setLoginErr(err.message)});
+    }).then((res: User | boolean | AxiosError<unknown>) => {
+      if (res && typeof res !== "boolean") {
+        const user = res as User;
+        if (user.role === "student") navigate("/", { replace: true });
+        else if (user.role === "tutor") navigate("/tutor", { replace: true });
+        else if (user.role === "admin") navigate("/admin", { replace: true });
+      }
+    }) .catch((err: apiError) => {setLoginErr(err.message)});
   };
 
   return (

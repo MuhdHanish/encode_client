@@ -24,7 +24,7 @@ export const handLogin = async({ UseruserCredential, UseruserPassword, setError 
     return false;
   }
   try {
-    const user = await login({credential,password});
+    const user: User | Error = await login({ credential, password });
     return Promise.resolve(user as User);
   } catch (error) {
     const err = error as AxiosError;

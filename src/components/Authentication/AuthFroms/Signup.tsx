@@ -81,7 +81,15 @@ const Signup: React.FC<SingupProps> = ({
       setError,
       uId,
     })
-      .then((res) => {if (res) {navigate("/"), { replace: true };}})
+      .then((res) => {
+        if (res) {
+      if (role === "student") {
+        navigate("/", { replace: true });
+      } else if (role === "tutor") {
+        navigate("/tutor", { replace: true });
+      } else if (role === "admin") {
+        navigate("/admin", { replace: true });
+      }}})
       .catch((err: apiError) => {setSignupError(err.message);});
   };
 

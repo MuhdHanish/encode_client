@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth, useUserRole } from "../../utils/authVerifing";
+import { useAuth } from "../../utils/authVerifing";
 import { Navigate } from "react-router-dom";
 
 interface AuthProtectedProps {
@@ -8,24 +8,18 @@ interface AuthProtectedProps {
 }
 
 const AuthProtected: React.FC<AuthProtectedProps> = ({
-  element,
-  allowedRoles,
+  element
 }) => {
   const isLoggedIn = useAuth();
-  const role = useUserRole();
-
   if (isLoggedIn) {
-    if (allowedRoles && !allowedRoles.includes(role as string)) {
-      if (role === "student") {
+      if (isLoggedIn.role === "student") {
         return <Navigate to="/" replace />;
-      } else if (role === "tutor") {
+      } else if (isLoggedIn.role === "tutor") {
         return <Navigate to="/tutor" replace />;
-      } else if (role === "admin") {
+      } else if (isLoggedIn.role === "admin") {
         return <Navigate to="/admin" replace />;
       }
-    }
   }
-
   return <>{element}</>;
 };
 

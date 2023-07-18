@@ -50,9 +50,9 @@ const registerStepTwo = async ({ email,username,password,role,uId ,enteredOtp }:
   try {
     const response = await axiosInstance.post(`/register/steptwo/${uId as string}`, { username,email,password,role,enteredOtp });
     const { user, accessToken, refreshToken } = response.data as ResponseData;
-    localStorage.setItem(accessToken as string, "accessToken");
-    localStorage.setItem(refreshToken as string,"refreshToken");
-    localStorage.setItem(JSON.stringify(user),"user");
+    localStorage.setItem("accessToken", accessToken as string);
+    localStorage.setItem("refreshToken", refreshToken as string);
+    localStorage.setItem("user", JSON.stringify(user));
     store.dispatch(saveUser(user as User));
     return Promise.resolve(user as User);
   } catch (error) {

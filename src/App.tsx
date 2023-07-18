@@ -10,32 +10,10 @@ function App() {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute
-              element={<StudentHomePage />}
-              allowedRoles={["student"]}
-            />
-          }
-        />
-        <Route
-          path="/tutor"
-          element={
-            <ProtectedRoute
-              element={<TutorHomePage />}
-              allowedRoles={["tutor"]}
-            />
-          }
-        />
-        <Route
-          path="/login"
-          element={<AuthProtected element={<LoginPage />} />}
-        />
-        <Route
-          path="/register"
-          element={<AuthProtected element={<SignupPage />} />}
-        />
+        <Route path="/" element={<ProtectedRoute element={<StudentHomePage />}allowedRoles={["student"]}/>}/>
+        <Route path="/tutor" element={<ProtectedRoute element={<TutorHomePage />}allowedRoles={["tutor"]}/>}/>
+        <Route path="/login" element={<AuthProtected element={<LoginPage />} />}/>
+        <Route path="/register"element={<AuthProtected element={<SignupPage />} />} />
       </Routes>
     </>
   );

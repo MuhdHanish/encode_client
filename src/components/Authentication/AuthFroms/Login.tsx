@@ -7,7 +7,11 @@ import { handLogin } from "../../../utils/handleLogin";
 import { useNavigate } from "react-router-dom";
 import { apiError } from "../../../api/ApiInterface";
 
-const Login: React.FC = () => {
+interface LoginProps {
+  role: string;
+}
+
+const Login: React.FC<LoginProps> = ({role}) => {
   
   const [isShowPass, setIsShowPass] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -25,7 +29,13 @@ const Login: React.FC = () => {
       UseruserCredential: loginState.credential as string,
       UseruserPassword: loginState.password as string,
       setError
-    }).then((res) => { if (res) { navigate("/",{replace:true}) } })
+    }).then((res) => {
+      if (res) {
+        if (role === "student") { navigate("/", { replace: true }); }
+        else if (role === "tutor") { navigate("/tutor", { replace: true }) }
+        else if (role === "admin") { navigate("/admin", { replace: true }) }
+      }
+    })
       .catch((err: apiError) => { setLoginErr(err.message) });
   }
 

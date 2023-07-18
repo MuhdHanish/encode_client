@@ -17,7 +17,7 @@ const NavBar: React.FC<NavProps> = ({ isTutor }) => {
   };
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("user");
     navigate("/login");
   };
 

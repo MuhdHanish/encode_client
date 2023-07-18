@@ -67,7 +67,7 @@ const Signup: React.FC<SingupProps> = ({
       role,
       setError,
     })
-      .then((res) => {if (res) {setUId(res as string), setIsOtpSended(true);}
+      .then((res) => {if (res) {setUId(res as string), setIsOtpSended(true),setSignupError("");}
       }).catch((err: apiError) => {setSignupError(err.message);});
   };
   const handleStepTwo = (event: React.FormEvent<HTMLFormElement>) => {
@@ -266,15 +266,7 @@ const Signup: React.FC<SingupProps> = ({
                 </div>
               </>
             )}
-            {(signupError || isOtpSended) && (
-              <div className="relative mb-3 flex justify-center items-center">
-                <div className="flex justify-center items-center mt-7  absolute">
-                  <p className="text-[10px] text-red-600 font-semibold">
-                    {signupError}
-                  </p>
-                </div>
-              </div>
-            )}
+            
             <div className="flex flex-col">
               <button className="btn-class" type="submit">
                 {isOtpSended ? "Confirm" : "Sign up"}

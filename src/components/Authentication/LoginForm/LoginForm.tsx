@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Login from "../AuthFroms/Login";
+import { Link } from "react-router-dom";
 import { GoogleLogin,GoogleCredentialResponse} from "@react-oauth/google";
 
 

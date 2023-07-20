@@ -13,18 +13,15 @@ interface GoogleAuthProps {
 const GoogleAuthLogin: React.FC<GoogleAuthProps> = ({ setResError }) => {
   const navigate = useNavigate();
   const googleLogin = (credentialResponse: GoogleCredentialResponse) => {
-    try {
       handleGoogleLogin(credentialResponse)
         .then((res: User | boolean | AxiosError<unknown>) => {
           if (res && typeof res !== "boolean") {
             const user = res as User;
-            navigate(`/${user.role}`, { replace: true });
+            if(user.role === "student"){ navigate(`/`, { replace: true });}
+            else { navigate(`/${user.role}`, { replace: true });}
           }
         })
         .catch((err: apiError) => setResError(err.message));
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (

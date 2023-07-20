@@ -33,7 +33,8 @@ const Login: React.FC<LoginProps> = ({loginError,setResError}) => {
         setLoading(false)
         if (res && typeof res !== "boolean") {
           const user = res as User;
-          navigate(`/${user.role}`, { replace: true });
+          if(user.role === "student"){navigate(`/`, { replace: true });}
+          else {navigate(`/${user.role}`, { replace: true });}
         }
       })
       .catch((err: apiError) =>  { setLoading(false), setResError(err.message) });

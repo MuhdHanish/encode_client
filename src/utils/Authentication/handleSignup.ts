@@ -30,11 +30,7 @@ export const handleSignupStepOne = async ({
   const password: string = Userpassword.trim();
 
   if (!validateUsername(username)) {
-    setError("username", [
-      "At least 4-10 characters",
-      "One uppercase letter",
-      "One lowercase letter",
-    ]);
+    setError("username", ["Provide a valid username"]);
     return false
   }
 

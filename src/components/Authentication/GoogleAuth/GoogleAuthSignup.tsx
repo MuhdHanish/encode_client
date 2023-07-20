@@ -15,7 +15,8 @@ const GoogleAuthSingup: React.FC<GoogleAuthProps> = ({ role, setResError }) => {
     handleGoogleSignup(credentialResponse, role)
       .then((res) => {
         if (res) {
-          navigate(`/${role}`, { replace: true });
+          if(role==="student"){navigate(`/`, { replace: true });}
+          else {navigate(`/${role}`, { replace: true });}
         }
       })
       .catch((err: apiError) => {

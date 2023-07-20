@@ -4,7 +4,7 @@ import HomeMain from '../../HomeMain/StudentHomeMain';
 
 const StudentHome:React.FC = () => {
   return (
-    <div className="bg-coverd w-screen h-screen ">
+    <div className="bg-home-background w-screen h-screen ">
       <NavBar isTutor={false} />
       <HomeMain />
     </div>

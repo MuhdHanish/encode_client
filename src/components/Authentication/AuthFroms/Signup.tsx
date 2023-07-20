@@ -4,24 +4,26 @@ import { apiError } from "../../../api/ApiInterface";
 import handleForm from "../../../utils/handleFormState";
 import { PasswordField, AtuhenticationError } from "../AuthenticationComponents/Common";
 import { OtpField, EmailField, UsernameField } from "../AuthenticationComponents/Signup";
-import { handleSignupStepOne, handleSignupStepTwo } from "../../../utils/handleSignup";
+import { handleSignupStepOne, handleSignupStepTwo } from "../../../utils/Authentication/handleSignup";
+import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
 
 interface SingupProps {
   isOtpSended: boolean;
   role: string;
+  signupError: string;
   setIsOtpSended: (value: boolean) => void;
+  setResError: (value: string) => void;
 }
 
-const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended}) => {
+const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended,setResError,signupError}) => {
   const navigate = useNavigate();
   const [uId, setUId] = useState<string>("");
-  const [enteredOtp, setOtp] = useState<string>("");
-  const [signupError, setSignupError] = useState<string>("");
+  const [enteredOtp, setOtp] = useState<string>("")
+  const [loading, setLoading] = useState<boolean>(false);
   const [otpValidity, setOtpValidity] = useState<number>(120);
   const [signupState, setSignupState] = handleForm({ username: "", email: "", password: "", role });
   const [errors, setErrors] = useState<{ field: string; errors: string[] } | null>({ field: "", errors: [""] });
   const setError = (field: string, errorMessages: string[]) => setErrors({ field, errors: errorMessages });
-  
   useEffect(() => {
     let timer: NodeJS.Timeout | null = null;
     if (isOtpSended && otpValidity > 0) {
@@ -31,8 +33,8 @@ const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended}) => {
   }, [isOtpSended, otpValidity]);
 
   const handleStepOne = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+    setLoading(true);
     event.preventDefault();
-    setSignupError("");
     setOtpValidity(120);
     handleSignupStepOne({
       role,setError,
@@ -41,12 +43,14 @@ const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended}) => {
       Userpassword: signupState.password as string,
     })
       .then((res) => {
-        if (res) {setUId(res as string);setIsOtpSended(true);setSignupError("");}
+        setLoading(false);
+        if (res) {setUId(res as string),setIsOtpSended(true);setResError("");}
       })
-      .catch((err: apiError) => setSignupError(err.message));
+      .catch((err: apiError) => {setLoading(false), setResError(err.message)});
   };
 
   const handleStepTwo = (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     event.preventDefault();
     handleSignupStepTwo({
       role,setError, uId,UserenteredOtp: enteredOtp,
@@ -54,8 +58,8 @@ const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended}) => {
       Userusername: signupState.username as string,
       Userpassword: signupState.password as string,
     })
-      .then((res) => { if (res) { navigate(`/${role}`, { replace: true }); } })
-      .catch((err: apiError) => { setSignupError(err.message); });};
+      .then((res) => { setLoading(false); if (res) { navigate(`/${role}`, { replace: true });}})
+      .catch((err: apiError) => { setLoading(false), setResError(err.message); });};
 
   return (
     <div>
@@ -70,12 +74,12 @@ const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended}) => {
               <UsernameField signupState={signupState} errors={errors} setSignupState={setSignupState} />
               <EmailField signupState={signupState} errors={errors} setSignupState={setSignupState} setErrors={setErrors} />
               <PasswordField passedState={signupState} errors={errors} setPassedState={setSignupState} setErrors={setErrors} />
-              {signupError && <AtuhenticationError passedError={signupError} />}
             </div>
           )}
+          {signupError && <AtuhenticationError passedError={signupError} />}
           <div className="flex flex-col">
-            <button className="btn-class" type="submit">
-              {isOtpSended ? "Confirm" : "Sign up"}
+            <button className="btn-class flex justify-center items-center gap-2" type="submit">
+               {loading ?<><LoadingSpinner /> <span>Please wait</span></>  : isOtpSended ? "Confirm" : "Sign up"}
             </button>
           </div>
         </div>

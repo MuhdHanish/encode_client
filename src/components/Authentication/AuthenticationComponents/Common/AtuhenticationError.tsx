@@ -4,7 +4,8 @@ interface AuthenticationErrorProps {
   passedError: string
 }
 
-const AtuhenticationError:React.FC<AuthenticationErrorProps> = ({passedError}) => {
+const AtuhenticationError: React.FC<AuthenticationErrorProps> = ({ passedError }) => {
+
   return (
     <>
       <div className="relative mb-3 flex justify-center items-center">

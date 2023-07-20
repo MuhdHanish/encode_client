@@ -3,35 +3,40 @@ import React, { useState } from "react";
 import { User } from "../../../dtos/User";
 import { useNavigate } from "react-router-dom";
 import { apiError } from "../../../api/ApiInterface";
-import { handLogin } from "../../../utils/handleLogin";
 import handleForm from "../../../utils/handleFormState";
+import { handLogin } from "../../../utils/Authentication/handleLogin";
 import CredentialField from "../AuthenticationComponents/Login/CredentialFeild";
-import {
-  AtuhenticationError,
-  PasswordField,
-} from "../AuthenticationComponents/Common";
+import { AtuhenticationError, PasswordField} from "../AuthenticationComponents/Common";
+import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
 
-const Login: React.FC = () => {
+interface LoginProps {
+  loginError: string,
+  setResError: (value:string) => void
+}
+
+const Login: React.FC<LoginProps> = ({loginError,setResError}) => {
   const navigate = useNavigate();
-  const [loginError, setLoginError] = useState<string>("");
-  const setLoginErr = (error: string) => setLoginError(error);
+  const [loading, setLoading] = useState<boolean>(false);
   const [loginState, setLoginState] = handleForm({credential: "",password: "",});
   const setError = (field: string, errorMessages: string[]) => setErrors({ field, errors: errorMessages });
   const [errors, setErrors] = useState<{field: string, errors: string[]} | null>({ field: "", errors: [""] });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     event.preventDefault();
-    handLogin({setError,
+    handLogin({
+      setError,
       UseruserPassword: loginState.password as string,
       UseruserCredential: loginState.credential as string,
     })
       .then((res: User | boolean | AxiosError<unknown>) => {
+        setLoading(false)
         if (res && typeof res !== "boolean") {
           const user = res as User;
           navigate(`/${user.role}`, { replace: true });
         }
       })
-      .catch((err: apiError) => setLoginErr(err.message));
+      .catch((err: apiError) =>  { setLoading(false), setResError(err.message) });
   };
 
   return (
@@ -45,8 +50,8 @@ const Login: React.FC = () => {
             {loginError && <AtuhenticationError passedError={loginError} />}
           </div>
           <div className="flex flex-col">
-            <button className="btn-class" type="submit">
-              Log in
+            <button className="btn-class flex justify-center items-center gap-2" type="submit">
+              {loading ? <><LoadingSpinner /> <span>Please wait</span></> : "Log in"}
             </button>
           </div>
         </div>

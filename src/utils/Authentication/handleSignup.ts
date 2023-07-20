@@ -1,12 +1,12 @@
 import { AxiosError } from "axios";
-import { registerStepOne, registerStepTwo } from "../api/userAuthApi";
+import { registerStepOne, registerStepTwo } from "../../api/userAuthApi";
 import {
   validateEmail,
   validatePassword,
   validateUsername,
   validateOtp
-} from "./formValidators";
-import { User } from "../dtos/User";
+} from "../formValidators";
+import { User } from "../../dtos/User";
 
 interface SignupState {
   Userusername: string;

@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
-import { login } from "../api/userAuthApi";
-import { validateEmail, validateUsername } from "./formValidators";
-import { User } from "../dtos/User";
+import { login } from "../../api/userAuthApi";
+import { validateEmail, validateUsername } from "../formValidators";
+import { User } from "../../dtos/User";
 
 
 interface LoginState {

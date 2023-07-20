@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import WhichUser from "../WhichUser/WhichUser";
-import GoogleAuth from "../GoogleAuth/GoogleAuth";
 import Signup from "../AuthFroms/Signup";
+import GoogleAuthSingup from "../GoogleAuth/GoogleAuthSignup";
 
 
 const SignupForm: React.FC = () => {
@@ -10,6 +10,8 @@ const SignupForm: React.FC = () => {
   const changeRole = (role: string) => setRole(role);
   const [isOtpSended, setIsOtpSended] = useState<boolean>(false);
   const setOtpSended = (value: boolean) => setIsOtpSended(value); 
+  const [signupError, setSignupError] = useState<string>("");
+  const setSignupErr = (error: string) => setSignupError(error);
   return (
     <div className="flex flex-col items-center justify-center w-full gap-3">
       {isOtpSended ? (
@@ -18,9 +20,9 @@ const SignupForm: React.FC = () => {
         </div>
       ) : (
         <>
-          <WhichUser setRole={changeRole} role={role}  />
+          <WhichUser setRole={changeRole} role={role} />
           <div>
-            <GoogleAuth role={role} method="Sign up" />
+            <GoogleAuthSingup role={role} setResError={setSignupError} />
           </div>
           <div className="text-[10px] text-gray-400 flex justify-center items-center gap-2">
             <div className="border w-10"></div>
@@ -30,7 +32,13 @@ const SignupForm: React.FC = () => {
         </>
       )}
       <>
-        <Signup isOtpSended={isOtpSended} role={role} setIsOtpSended={setOtpSended} />
+        <Signup
+          isOtpSended={isOtpSended}
+          role={role}
+          setIsOtpSended={setOtpSended}
+          setResError={setSignupErr}
+          signupError={signupError}
+        />
       </>
       {isOtpSended ? (
         ""

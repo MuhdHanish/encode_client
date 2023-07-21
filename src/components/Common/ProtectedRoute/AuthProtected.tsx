@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../../utils/authVerifing";
+import { useAuth } from "../../../utils/authVerifing";
 import { Navigate } from "react-router-dom";
 
 interface AuthProtectedProps {

@@ -54,5 +54,5 @@ body {
 }
 
 a.active {
-  @apply bg-primary  text-white text-shadow-black ;
+  @apply  border-primary;
 }

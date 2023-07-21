@@ -3,7 +3,7 @@ import { FiLogOut, FiSettings } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
-import { logout } from "../../redux/userSlice/userSlice";
+import { logout } from "../../../redux/userSlice/userSlice";
 import { useNavigate } from "react-router-dom";
 
 interface User {
@@ -52,7 +52,7 @@ export const NavBarDropDown = () => {
 
   return (
     <div
-      className={"flex m-3 flex-row items-center gap-5 h-7 w-7 relative"}
+      className={"flex flex-row items-center gap-5 h-7 w-7 relative"}
       id={"drop-down"}>
       <div
         className={

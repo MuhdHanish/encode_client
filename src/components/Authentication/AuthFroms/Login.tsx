@@ -7,7 +7,7 @@ import handleForm from "../../../utils/handleFormState";
 import { handLogin } from "../../../utils/Authentication/handleLogin";
 import CredentialField from "../AuthenticationComponents/Login/CredentialFeild";
 import { AtuhenticationError, PasswordField} from "../AuthenticationComponents/Common";
-import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../../Common/LoadingSpinner/LoadingSpinner";
 
 interface LoginProps {
   loginError: string,

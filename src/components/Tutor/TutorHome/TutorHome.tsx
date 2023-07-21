@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import NavBar from "../../components/NavBar/NavBar";
-import sideImg from "../../assets/home-page-images/tutor-home.png";
-import PageModal from "../PageModal/PageModal";
-import MainImageFrame from "../MainImageFrame/MainImageFrame";
+import sideImg from "../../../assets/home-page-images/tutor-home.png";
+import PageModal from "../../Common/PageModal/PageModal";
+import MainImageFrame from "../../Common/MainImageFrame/MainImageFrame";
 
 interface User {
   profile: string;
@@ -19,9 +18,6 @@ const TutorHome: React.FC = () => {
     setUser(user);
   }, [user, setUser]);
   return (
-    <div className="bg-home-background bg-cover w-screen h-screen overflow-hidden ">
-      <div className="flex flex-col justify-center items-center h-full">
-        <NavBar isTutor={true} />
         <PageModal>
           <div className="sm:w-1/2  w-full h-full flex flex-col justify-center items-center p-3 md:p-8  gap-5">
             <div className="w-full  flex flex-col justify-center  items-start">
@@ -49,8 +45,6 @@ const TutorHome: React.FC = () => {
           </div>
           <MainImageFrame imgSrc={sideImg} alt={"tutor-home-image"} />
         </PageModal>
-      </div>
-    </div>
   );
 };
 

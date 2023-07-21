@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { apiError } from "../../../api/ApiInterface";
 import handleForm from "../../../utils/handleFormState";
-import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../../Common/LoadingSpinner/LoadingSpinner";
 import { PasswordField, AtuhenticationError } from "../AuthenticationComponents/Common";
 import { OtpField, EmailField, UsernameField } from "../AuthenticationComponents/Signup";
 import { handleSignupStepOne, handleSignupStepTwo } from "../../../utils/Authentication/handleSignup";

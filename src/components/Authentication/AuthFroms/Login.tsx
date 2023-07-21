@@ -47,7 +47,7 @@ const Login: React.FC<LoginProps> = ({loginError,setResError}) => {
           <div className="flex flex-col gap-1">
             <CredentialField setLoginState={setLoginState} errors={errors} loginState={loginState} setErrors={setErrors}
             />
-            <PasswordField setPassedState={setLoginState} errors={errors}passedState={loginState} setErrors={setErrors}/>
+            <PasswordField setPassedState={setLoginState} errors={errors} passedState={loginState} setErrors={setErrors}/>
             {loginError && <AtuhenticationError passedError={loginError} />}
           </div>
           <div className="flex flex-col">

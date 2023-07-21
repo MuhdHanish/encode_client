@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import sideImg from "../../assets/home-page-images/student-home.png"
 import NavBar from '../../components/NavBar/NavBar'
 
@@ -8,8 +8,12 @@ interface User {
 }
 
 const StudentHomePage: React.FC = () => {
-  const isLoggedIn = localStorage.getItem("user") as string;
-  const user = JSON.parse(isLoggedIn) as User;
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("user") as string;
+    const user = JSON.parse(isLoggedIn) as User;
+    setUser(user);
+  }, [user, setUser]);
   return (
     <div className="bg-home-background bg-cover w-screen h-screen overflow-hidden ">
       <div className="flex flex-col justify-center items-center h-full">
@@ -33,7 +37,7 @@ const StudentHomePage: React.FC = () => {
                 </span>
               </div>
               <div className="w-full  flex flex-col justify-center gap-2 items-center">
-                <span className='text-md font-medium text-black'>Welcome {user.username} !</span>
+                <span className='text-md font-medium text-black'>Hi {user?.username} !</span>
                 <span className="text-xs font-normal text-gray-600">
                   In the digital age, online learning has revolutionized
                   education, particularly in the realm of programming and
@@ -43,7 +47,7 @@ const StudentHomePage: React.FC = () => {
                 </span>
               </div>
               <div className='flex justify-center items-center w-full h-fit'>
-                <button className='btn-class min-w-[250px]'>
+                <button className='btn-class min-w-[200px]'>
                   Explore
                 </button>
               </div>

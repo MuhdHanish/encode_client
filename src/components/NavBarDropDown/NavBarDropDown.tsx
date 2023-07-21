@@ -12,17 +12,23 @@ interface User {
 }
 
 export const NavBarDropDown = () => {
-  const isLoggedIn = localStorage.getItem("user") as string;
-  const user = JSON.parse(isLoggedIn) as User;
+
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("user") as string;
+    const user = JSON.parse(isLoggedIn) as User;
+    setUser(user);
+  }, [user, setUser]);
+
   const [drop, setDrop] = useState(false);
   const dispatch = useDispatch();
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogout = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     event.preventDefault();
     localStorage.removeItem("user");
     dispatch(logout());
-    navigator("/login");
+    navigate("/login");
   };
 
   const dropDownItemsClasses = classNames(
@@ -65,7 +71,7 @@ export const NavBarDropDown = () => {
           flex flex-col w-screen md:w-fit min-w-[200px]`}id={"second-component"}>
           <div
             className={"flex flex-row w-min justify-center gap-2.5 border p-2.5 rounded m-2.5"}>
-            <div style={{ width: "30px", height: "30x" }}>
+            <div style={{ width: "30px", height: "30px" }}>
               <img src={user?.profile || ""}
                 alt={"Profile"} className={"object-cover rounded h-full w-full border-accent-color-one"}
               />
@@ -73,11 +79,11 @@ export const NavBarDropDown = () => {
             <div className={"w-max"}>
               <p className={"text-[10px]"}>Logged in as</p>
               <p className={"text-[13px] "}>
-                {user ? user.username : "User"}
+                {user ? user?.username : "User"}
               </p>
             </div>
           </div>
-          <ul className={"w-full flex flex-col"}>
+          <ul className={"w-full flex flex-col cursor-pointer"}>
             <li className={dropDownItemsClasses}>
               <RxAvatar /> Update Profile
             </li>

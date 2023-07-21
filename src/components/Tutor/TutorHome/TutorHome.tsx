@@ -16,7 +16,7 @@ const TutorHome: React.FC = () => {
     const isLoggedIn = localStorage.getItem("user") as string;
     const user = JSON.parse(isLoggedIn) as User;
     setUser(user);
-  }, [user, setUser]);
+  }, []);
   return (
         <PageModal>
           <div className="sm:w-1/2  w-full h-full flex flex-col justify-center items-center p-3 md:p-8  gap-5">

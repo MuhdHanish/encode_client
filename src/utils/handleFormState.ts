@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { FormValues } from "../dtos/Form";
 
-type FormEventHandler = (event: ChangeEvent<HTMLInputElement>) => void;
+type FormEventHandler = (event: ChangeEvent<HTMLInputElement| HTMLTextAreaElement| HTMLSelectElement>) => void;
 
 const HandleForm = (initialState: FormValues) => {
   const [state, setState] = useState<FormValues>(initialState);

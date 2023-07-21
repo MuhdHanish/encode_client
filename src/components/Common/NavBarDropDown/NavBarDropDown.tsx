@@ -18,7 +18,7 @@ export const NavBarDropDown = () => {
     const isLoggedIn = localStorage.getItem("user") as string;
     const user = JSON.parse(isLoggedIn) as User;
     setUser(user);
-  }, [user, setUser]);
+  }, []);
 
   const [drop, setDrop] = useState(false);
   const dispatch = useDispatch();

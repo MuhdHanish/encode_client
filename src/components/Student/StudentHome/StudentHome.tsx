@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import PageModal from "../../Common/PageModal/PageModal";
 import React, { useEffect, useState } from "react";
 import MainImageFrame from "../../Common/MainImageFrame/MainImageFrame";
 import sideImg from "../../../assets/home-page-images/student-home.png";
@@ -18,7 +17,12 @@ const StudentHome: React.FC = () => {
     setUser(user);
   }, [user, setUser]);
   return (
-        <PageModal>
+    <>
+      <div className="w-full flex justify-center items-center py-7 px-5  overflow-auto">
+        <div
+          className={`bg-white  w-full max-w-[80%] h-full overflow-auto rounded-md 
+        flex justify-center items-center shadow-xl p-3 gap-5 flex-row}`}
+        >
           <MainImageFrame imgSrc={sideImg} alt={"student-home-image"} />
           <div className="sm:w-1/2  w-full h-full flex flex-col justify-center items-center p-3 md:p-8  gap-5">
             <div className="w-full  flex flex-col justify-center  items-start">
@@ -38,10 +42,19 @@ const StudentHome: React.FC = () => {
               </span>
             </div>
             <div className="flex justify-center items-center w-full h-fit">
-              <button className="btn-class min-w-[200px]" onClick={()=>{navigate("/progress")}}>Explore</button>
+              <button
+                className="btn-class min-w-[200px]"
+                onClick={() => {
+                  navigate("/progress");
+                }}
+              >
+                Explore
+              </button>
             </div>
           </div>
-        </PageModal>
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -2,12 +2,11 @@ import { User } from "./dtos/User";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { saveUser } from "./redux/userSlice/userSlice";
-import TutorHome from "./components/Tutor/TutorHome/TutorHome";
-import StudentHome from "./components/Student/StudentHome/StudentHome";
-import TutorSession from "./components/Tutor/TutorSession/TutorSession";
 import { LoginPage, SignupPage, StudentPage,  TutorPage  } from "./pages";
 import AuthProtected from "./components/Common/ProtectedRoute/AuthProtected";
 import ProtectedRoute from "./components/Common/ProtectedRoute/ProtectedRoute";
+import { StudentCatalog, StudentHome } from "./components/Student";
+import { TutorHome, TutorSession } from "./components/Tutor";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<ProtectedRoute element={<StudentPage />} allowedRoles={["student"]} />} >
            <Route index={true} element={<StudentHome/>}/>
+           <Route path="catalog" element={<StudentCatalog/>}/>
         </Route>
         <Route path="/tutor" element={<ProtectedRoute element={<TutorPage />} allowedRoles={["tutor"]} />}>
           <Route index={true} element={<TutorHome/>}/>

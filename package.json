@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-oauth/google": "^0.11.0",
     "@reduxjs/toolkit": "^1.9.5",
+    "aws-sdk": "^2.1420.0",
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -19,11 +20,13 @@
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.1",
     "react-tooltip": "^5.18.0",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
+    "@types/uuid": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
     "@vitejs/plugin-react": "^4.0.1",

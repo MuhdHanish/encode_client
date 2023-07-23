@@ -18,8 +18,8 @@ const Login: React.FC<LoginProps> = ({loginError,setResError}) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [loginState, setLoginState] = handleForm({credential: "",password: "",});
-  const setError = (field: string, errorMessages: string[]) => setErrors({ field, errors: errorMessages });
   const [errors, setErrors] = useState<{field: string, errors: string[]} | null>({ field: "", errors: [""] });
+  const setError = (field: string, errorMessages: string[]) => setErrors({ field, errors: errorMessages });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);

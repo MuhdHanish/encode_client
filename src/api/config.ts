@@ -1,4 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { store } from "../redux/store";
+import { logout } from "../redux/userSlice/userSlice";
 const baseURL = import.meta.env.VITE_SERVER_URL as string;
 
 interface ErrorData {
@@ -41,11 +43,16 @@ axiosAuthorized.interceptors.response.use(
         "Access forbidden, Invalid token"
     ) {
       return axiosAuthorized
-        .post("/token/refresh/", {
-          refresh: localStorage.getItem("refreshToken"),
-        })
+        .post("/refresh/token",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("refreshToken") as string}`,
+            },
+          }
+        )
         .then((response: AxiosResponse) => {
           const responseData = response.data as ResponseData;
+          console.log(responseData)
           const accessToken = responseData?.accessToken;
           localStorage.setItem("accessToken", accessToken);
           if (originalRequest && originalRequest.headers) {
@@ -56,6 +63,8 @@ axiosAuthorized.interceptors.response.use(
         .catch((error) => {
           localStorage.removeItem("accessToken");
           localStorage.removeItem("refreshToken");
+          localStorage.removeItem("user");
+          store.dispatch(logout());
           return Promise.reject(error);
         });
     }

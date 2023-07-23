@@ -24,8 +24,9 @@ export const NavBarDropDown = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-    event.preventDefault();
+   const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
     dispatch(logout());
     navigate("/login");

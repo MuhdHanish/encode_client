@@ -1,12 +1,20 @@
+import { User } from "./dtos/User";
+import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+import { saveUser } from "./redux/userSlice/userSlice";
+import TutorHome from "./components/Tutor/TutorHome/TutorHome";
+import StudentHome from "./components/Student/StudentHome/StudentHome";
+import TutorSession from "./components/Tutor/TutorSession/TutorSession";
+import { LoginPage, SignupPage, StudentPage,  TutorPage  } from "./pages";
 import AuthProtected from "./components/Common/ProtectedRoute/AuthProtected";
 import ProtectedRoute from "./components/Common/ProtectedRoute/ProtectedRoute";
-import { LoginPage, SignupPage, StudentPage,  TutorPage  } from "./pages";
-import TutorHome from "./components/Tutor/TutorHome/TutorHome";
-import TutorSession from "./components/Tutor/TutorSession/TutorSession";
-import StudentHome from "./components/Student/StudentHome/StudentHome";
 
 function App() {
+  const dispatch = useDispatch();
+  const user = localStorage.getItem("user");
+  if (user) {
+    dispatch(saveUser(JSON.parse(user) as User));
+  }
   return (
     <>
       <Routes>

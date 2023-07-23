@@ -3,6 +3,7 @@ import NavBar from "../../components/Common/NavBar/NavBar";
 
 
 const StudentHomePage: React.FC = () => {
+  
   return (
     <>
       <div className="bg-student-background bg-cover w-screen h-screen overflow-hidden ">

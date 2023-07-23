@@ -8,11 +8,7 @@ export interface FormValues {
   shortDescription?: string;
   description?: string,
   category?: string;
-  isPaid?: boolean;
-  price?: number;
+  isPaid?: string;
+  price?: string;
   level?: string;
-  imgUrl?: string;
-  videoUrl?: string;
-  sylabus?: [{ session: string, descritption: string }];
-  assignments?: [{question:string,rightAns:string,options:string[]}]
 }

@@ -14,13 +14,15 @@ interface CommonFieldProps {
 const CommonField: React.FC<CommonFieldProps> = ({ passedState, setPassedState, fieldName, type, showName }) => {
 
   const [categories, setCategories] = useState([""]);
+  
   useEffect(() => {
     if (type === 'select') {
       getCategoryName().then((res) => {
         setCategories(res as string[]);
       }).catch(err=>console.log(err));
     }
-  },[type])
+  }, [type]);
+
   return (
     <>
       <div className="felx flex-col items-center ">
@@ -31,7 +33,7 @@ const CommonField: React.FC<CommonFieldProps> = ({ passedState, setPassedState, 
           {type === "textarea" ? (
             <textarea
               placeholder={showName.toLowerCase()}
-              className="border text-xs p-2 text-[10px] sm:w-[250px] rounded-md outline-none shadow-md"
+              className="border text-xs p-2 text-[10px]  w-[164px] sm:w-[250px] rounded-md outline-none shadow-md"
               value={passedState[fieldName] as string}
               name={fieldName}
               id={fieldName}
@@ -40,18 +42,82 @@ const CommonField: React.FC<CommonFieldProps> = ({ passedState, setPassedState, 
           ) : type === "select" ? (
             <select
               placeholder={showName.toLowerCase()}
-              className="border text-xs p-2 text-[10px] sm:w-[250px] rounded-md outline-none shadow-md"
+              className="border text-xs p-2 text-[10px] w-[164px] sm:w-[250px] rounded-md outline-none shadow-md"
               value={passedState[fieldName] as string}
+              onChange={setPassedState}
               name={fieldName}
               id={fieldName}
-              onChange={setPassedState}
             >
+              <option value="">Select an option</option>
               {categories.map((category, index) => (
                 <option key={index} value={category}>
                   {category}
                 </option>
               ))}
             </select>
+          ) : type === "selectIsPaid" ? (
+            <select
+              placeholder={showName.toLowerCase()}
+              className="border text-xs p-2 text-[10px]  w-[164px] sm:w-[250px] rounded-md outline-none shadow-md"
+              value={passedState[fieldName] as string}
+              name={fieldName}
+              id={fieldName}
+              onChange={setPassedState}
+            >
+              <option value="">Select an option</option>
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+            </select>
+          ) : type === "selectLevel" ? (
+            <select
+              placeholder={showName.toLowerCase()}
+              className="border text-xs p-2 text-[10px]  w-[164px] sm:w-[250px] rounded-md outline-none shadow-md"
+              value={passedState[fieldName] as string}
+              name={fieldName}
+              id={fieldName}
+              onChange={setPassedState}
+            >
+              <option value="">Select an option</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate ">Intermediate </option>
+              <option value="expert ">Expert </option>
+            </select>
+          ) : type === "demoImg" ? (
+            <input
+              type="file"
+              accept=".jpg, .jpeg, .png, .gif, .pdf"
+              placeholder={showName.toLowerCase()}
+              className="border text-xs p-2 text-[10px]  w-[164px] sm:w-[250px] rounded-md outline-none shadow-md"
+              value={passedState[fieldName] as string}
+              name={fieldName}
+              id={fieldName}
+              onChange={setPassedState}
+            ></input>
+          ) : type === "price" ? (
+            {
+              ...(passedState.isPaid !== "yes" ? (
+                <input
+                  type="text"
+                  readOnly
+                  placeholder={showName.toLowerCase()}
+                  className="border text-xs p-2 text-[10px] sm:w-[250px] rounded-md outline-none shadow-md"
+                  value={passedState[fieldName] as string}
+                  name={fieldName}
+                  id={fieldName}
+                  onChange={setPassedState}
+                />
+              ) : (
+                <input
+                  type="text"
+                  placeholder={showName.toLowerCase()}
+                  className="border text-xs p-2 text-[10px] sm:w-[250px] rounded-md outline-none shadow-md"
+                  value={passedState[fieldName] as string}
+                  name={fieldName}
+                  id={fieldName}
+                  onChange={setPassedState}
+                />
+              )),
+            }
           ) : (
             <input
               type={type}

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { PersistGate } from 'redux-persist/integration/react'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { store, persistor } from './redux/store.ts'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
@@ -15,6 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <BrowserRouter>
           <GoogleOAuthProvider  clientId={import.meta.env.VITE_GOOGLE_CLIENT as string}>
             <App />
+            <ToastContainer/>
           </GoogleOAuthProvider>
         </BrowserRouter>
       </PersistGate>

@@ -1,20 +1,21 @@
-import React, { useState } from 'react'
-import { FormValues } from '../../../dtos/Form';
-import HandleForm from '../../../utils/handleFormState';
-import CommonField from './SessionComponents/CommonField/CommonField';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
-import { User } from '../../../dtos/User';
-import { handleUpload } from '../../../utils/classUpload/handleUpload';
-import LoadingSpinner from '../../Common/LoadingSpinner/LoadingSpinner';
+import React, { useState } from "react";
+import { FormValues } from "../../../dtos/Form";
+import HandleForm from "../../../utils/handleFormState";
+import CommonField from "./SessionComponents/CommonField/CommonField";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { User } from "../../../dtos/User";
+import { toast } from "react-toastify";
+import { handleUpload } from "../../../utils/classUpload/handleUpload";
+import LoadingSpinner from "../../Common/LoadingSpinner/LoadingSpinner";
 
 const TutorSession: React.FC = () => {
   const [sessionState, setSessionState] = HandleForm({
-    coursename: "", shortDescription: "", category: "",level:"",
-    isPaid: "", price: "0",description: "",
-  } as FormValues);
+    coursename: "", shortDescription: "", category: "",
+    level: "", isPaid: "", price: "0", description: "",
+  } as FormValues );
   const [loading, setLoading] = useState<boolean>(false);
-  const [seletedImg, setSelectedImg] = useState<File|null>(null);
+  const [seletedImg, setSelectedImg] = useState<File | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<File | null>(null);
   const handleImgInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -26,20 +27,35 @@ const TutorSession: React.FC = () => {
   };
   const [error, setError] = useState<string>("");
   const setErr = (error: string) => setError(error);
-  const user: User| null = useSelector((state: RootState) => state.userReducer.user);
+  const user: User | null = useSelector(
+    (state: RootState) => state.userReducer.user
+  );
   const userId = user?._id;
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
     event.preventDefault();
-    if (!sessionState.coursename || !sessionState.category || !sessionState.isPaid || !sessionState.description
-      || !sessionState.level || !sessionState.shortDescription || !selectedVideo || !seletedImg) {
-        setLoading(false);
-        setError("Please fill all required fields");
+    if (
+      !sessionState.coursename ||
+      !sessionState.category ||
+      !sessionState.isPaid ||
+      !sessionState.description ||
+      !sessionState.level ||
+      !sessionState.shortDescription ||
+      !selectedVideo ||
+      !seletedImg
+    ) {
+      setLoading(false);
+      setError("Please fill all required fields");
       return;
     }
     setError("");
     let price = 0;
-    if (sessionState.price !== "" && !isNaN(parseInt(sessionState.price as string)) && parseInt(sessionState.price as string) > 0 && sessionState.isPaid === "yes") {
+    if (
+      sessionState.price !== "" &&
+      !isNaN(parseInt(sessionState.price as string)) &&
+      parseInt(sessionState.price as string) > 0 &&
+      sessionState.isPaid === "yes"
+    ) {
       price = parseInt(sessionState.price as string);
     }
     let isPaid = false;
@@ -56,17 +72,30 @@ const TutorSession: React.FC = () => {
         level: sessionState.level,
         price: price,
         shortDescription: sessionState.shortDescription,
-      },setErr,selectedVideo,seletedImg
+      },
+      setErr,
+      selectedVideo,
+      seletedImg
     )
-      .then((res) => {
+      .then(() => {
+        setSelectedImg(null);
+        setSelectedVideo(null);
+        toast.success("Course uploaded successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         setLoading(false);
-        console.log(res);
       })
       .catch((error) => {
         setLoading(false);
         console.log(error);
       });
-  }
+  };
   return (
     <>
       <div className="w-full flex justify-center items-center py-7 px  overflow-auto">
@@ -180,15 +209,15 @@ const TutorSession: React.FC = () => {
                     {error}
                   </div>
                 )}
-                  <button className="btn-class flex justify-center items-center gap-2 ">
-                    {loading ? (
-                      <>
-                        <LoadingSpinner /> <span>Please wait</span>
-                      </>
-                    ) : (
-                      "Submit"
-                    )}
-                  </button>
+                <button className="btn-class flex justify-center items-center gap-2 ">
+                  {loading ? (
+                    <>
+                      <LoadingSpinner /> <span>Please wait</span>
+                    </>
+                  ) : (
+                    "Submit"
+                  )}
+                </button>
               </div>
             </div>
           </form>
@@ -196,6 +225,6 @@ const TutorSession: React.FC = () => {
       </div>
     </>
   );
-}
+};
 
-export default TutorSession
+export default TutorSession;

@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../dtos/User";
 
 interface userState {
- user: User | null
+  user: User | null;
+  selectedCourseId: string | null
 }
 
 const initialState: userState = {
- user: null
+  user: null,
+  selectedCourseId: null
 }
 
 
@@ -19,9 +21,12 @@ const userSlice = createSlice({
    },
    logout: (state) => {
      state.user = null;
+   },
+    setSelectedCourseId: (state,action: PayloadAction<string|null>) => {
+     state.selectedCourseId = action.payload;
    }
   },
 });
 
 export default userSlice.reducer;
-export const {saveUser,logout} = userSlice.actions;
+export const {saveUser,logout,setSelectedCourseId} = userSlice.actions;

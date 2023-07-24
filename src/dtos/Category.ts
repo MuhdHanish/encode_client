@@ -1,6 +1,11 @@
-export interface Categories {
-  categories: [{
-    categoryname?: string;
-    description?: string;
-  }];
+export interface Category {
+  categories: [
+    {
+      _id?: string;
+      categoryname?: string;
+      description?: string;
+    }
+  ];
 }
+
+

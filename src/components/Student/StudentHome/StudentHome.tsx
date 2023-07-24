@@ -15,7 +15,7 @@ const StudentHome: React.FC = () => {
     const isLoggedIn = localStorage.getItem("user") as string;
     const user = JSON.parse(isLoggedIn) as User;
     setUser(user);
-  }, [user, setUser]);
+  }, []);
   return (
     <>
       <div className="w-full flex justify-center items-center py-7 px-5  overflow-auto">

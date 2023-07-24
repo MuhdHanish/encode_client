@@ -5,6 +5,7 @@ interface ResponseData {
   message?: string;
   categories?: [
     {
+      _id?:string;
       categoryname?: string;
       description?: string;
     }
@@ -14,6 +15,7 @@ interface ResponseData {
 const getCategories = async (): Promise<
   | [
       {
+        _id?: string;
         categoryname?: string;
         description?: string;
       }

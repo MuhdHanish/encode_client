@@ -56,3 +56,27 @@ body {
 a.active {
   @apply  border-primary;
 }
+
+@keyframes spin-50 {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.hide-scroll-bar {
+    -ms-overflow-style: none;
+  }
+  
+  /* Hide the scrollbar for WebKit browsers (like Chrome and Safari) */
+  .hide-scroll-bar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .card-mover:hover {
+    transform: scale(1.2); /* Increase the size by 20% on hover */
+  }

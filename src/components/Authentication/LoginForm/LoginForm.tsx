@@ -12,7 +12,7 @@ const LoginForm: React.FC = () => {
       <div>
         <GoogleAuthLogin setResError={setLoginErr} />
       </div>
-      <div className="text-[10px] text-gray-400 flex justify-center items-center gap-2">
+      <div className="text-[13px] text-gray-400 flex justify-center items-center gap-2">
         <div className="border w-10"></div>
         <div>Or Login with</div>
         <div className="border w-10"></div>
@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
       <>
         <Login loginError={loginError} setResError={setLoginErr} />
       </>
-      <div className="text-primary text-[10px]">
+      <div className="text-primary text-[13px]">
         <div>
           <Link to={"/register"}>Don't have an account?</Link>
         </div>

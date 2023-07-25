@@ -8,9 +8,9 @@ const AtuhenticationError: React.FC<AuthenticationErrorProps> = ({ passedError }
 
   return (
     <>
-      <div className="relative mb-3 flex justify-center items-center">
+      <div className="relative mb-4 flex justify-center items-center">
         <div className="flex justify-center items-center mt-7  absolute">
-          <p className="text-[10px] text-red-600 font-semibold">
+          <p className="text-[13px] text-red-600 font-semibold">
             {passedError}
           </p>
         </div>

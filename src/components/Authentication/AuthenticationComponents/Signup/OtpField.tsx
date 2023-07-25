@@ -30,8 +30,8 @@ const OtpField: React.FC<OtpFieldProps> = ({ errors, setEnteredOtp, handleStepOn
 
   return (
     <>
-      <div className="flex flex-col items-center gap-2">
-        <label htmlFor="otpFields" className="text-[11px] text-shadow-black">
+      <div className="flex flex-col items-center gap-3">
+        <label htmlFor="otpFields" className="text-[14px] text-shadow-black">
           Verification code<span className="text-red-600 ml-1">*</span>
         </label>
         <div className="relative flex flex-col justify-center">
@@ -43,14 +43,14 @@ const OtpField: React.FC<OtpFieldProps> = ({ errors, setEnteredOtp, handleStepOn
                 onChange={(event) =>
                   handleInputChange(index, event.target.value)
                 } maxLength={1} onClick={() => setErrors(null)}
-                className="border border-gray-300 text-xs p-2 text-[10px] w-[25px] h-[25px] rounded-md outline-none shadow-md"
+                className="border border-gray-300  p-2.5 text-[14px] w-[30px] h-[30px] rounded-md outline-none shadow-md"
               />
             ))}
           </div> 
           {errors?.field === "enteredOtp" && (
             <>
               <div className='mb-3 mr-8'>
-                <ErrorTooltip setHover={setIsHovered} />
+                <ErrorTooltip setHover={setIsHovered} />  
                 <div className={isHovered ? "block" : "hidden"}>
                   <ErrorIndicator errors={errors} />
                 </div>
@@ -60,12 +60,12 @@ const OtpField: React.FC<OtpFieldProps> = ({ errors, setEnteredOtp, handleStepOn
           </div>
         </div>
         <div className="flex justify-center items-center bottom-0">
-          <p className="text-xs text-shadow-black mt-3">
+          <p className="text-[14px] text-shadow-black mt-3">
             {otpValidity !== 0 && formatTime(otpValidity)}
             {!otpValidity && (
               <button
                 onClick={handleStepOne}
-                className="border-none outline-none font-semibold text-[10px] text-blue-700"
+                className="border-none outline-none font-semibold text-[14px] text-blue-700"
               >
                 Re-send
               </button>

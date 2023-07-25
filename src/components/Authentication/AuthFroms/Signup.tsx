@@ -35,7 +35,6 @@ const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended,setResEr
   const handleStepOne = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
     setLoading(true);
     event.preventDefault();
-    setOtpValidity(120);
     handleSignupStepOne({
       role,setError,
       Userusername: signupState.username as string,
@@ -44,7 +43,7 @@ const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended,setResEr
     })
       .then((res) => {
         setLoading(false);
-        if (res) {setUId(res as string),setIsOtpSended(true);setResError("");}
+        if (res) { setUId(res as string),setOtpValidity(120);setIsOtpSended(true);setResError("");}
       })
       .catch((err: apiError) => {setLoading(false), setResError(err.message)});
   };
@@ -70,13 +69,13 @@ const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended,setResEr
   return (
     <div>
       <form onSubmit={isOtpSended ? handleStepTwo : handleStepOne}>
-        <div className="flex flex-col justify-center gap-2 px-5 py-2">
+        <div className="flex flex-col justify-center gap-3 px-5 py-2">
           {isOtpSended ? (
             <OtpField enteredOtp={enteredOtp} setEnteredOtp={setOtp} handleStepOne={handleStepOne}
               errors={errors}otpValidity={otpValidity} setErrors={setErrors}
             />
           ) : (
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-2">
               <UsernameField signupState={signupState} errors={errors} setSignupState={setSignupState} />
               <EmailField signupState={signupState} errors={errors} setSignupState={setSignupState} setErrors={setErrors} />
               <PasswordField passedState={signupState} errors={errors} setPassedState={setSignupState} setErrors={setErrors} />

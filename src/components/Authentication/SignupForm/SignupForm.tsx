@@ -15,7 +15,7 @@ const SignupForm: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full gap-3">
       {isOtpSended ? (
-        <div className="flex flex-col justify-center items-center font-semibold">
+        <div className="flex flex-col justify-center items-center text-lg font-semibold">
           <span>OTP verification</span>
         </div>
       ) : (
@@ -24,7 +24,7 @@ const SignupForm: React.FC = () => {
           <div>
             <GoogleAuthSingup role={role} setResError={setSignupError} />
           </div>
-          <div className="text-[10px] text-gray-400 flex justify-center items-center gap-2">
+          <div className="text-[13px] text-gray-400 flex justify-center items-center gap-2">
             <div className="border w-10"></div>
             <div>Or Sign up with</div>
             <div className="border w-10"></div>
@@ -44,7 +44,7 @@ const SignupForm: React.FC = () => {
         ""
       ) : (
         <>
-          <div className="text-primary text-[10px]">
+          <div className="text-primary text-[13px]">
             <div>
               <Link to={"/login"}>Already have an account?</Link>
             </div>

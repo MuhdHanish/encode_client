@@ -49,7 +49,7 @@ body {
 }
 
 .btn-class {
-  @apply border text-xs text-shadow-black text-white p-2 text-[10px] bg-primary sm:w-[250px] 
+  @apply border text-shadow-black text-white p-2 text-[14px] bg-primary sm:w-[280px] 
          mt-2 rounded-md outline-none shadow-md transition duration-300  hover:bg-purple-600 
 }
 

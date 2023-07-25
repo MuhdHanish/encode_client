@@ -62,8 +62,8 @@ const Login: React.FC<LoginProps> = ({ loginError, setResError }) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col justify-center gap-2 px-5 py-2">
-          <div className="flex flex-col gap-1">
+        <div className="flex flex-col justify-center gap-3 px-5 py-2">
+          <div className="flex flex-col gap-2">
             <CredentialField
               setLoginState={setLoginState}
               errors={errors}

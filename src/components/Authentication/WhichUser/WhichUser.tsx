@@ -12,8 +12,8 @@ const WhichUser:React.FC<WhichUserProps> = ({setRole,role}) => {
         <div
           className={
             role === "student"
-              ? "text-primary font-semibold text-[10px] cursor-pointer border-b border-primary px-3 py-0.5 "
-              : "text-gray-400 text-[10px]  font-semibold  cursor-pointer"
+              ? "text-primary font-semibold text-[13px] cursor-pointer border-b border-primary px-3 py-0.5 "
+              : "text-gray-400 text-[13px]  font-semibold  cursor-pointer"
           }
           onClick={() => setRole("student")}
         >
@@ -22,8 +22,8 @@ const WhichUser:React.FC<WhichUserProps> = ({setRole,role}) => {
         <div
           className={
             role === "tutor"
-              ? "text-primary font-semibold text-[10px] cursor-pointer border-b  border-primary px-3 py-0.5 "
-              : "text-gray-400 text-[10px]  font-semibold  cursor-pointer "
+              ? "text-primary font-semibold text-[13px] cursor-pointer border-b  border-primary px-3 py-0.5 "
+              : "text-gray-400 text-[13px]  font-semibold  cursor-pointer "
           }
           onClick={() => setRole("tutor")}
         >

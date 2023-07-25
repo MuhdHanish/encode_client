@@ -28,7 +28,7 @@ const GoogleAuthLogin: React.FC<GoogleAuthProps> = ({ setResError }) => {
     <>
       <div className="flex justify-center border items-center gap-5 rounded-md p-1 w-full shadow-md transition duration-500 hover:scale-105 cursor-pointer ">
         <GoogleLogin
-          size="small"
+          size="medium"
           text="signin_with"
           onSuccess={(credentialResponse) => googleLogin(credentialResponse)}
           onError={() => console.log("Login Failed")}

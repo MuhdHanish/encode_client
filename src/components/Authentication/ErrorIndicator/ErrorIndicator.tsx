@@ -11,11 +11,11 @@ const ErrorIndicator: React.FC<ErrorIndicatorProps> = ({
     errors,
   }) => {
     return (
-      <div className="absolute z-10 left-0 top-9 right-0 bg-white border rounded-md shadow-lg">
+      <div className="absolute z-10 left-0 top-[41px] right-0 bg-white border rounded-md shadow-lg">
         {errors.errors.map((error, index) => (
           <div
             key={index}
-            className="p-0.5 font-semibold text-red-600 text-[10px] flex justify-start"
+            className="p-1 font-semibold text-red-600 text-[13px] flex justify-start"
           >
             {error}
           </div>

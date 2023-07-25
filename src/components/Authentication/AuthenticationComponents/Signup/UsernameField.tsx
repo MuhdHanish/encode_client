@@ -15,13 +15,13 @@ const UsernameField: React.FC<UsernameFieldProps> = ({signupState,errors,setSign
 
   return (
     <div className="flex flex-col gap-0.5 mb-0.5">
-      <label htmlFor="username" className="text-[11px] text-shadow-black">
+      <label htmlFor="username" className="text-[14px] text-shadow-black">
         Username <span className="text-red-600">*</span>
       </label>
       <div className="relative flex flex-col justify-center items-end">
         <input type="text" name="username" id="username"
           value={signupState.username} placeholder="username" onChange={setSignupState}
-          className={`border text-xs p-2 text-[10px] sm:w-[250px] rounded-md outline-none shadow-md `}/>
+     className="border  p-2 text-[14px] w-[250px] sm:w-[280px] rounded-md outline-none shadow-md"/>
         {errors?.field === "username" && (
           <>
             <ErrorTooltip setHover={setIsHovered} />

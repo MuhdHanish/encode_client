@@ -22,7 +22,7 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
 
   return (
     <div className="felx flex-col items-center relative">
-      <label htmlFor="password" className="text-[11px] text-shadow-black">
+      <label htmlFor="password" className="text-[14px] text-shadow-black">
         Password <span className="text-red-600">*</span>
       </label>
       <div>
@@ -31,7 +31,7 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
             type={isShowPass ? "text" : "password"}
             placeholder="password"
             onClick={() => setErrors(null)}
-            className="border text-xs p-2 text-[10px] sm:w-[250px] rounded-md outline-none shadow-md"
+            className="border  p-2 text-[14px] w-[250px] sm:w-[280px] rounded-md outline-none shadow-md"
             value={passedState.password}
             name="password"
             id="password"
@@ -54,7 +54,8 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
                   position: "absolute",
                   right: "5%",
                   top: "59%",
-                  fontSize: "13px",
+                  fontSize: "15px",
+                  cursor:"pointer"
                 }}
                 onClick={() => setIsShowPass(!isShowPass)}
               />
@@ -64,7 +65,8 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
                   position: "absolute",
                   right: "5%",
                   top: "59%",
-                  fontSize: "13px",
+                  fontSize: "15px",
+                  cursor:"pointer"
                 }}
                 onClick={() => setIsShowPass(!isShowPass)}
               />

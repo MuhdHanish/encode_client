@@ -17,6 +17,7 @@ const TutorSession: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [seletedImg, setSelectedImg] = useState<File | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<File | null>(null);
+
   const handleImgInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     setSelectedImg(selectedFile || null);
@@ -98,12 +99,13 @@ const TutorSession: React.FC = () => {
   };
   return (
     <>
-      <div className="w-full flex justify-center items-center py-7 px  overflow-auto">
+      <div className="w-full h-full flex justify-center items-center">
         <div
-          className={`bg-white  w-full max-w-[80%] h-full overflow-auto rounded-md 
-        flex justify-center items-center shadow-xl p-8 md:p-3  gap-5 flex-row}`}
+          className={`bg-white  w-full h-full rounded-md 
+        flex justify-center shadow-xl  flex-row}`}
         >
-          <form onSubmit={handleSubmit}>
+          <div className="w-full h-full"></div>
+          {/* <form onSubmit={handleSubmit}>
             <div className="flex-col flex  sm:flex-row gap-2 md:gap-5 my-5">
               <div className="flex-col ">
                 <div className="w-full  flex flex-col justify-center gap-2  items-center">
@@ -220,7 +222,7 @@ const TutorSession: React.FC = () => {
                 </button>
               </div>
             </div>
-          </form>
+          </form> */}
         </div>
       </div>
     </>

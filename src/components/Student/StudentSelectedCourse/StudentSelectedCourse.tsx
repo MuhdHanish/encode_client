@@ -42,9 +42,6 @@ const StudentSelectedCourse: React.FC = () => {
               {course.description}
             </div>
             <div className="text-sm text-gray-500">Level: {course.level}</div>
-            <div className="text-sm text-gray-500">
-              Duration {videoRef.current?.duration as number} mins
-            </div>
           </>
         )}
       </div>

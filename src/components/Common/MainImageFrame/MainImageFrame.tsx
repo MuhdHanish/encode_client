@@ -7,7 +7,7 @@ interface MainImageFrameProps {
 
 const MainImageFrame:React.FC<MainImageFrameProps> = ({imgSrc,alt}) => {
   return (
-    <div className="justify-center  items-center   text-center hidden md:flex flex-col sm:w-1/2 relative">
+    <div className="justify-center  items-center   text-center hidden lg:flex flex-col sm:w-1/2 relative">
       <img
         src={imgSrc}
         className="w-full max-h-full"

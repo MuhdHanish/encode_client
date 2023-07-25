@@ -101,10 +101,12 @@ const TutorSession: React.FC = () => {
     <>
       <div className="w-full h-full flex justify-center items-center">
         <div
-          className={`bg-white  w-full h-full rounded-md 
-        flex justify-center shadow-xl  flex-row}`}
+          className={`bg-white  w-full h-full flex justify-center }`}
         >
-          <div className="w-full h-full"></div>
+          <div className="w-full h-full grid grid-cols-5">
+           <div className="col-span-1 w-full h-full bg-green-500"></div>
+           <div className="col-span-4"></div>
+          </div>
           {/* <form onSubmit={handleSubmit}>
             <div className="flex-col flex  sm:flex-row gap-2 md:gap-5 my-5">
               <div className="flex-col ">

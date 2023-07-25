@@ -6,8 +6,6 @@ export interface Course {
   isPaid?: boolean;
   description?: string;
   level?: string;
-  shortDescription?: string;
   price?: number;
   videoUrl?: string;
-  imgUrl?: string;
 }

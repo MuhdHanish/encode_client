@@ -5,7 +5,6 @@ export interface FormValues {
   password?: string;
   role?: string;
   coursename?: string;
-  shortDescription?: string;
   description?: string,
   category?: string;
   isPaid?: string;

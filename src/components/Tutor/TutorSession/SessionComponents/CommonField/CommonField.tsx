@@ -26,14 +26,14 @@ const CommonField: React.FC<CommonFieldProps> = ({ passedState, setPassedState, 
   return (
     <>
       <div className="felx flex-col items-center ">
-        <label htmlFor={fieldName} className="text-[11px] text-shadow-black">
+        <label htmlFor={fieldName} className="text-[14px] text-shadow-black">
           {showName} <span className="text-red-600">*</span>
         </label>
         <div>
           {type === "textarea" ? (
             <textarea
               placeholder={showName.toLowerCase()}
-              className="border text-xs p-2 text-[10px]  w-[164px] sm:w-[250px] rounded-md outline-none shadow-md"
+              className="border text-[14px] p-2  w-[250px]   rounded-md outline-none shadow-md"
               value={passedState[fieldName] as string}
               name={fieldName}
               id={fieldName}
@@ -42,7 +42,7 @@ const CommonField: React.FC<CommonFieldProps> = ({ passedState, setPassedState, 
           ) : type === "select" ? (
             <select
               placeholder={showName.toLowerCase()}
-              className="border text-xs p-2 text-[10px] w-[164px] sm:w-[250px] rounded-md outline-none shadow-md"
+              className="border text-[14px] p-2 w-[250px]  rounded-md outline-none shadow-md"
               value={passedState[fieldName] as string}
               onChange={setPassedState}
               name={fieldName}
@@ -58,7 +58,7 @@ const CommonField: React.FC<CommonFieldProps> = ({ passedState, setPassedState, 
           ) : type === "selectIsPaid" ? (
             <select
               placeholder={showName.toLowerCase()}
-              className="border text-xs p-2 text-[10px]  w-[164px] sm:w-[250px] rounded-md outline-none shadow-md"
+              className="border text-[14px] p-2 w-[250px]  rounded-md outline-none shadow-md"
               value={passedState[fieldName] as string}
               name={fieldName}
               id={fieldName}
@@ -71,7 +71,7 @@ const CommonField: React.FC<CommonFieldProps> = ({ passedState, setPassedState, 
           ) : type === "selectLevel" ? (
             <select
               placeholder={showName.toLowerCase()}
-              className="border text-xs p-2 text-[10px]  w-[164px] sm:w-[250px] rounded-md outline-none shadow-md"
+              className="border text-[14px] p-2 w-[250px]  rounded-md outline-none shadow-md"
               value={passedState[fieldName] as string}
               name={fieldName}
               id={fieldName}
@@ -82,25 +82,14 @@ const CommonField: React.FC<CommonFieldProps> = ({ passedState, setPassedState, 
               <option value="intermediate ">Intermediate </option>
               <option value="expert ">Expert </option>
             </select>
-          ) : type === "demoImg" ? (
-            <input
-              type="file"
-              accept=".jpg, .jpeg, .png, .gif, .pdf"
-              placeholder={showName.toLowerCase()}
-              className="border text-xs p-2 text-[10px]  w-[164px] sm:w-[250px] rounded-md outline-none shadow-md"
-              value={passedState[fieldName] as string}
-              name={fieldName}
-              id={fieldName}
-              onChange={setPassedState}
-            ></input>
-          ) : type === "price" ? (
+          )  : type === "price" ? (
             {
               ...(passedState.isPaid !== "yes" ? (
                 <input
                   type="text"
                   readOnly
                   placeholder={showName.toLowerCase()}
-                  className="border text-xs p-2 text-[10px] sm:w-[250px] rounded-md outline-none shadow-md"
+                  className="border text-[14px] p-2  w-[250px]  rounded-md outline-none shadow-md"
                   value={passedState[fieldName] as string}
                   name={fieldName}
                   id={fieldName}
@@ -110,7 +99,7 @@ const CommonField: React.FC<CommonFieldProps> = ({ passedState, setPassedState, 
                 <input
                   type="text"
                   placeholder={showName.toLowerCase()}
-                  className="border text-xs p-2 text-[10px] sm:w-[250px] rounded-md outline-none shadow-md"
+                  className="border text-[14px] p-2 w-[250px]   rounded-md outline-none shadow-md"
                   value={passedState[fieldName] as string}
                   name={fieldName}
                   id={fieldName}
@@ -122,7 +111,7 @@ const CommonField: React.FC<CommonFieldProps> = ({ passedState, setPassedState, 
             <input
               type={type}
               placeholder={showName.toLowerCase()}
-              className="border text-xs p-2 text-[10px] sm:w-[250px] rounded-md outline-none shadow-md"
+              className="border text-[14px] p-2 w-[250px]   rounded-md outline-none shadow-md"
               value={passedState[fieldName] as string}
               name={fieldName}
               id={fieldName}

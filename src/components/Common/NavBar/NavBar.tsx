@@ -8,7 +8,8 @@ interface NavProps {
 
 const NavBar: React.FC<NavProps> = ({ isTutor }) => {
   return (
-    <div className=" px-5  h-[75px]  w-full md:w-fit  bg-transparent shadow-md sm:rounded-xl flex items-center justify-center ">
+    <div className=" px-5  h-[75px]  w-full   bg-transparent shadow-md sm:rounded-xl flex items-center justify-between ">
+      <div></div>
       <div className=" h-full flex gap-8 justify-center  items-center text-[14px] font-medium ">
           <NavLink
             to={isTutor ? "/tutor" : "/"}
@@ -26,9 +27,9 @@ const NavBar: React.FC<NavProps> = ({ isTutor }) => {
             className={`flex h-full justify-center items-center border-b-2 pt-2 transition ease-in-out border-transparent duration-300 `}>
             {isTutor ? "Session" : "Catalog"}
           </NavLink>
+        </div>
         <div>
         <NavBarDropDown />
-        </div>
         </div>
     </div>
   );

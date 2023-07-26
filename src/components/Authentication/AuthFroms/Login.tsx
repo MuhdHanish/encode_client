@@ -31,8 +31,7 @@ const Login: React.FC<LoginProps> = ({ loginError, setResError }) => {
     field: "",
     errors: [""],
   });
-  const setError = (field: string, errorMessages: string[]) =>
-    setErrors({ field, errors: errorMessages });
+  const setError = (field: string, errorMessages: string[]) => setErrors({ field, errors: errorMessages });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);

@@ -3,6 +3,7 @@ import {
   GoTriangleLeft,
   GoTriangleRight,
 } from "react-icons/go";
+import { BsArrowLeftSquare } from "react-icons/bs";
 import { Course } from "../../../dtos/Course";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
@@ -18,8 +19,10 @@ const StudentCatalog: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [isLanguage, setIsLanguage] = useState(true);
   const cardContainerRef = useRef<HTMLDivElement>(null);
+  const [isMedium,setIsMedium] = useState<boolean>(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleIconClick = () => {
     setIsLanguage((prevState) => !prevState);
   };
@@ -72,29 +75,34 @@ const StudentCatalog: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex">
-      <div className="hidden w-1/5 bg-white sm:flex flex-col border">
-        <div className="w-full h-1/6 flex p-2 justify-center items-center">
-          <div
-            className={`flex items-center cursor-pointer`}
-            onClick={handleIconClick}
-          >
-            <h5 className="font-semibold text-[13px]">Languages</h5>
-            <div className="ml-1">
-              <GoTriangleDown
-                className={`transform ${isLanguage ? "rotate-180" : ""}`}
+    <div className="w-full h-full flex justify-center items-center bg-white relative">
+      <div
+        className={`${
+          isMedium
+            ? " w-1/2 flex absolute left-0 duration-300  gap-2 p-2 shadow-2xl bg-white"
+            : "w-0  lg:w-1/5 duration-150 shadow-2xl"
+        } flex flex-col   h-full  lg:p-2 lg:gap-2`}
+      >
+        {isMedium ? (
+          <div className="w-full flex h-fit justify-end">
+            <button onClick={() => setIsMedium(!isMedium)}>
+              <BsArrowLeftSquare
+                style={{ color: "#9C4DF4", fontSize: "30px" }}
               />
-            </div>
+            </button>
           </div>
+        ) : (
+          ""
+        )}
+        <div className="w-full h-fit flex items-center justify-center bg-white p-3 font-semibold text-[18px]">
+          Languages
         </div>
-        <div
-          className={`text-center px-5 ${
-            isLanguage ? "h-5/6" : "h-0"
-          } overflow-auto transition-all duration-700`}
-        >
+        <div className="w-full h-full flex flex-col items-center overflow-y-auto px-5 ">
           {categories.map((category, index) => (
             <div
-              className="my-2 text-[11px] p-1 cursor-pointer font-semibold hover:text-primary"
+              className="my-2 border-b text-[14px]  p-1 w-full justify-center  flex transition 
+              duration-500 hover:scale-105 cursor-pointer font-semibold 
+              hover:shadow-md hover:text-primary hover:border-primary"
               key={index}
             >
               {category.categoryname}
@@ -102,76 +110,8 @@ const StudentCatalog: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="w-4/5 bg-white p-5">
-        <div className="flex h-1/2 flex-col">
-          <div className="flex w-full h-1/6 items-center">
-            <span className="font-semibold text-xl">Explore the catalog</span>
-          </div>
-          <div className="flex w-full h-1/6 items-center justify-end px-2">
-            <div>
-              <GoTriangleLeft
-                style={{ fontSize: 27, cursor: "pointer" }}
-                className="card-mover transition"
-                onClick={() => handleScroll("left")}
-              />
-            </div>
-            <div>
-              <GoTriangleRight
-                style={{ fontSize: 27, cursor: "pointer" }}
-                className="card-mover transition"
-                onClick={() => handleScroll("right")}
-              />
-            </div>
-          </div>
-          <div
-            className="flex w-full h-full overflow-x-auto p-3 gap-6"
-            ref={cardContainerRef}
-          >
-            {categories?.map((category, index) => (
-              <div
-                key={index}
-                className="my-2 min-w-[250px] h-full hover:shadow-black text-[15px] p-1 border justify-center items-center flex
-                   flex-col shadow-sm px-3 bg-expolore-all-card cursor-pointer hover:translate-x-1 hover:-translate-y-1 transition"
-              >
-                <div className="bg-white flex flex-col items-start justify-center w-full p-3">
-                  <div className="my-1 text-[12px]">Explore all</div>
-                  <div className="flex justify-start items-center font-semibold">
-                    {category.categoryname}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="w-full  p-3">
-          <div className="w-full h-1/6 flex text-[14px] font-semibold mb-3">
-            Most popular
-          </div>
-          <div className="grid grid-cols-1   sm:grid-cols-2 lg:grid-cols-3  gap-3">
-            {courses?.map((course, index) => (
-              <div
-                key={index}
-                onClick={() => { dispatch(setSelectedCourseId(course._id as string)), navigate(`/course/${course._id as string}`) }}
-                className="w-[250px] border-black border rounded"
-              >
-                <div className="flex flex-col justify-between h-full p-3 gap-3">
-                  <div className="text-[12px] bg-purple-300 rounded-sm p-1">
-                    {course.isPaid ? "Paid Course" : "Free Course"}
-                  </div>
-                  <div className="text-[15px] font-semibold p-1">
-                    {course.coursename}
-                  </div>
-                  <div className="text-[11px] overflow-hidden whitespace-normal p-1">
-                    {course.description}
-                  </div>
-                  <div className="text-[12px] border-t border-black border-dotted p-1">
-                    {course.level}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className="w-full h-full flex  justify-center   bg-white">
+        <div className="flex flex-col  w-full h-fit bg-red-500"></div>
       </div>
     </div>
   );

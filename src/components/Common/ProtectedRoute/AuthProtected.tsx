@@ -1,6 +1,7 @@
 import React from "react";
-import { useAuth } from "../../../utils/authVerifing";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { RootState } from "../../../redux/store";
 
 interface AuthProtectedProps {
   element: React.ReactNode;
@@ -10,15 +11,15 @@ interface AuthProtectedProps {
 const AuthProtected: React.FC<AuthProtectedProps> = ({
   element
 }) => {
-  const isLoggedIn = useAuth();
-  if (isLoggedIn) {
-      if (isLoggedIn.role === "student") {
-        return <Navigate to="/" replace />;
-      } else if (isLoggedIn.role === "tutor") {
-        return <Navigate to="/tutor" replace />;
-      } else if (isLoggedIn.role === "admin") {
-        return <Navigate to="/admin" replace />;
-      }
+  const { user } = useSelector((state: RootState) => state.userReducer);
+  if (user) {
+    if (user.role === "student") {
+      return <Navigate to="/" replace />;
+    } else if (user.role === "tutor") {
+      return <Navigate to="/tutor" replace />;
+    } else if (user.role === "admin") {
+      return <Navigate to="/admin" replace />;
+    }
   }
   return <>{element}</>;
 };

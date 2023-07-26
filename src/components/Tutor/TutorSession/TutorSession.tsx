@@ -44,11 +44,16 @@ const TutorSession: React.FC = () => {
     if (!sessionState.coursename || !sessionState.category ||!sessionState.isPaid ||
       !sessionState.description ||!sessionState.level ||!selectedVideo 
     ) {
+      console.log(sessionState.coursename,selectedVideo,sessionState.description,sessionState.category,sessionState.isPaid,sessionState.level)
       setLoading(false);
       setError("Please fill all required fields");
       return;
     }
     setError("");
+    let isPaid = false;
+    if (sessionState.isPaid === "yes") {
+      isPaid = true;
+    }
     let price = 0;
     if (
       sessionState.price !== "" &&
@@ -57,10 +62,6 @@ const TutorSession: React.FC = () => {
       sessionState.isPaid === "yes"
     ) {
       price = parseInt(sessionState.price as string);
-    }
-    let isPaid = false;
-    if (sessionState.isPaid === "yes") {
-      isPaid = true;
     }
     handleUpload(
       {

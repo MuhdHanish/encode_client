@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import MainImageFrame from "../../Common/MainImageFrame/MainImageFrame";
 import sideImg from "../../../assets/home-page-images/student-home.png";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 interface User {
   profile: string;
@@ -10,12 +12,13 @@ interface User {
 
 const StudentHome: React.FC = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const { user } = useSelector((state: RootState) => state.userReducer);
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("user") as string;
-    const user = JSON.parse(isLoggedIn) as User;
-    setUser(user);
-  }, []);
+   if (user) {
+     setCurrentUser(user);
+   }
+  }, [user]);
   return (
     <>
       <div className="w-full h-full flex justify-center items-center py-7 px-5  overflow-auto">
@@ -31,7 +34,7 @@ const StudentHome: React.FC = () => {
             </div>
             <div className="w-full  flex flex-col gap-5 sm:px-10 lg:px-0  items-center">
               <span className="text-md font-medium text-black">
-                Hi {user?.username} !
+                Hi {currentUser?.username} !
               </span>
               <span className="text-[14px] text-gray-600">
                 In the digital age, online learning has revolutionized

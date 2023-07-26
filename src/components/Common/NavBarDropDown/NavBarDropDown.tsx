@@ -1,10 +1,11 @@
 import { RxAvatar } from "react-icons/rx";
 import { FiLogOut, FiSettings } from "react-icons/fi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { logout } from "../../../redux/userSlice/userSlice";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../../redux/store";
 
 interface User {
   profile: string;
@@ -12,22 +13,19 @@ interface User {
 }
 
 export const NavBarDropDown = () => {
-
-  const [user, setUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const { user } = useSelector((state: RootState) => state.userReducer);
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("user") as string;
-    const user = JSON.parse(isLoggedIn) as User;
-    setUser(user);
-  }, []);
-
+   if (user) {
+     setCurrentUser(user);
+   }
+  }, [user]);
+  
   const [drop, setDrop] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
    const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("user");
     dispatch(logout());
     navigate("/login");
   };
@@ -61,7 +59,7 @@ export const NavBarDropDown = () => {
         }
         onClick={() => setDrop((state) => !state)}>
         <img
-          src={user?.profile || ""}
+          src={currentUser?.profile || ""}
           alt={"Profile"}
           className={"object-cover h-full  rounded border-accent-color-one"}
         />
@@ -73,14 +71,14 @@ export const NavBarDropDown = () => {
           <div
             className={"flex flex-row w-min justify-center gap-2.5 border p-2.5 rounded m-2.5"}>
             <div style={{ width: "30px", height: "30px" }}>
-              <img src={user?.profile || ""}
+              <img src={currentUser?.profile || ""}
                 alt={"Profile"} className={"object-cover rounded h-full w-full border-accent-color-one"}
               />
             </div>
             <div className={"w-max"}>
               <p className={"text-[10px]"}>Logged in as</p>
               <p className={"text-[13px] "}>
-                {user ? user?.username : "User"}
+                {currentUser ? currentUser?.username : "User"}
               </p>
             </div>
           </div>

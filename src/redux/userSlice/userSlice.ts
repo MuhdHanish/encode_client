@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../dtos/User";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface userState {
   user: User | null;
@@ -11,7 +11,6 @@ const initialState: userState = {
   selectedCourseId: null
 }
 
-
 const userSlice = createSlice({
   name: "userSlice",
   initialState,
@@ -19,7 +18,10 @@ const userSlice = createSlice({
     saveUser: (state, action: PayloadAction<User | null>) => {
       state.user = action.payload;
    },
-   logout: (state) => {
+    logout: (state) => {
+     localStorage.removeItem("accessToken");
+     localStorage.removeItem("refreshToken");
+     localStorage.removeItem("user");
      state.user = null;
    },
     setSelectedCourseId: (state,action: PayloadAction<string|null>) => {

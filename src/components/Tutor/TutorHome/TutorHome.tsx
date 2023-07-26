@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import sideImg from "../../../assets/home-page-images/tutor-home.png";
 import MainImageFrame from "../../Common/MainImageFrame/MainImageFrame";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 interface User {
   profile: string;
@@ -9,13 +11,14 @@ interface User {
 }
 
 const TutorHome: React.FC = () => {
-  const naviagate = useNavigate();
-  const [user, setUser] = useState<User | null>(null);
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem("user") as string;
-    const user = JSON.parse(isLoggedIn) as User;
-    setUser(user)
-  }, []);
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const { user } = useSelector((state: RootState) => state.userReducer);
+ useEffect(() => {
+   if (user) {
+     setCurrentUser(user);
+   }
+ }, [user]);
   return (
     <>
       <div className="w-full h-full flex justify-center items-center py-7 px-5  overflow-auto">
@@ -30,7 +33,7 @@ const TutorHome: React.FC = () => {
             </div>
             <div className="w-full  flex flex-col gap-5 sm:px-10 lg:px-0  items-center">
               <span className="text-md font-medium text-black">
-                Hi {user?.username} !
+                Hi {currentUser?.username} !
               </span>
               <span className="text-[14px] text-gray-600">
                 Welcome to your tutor home! As a coding tutor on our platform,
@@ -43,7 +46,7 @@ const TutorHome: React.FC = () => {
             <div className="flex justify-center items-center w-full h-fit">
               <button
                 className="btn-class min-w-[200px]"
-                onClick={() => naviagate("/tutor/session")}
+                onClick={() => navigate("/tutor/session")}
               >
                 Start session
               </button>

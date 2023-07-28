@@ -8,7 +8,7 @@ interface NavProps {
 
 const NavBar: React.FC<NavProps> = ({ isTutor }) => {
   return (
-    <div className=" px-5  h-[75px]  w-full   bg-transparent shadow-md sm:rounded-xl flex items-center justify-between ">
+    <div className=" px-5  h-[75px]  w-full   bg-transparent shadow-md  flex items-center justify-between ">
       <div></div>
       <div className=" h-full flex gap-8 justify-center  items-center text-[14px] font-medium ">
           <NavLink

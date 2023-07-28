@@ -21,7 +21,7 @@ const StudentHome: React.FC = () => {
   }, [user]);
   return (
     <>
-      <div className="w-full h-full flex justify-center items-center py-7 px-5  overflow-auto">
+      <div className="w-full h-full flex justify-center  items-center py-7 px-5  overflow-auto">
         <div
           className={`bg-white  w-full max-w-[80%]  h-full overflow-auto rounded-md 
         flex justify-center items-center shadow-xl p-3 gap-5 flex-row}`}

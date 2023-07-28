@@ -1,117 +1,65 @@
-import {
-  GoTriangleDown,
-  GoTriangleLeft,
-  GoTriangleRight,
-} from "react-icons/go";
-import { BsArrowLeftSquare } from "react-icons/bs";
 import { Course } from "../../../dtos/Course";
-import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { getFullCourses } from "../../../utils/courseUtils";
 import { getFullCategories } from "../../../utils/categoryUtils";
-import {setSelectedCourseId} from "../../../redux/userSlice/userSlice"
-import { useDispatch } from "react-redux";
+import SideBar from "./SideBar/SideBar";
+import MainHead from "./MainHead/MainHead";
+import PopularCourses from "./PopularCourses/PopularCourses";
 
 const StudentCatalog: React.FC = () => {
-  const [categories, setCategories] = useState<
-    { _id?: string; categoryname?: string; description?: string }[]
-  >([]);
+  const [categories, setCategories] = useState<{ _id?: string; categoryname?: string; description?: string }[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
-  const [isLanguage, setIsLanguage] = useState(true);
-  const cardContainerRef = useRef<HTMLDivElement>(null);
   const [isMedium,setIsMedium] = useState<boolean>(false)
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const handleIconClick = () => {
-    setIsLanguage((prevState) => !prevState);
+  const handleResize = () => {
+    setIsMedium(window.innerWidth >= 2000  ? true : false);
   };
-
-  const smoothScroll = (
-    element: HTMLElement,
-    distance: number,
-    direction: "left" | "right"
-  ) => {
-    const step = 30;
-    let currentScroll = element.scrollLeft;
-    const targetScroll = currentScroll + distance;
-    const animateScroll = () => {
-      if (
-        (distance > 0 && currentScroll < targetScroll) ||
-        (distance < 0 && currentScroll > targetScroll)
-      ) {
-        currentScroll += step * (direction === "right" ? 1 : -1);
-        element.scrollLeft = currentScroll;
-        requestAnimationFrame(animateScroll);
-      }
-    };
-    animateScroll();
-  };
-
-  const handleScroll = (side: string) => {
-    if (cardContainerRef.current && side === "left") {
-      smoothScroll(cardContainerRef.current, -820, "left");
-    } else if (cardContainerRef.current && side === "right") {
-      smoothScroll(cardContainerRef.current, 820, "right");
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
     }
-  };
-
-  useEffect(() => {
-    getFullCategories()
-      .then((res) => {
-        setCategories(
-          res as { _id?: string; categoryname?: string; description?: string }[]
-        );
-      })
-      .catch((err) => console.log(err));
   }, []);
-
+  const fetchCategories = useCallback(() => {
+      getFullCategories()
+        .then((res) => {
+          setCategories(
+            res as {
+              _id?: string;
+              categoryname?: string;
+              description?: string;
+            }[]
+          );
+        })
+        .catch((err) => console.log(err));
+    }, []);
+  const fetchCourses = useCallback(() => {
+      getFullCourses()
+        .then((res) => {
+          setCourses(res as Course[]);
+        })
+        .catch((err) => console.log(err));
+    }, []);
   useEffect(() => {
-    getFullCourses()
-      .then((res) => {
-        setCourses(res as Course[]);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+      fetchCategories();
+      fetchCourses();
+    }, [fetchCategories, fetchCourses]);
 
   return (
-    <div className="w-full h-full flex justify-center items-center bg-white relative">
-      <div
-        className={`${
-          isMedium
-            ? " w-1/2 flex absolute left-0 duration-300  gap-2 p-2 shadow-2xl bg-white"
-            : "w-0  lg:w-1/5 duration-150 shadow-2xl"
-        } flex flex-col   h-full  lg:p-2 lg:gap-2`}
-      >
-        {isMedium ? (
-          <div className="w-full flex h-fit justify-end">
-            <button onClick={() => setIsMedium(!isMedium)}>
-              <BsArrowLeftSquare
-                style={{ color: "#9C4DF4", fontSize: "30px" }}
-              />
-            </button>
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="w-full h-fit flex items-center justify-center bg-white p-3 font-semibold text-[18px]">
-          Languages
-        </div>
-        <div className="w-full h-full flex flex-col items-center overflow-y-auto px-5 ">
-          {categories.map((category, index) => (
-            <div
-              className="my-2 border-b text-[14px]  p-1 w-full justify-center  flex transition 
-              duration-500 hover:scale-105 cursor-pointer font-semibold 
-              hover:shadow-md hover:text-primary hover:border-primary"
-              key={index}
-            >
-              {category.categoryname}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="w-full h-full flex  justify-center   bg-white">
-        <div className="flex flex-col  w-full h-fit bg-red-500"></div>
+    <div className="w-full h-full flex justify-center items-center bg-white relative overflow-hidden">
+      <SideBar
+        categories={categories}
+        closeSideBar={() => setIsMedium(false)}
+        isMedium={isMedium}
+      />
+      <div className="w-full lg:w-4/5 h-full flex flex-col justify-start  bg-white gap-10  py-5 px-5 sm:px-12 md:px-16 overflow-y-auto">
+        <MainHead
+          isMedium={isMedium}
+          setIsMedium={() => setIsMedium(!isMedium)}
+          categories={categories}
+        />
+        <PopularCourses
+        courses={courses}
+        />
       </div>
     </div>
   );

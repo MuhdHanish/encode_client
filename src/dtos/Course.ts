@@ -7,5 +7,5 @@ export interface Course {
   description?: string;
   level?: string;
   price?: number;
-  videoUrl?: string;
+  videos?: string[];
 }

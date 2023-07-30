@@ -18,17 +18,16 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
         <span className="flex  font-medium text-[18px]">Popular Courses</span>
       </div>
       <div className="flex flex-wrap px-5 gap-5 md:gap-10 ">
-        {courses?.map((course, index) => (
-          <div className="flex pl-1 hover:bg-black delay-100 border rounded border-black">
+        {courses?.map((course) => (
+          <div key={course._id} className="flex w-full md:w-[271px]  hover:bg-black delay-100 border rounded hover:border-black">
             <div
-              key={index}
               onClick={() => {
                 dispatch(setSelectedCourseId(course._id as string)),
                   navigate(`/course/${course._id as string}`);
               }}
-              className="w-full md:w-[271px] mb-1 border-black bg-white hover:translate-x-1 hover:-translate-y-1 transition border rounded "
+              className="w-full md:w-[271px]  border-black bg-white hover:translate-x-1 hover:-translate-y-1 transition border rounded "
             >
-              <div className="flex flex-col justify-between h-full p-3 gap-3">
+              <div className="flex  flex-col justify-between h-full p-3 gap-3">
                 <div className="text-[12px] bg-purple-300 rounded-sm p-1">
                   {course.isPaid ? "Paid Course" : "Free Course"}
                 </div>

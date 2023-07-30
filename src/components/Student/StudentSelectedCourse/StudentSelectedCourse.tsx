@@ -13,7 +13,7 @@ const StudentSelectedCourse: React.FC = () => {
 
   useEffect(() => {
     getSelectedCourse(selectedCourseId as string)
-      .then((res) => setSelectedCourse(res as Course))
+      .then((res) => {console.log(res),setSelectedCourse(res as Course)})
       .catch((err) => console.log(err));
   }, [selectedCourseId]);
 
@@ -26,7 +26,7 @@ const StudentSelectedCourse: React.FC = () => {
               ref={videoRef}
               className="w-full h-full object-cover "
               src={`${import.meta.env.VITE_BUCKET_BASE_URL as string}/${
-                course.videoUrl as string
+                "course.video"
                 }`}
               controls
               controlsList="nodownload"

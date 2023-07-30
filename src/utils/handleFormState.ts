@@ -14,8 +14,8 @@ const HandleForm = (initialState: FormValues) => {
       [event.target.name]: event.target.value,
     }));
   };
-
-  return [state, handleInput] as const;
+  const clearForm = () => setState(initialState);
+  return [state, handleInput, clearForm] as const;
 };
 
 export default HandleForm;

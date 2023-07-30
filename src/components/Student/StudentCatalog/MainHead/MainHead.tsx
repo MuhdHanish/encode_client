@@ -105,15 +105,16 @@ const MainHead: React.FC<MainHeadProps> = ({ isMedium, setIsMedium, categories }
       </div>
       <div className="flex h-fit w-full px-5">
         <div
-          className="flex w-full h-fit overflow-x-scroll hide-scroll-bar justify-start py-1 items-center gap-8"
+          className="flex w-full h-fit overflow-x-scroll hide-scroll-bar justify-start py-1 items-center gap-9"
           ref={cardContainerRef}
         >
           {categories?.map((category, index) => (
+            <div className="flex hover:bg-black delay-100 border  hover:border-black">
             <div
               key={index}
               className="min-w-[189px] sm:min-w-[280px] md:min-w-[330px] 
                   flex justify-center items-center px-5  hover:translate-x-1 hover:-translate-y-1 transition
-                  lg:min-w-[271px] w-full h-[150PX] border border-black mr-2"
+                  lg:min-w-[271px] w-full h-[150PX] border border-black "
               style={{
                 backgroundImage: `url(${getRandomImageUrl()})`,
                 backgroundSize: "cover",
@@ -125,7 +126,8 @@ const MainHead: React.FC<MainHeadProps> = ({ isMedium, setIsMedium, categories }
                     {category.categoryname}
                   </span>
                 </div>
-            </div>
+              </div>
+              </div>
           ))}
         </div>
       </div>

@@ -1,8 +1,6 @@
 import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
-
 import { FormValues } from "../../../../../dtos/Form";
-import { getCategoryName } from '../../../../../utils/categoryUtils';
-
+import { getFullLanguages } from '../../../../../utils/LanguageUtils';
 interface InputProps {
   sessionState: FormValues;
   setSessionState: (
@@ -12,40 +10,43 @@ interface InputProps {
   ) => void;
 }
 
-const CategorySelection: React.FC<InputProps> = ({ sessionState, setSessionState }) => {
-  const [categories, setCategories] = useState([""]);
-  const setCategoryNames = useCallback(
-    () => {
-    getCategoryName()
+const LanguageSelection: React.FC<InputProps> = ({ sessionState, setSessionState }) => {
+  const [languages, setLanguages] = useState([""]);
+ const setLanguagesName = useCallback(() => {
+    getFullLanguages()
       .then((res) => {
-        setCategories(res as string[]);
+        if (Array.isArray(res)) {
+          const languagesArray = res as [{ _id?: string; languagename?: string; description?: string; }];
+          setLanguages(languagesArray.map((value)=> value.languagename as string))
+        } else {
+          console.log('Error:', res); 
+        }
       })
       .catch((err) => console.log(err));
-    },
-    [],
-  )
+  }, []);
+
   
   useEffect(() => {
-    setCategoryNames();
-  }, [setCategoryNames]);
+    setLanguagesName();
+  }, [setLanguagesName]);
   
   return (
     <>
       <div className="flex flex-col w-full justify-center items-start h-fit p-3">
         <span className="text-sm font-medium">
-          Catgory <span className="text-red-500">*</span>
+          Language <span className="text-red-500">*</span>
         </span>
         <div className="p-1 w-full h-fit">
           <select
             className="border text-[14px] p-2 w-full rounded-md outline-none shadow-md"
-            value={sessionState.category}
+            value={sessionState.language}
             onChange={setSessionState}
-            name="category"
+            name="language"
           >
             <option value="">Select an option</option>
-            {categories.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
+            {languages.map((language, index) => (
+              <option key={index} value={language}>
+                {language}
               </option>
             ))}
           </select>
@@ -55,4 +56,4 @@ const CategorySelection: React.FC<InputProps> = ({ sessionState, setSessionState
   );
 }
 
-export default CategorySelection
+export default LanguageSelection;

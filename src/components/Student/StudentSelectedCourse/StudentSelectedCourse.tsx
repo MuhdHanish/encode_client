@@ -1,21 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { getSelectedCourse } from "../../../utils/courseUtils";
 import { Course } from "../../../dtos/Course";
+import { setSelectedCourseId } from "../../../redux/userSlice/userSlice";
 
 const StudentSelectedCourse: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const dispatch = useDispatch();
   const [course, setSelectedCourse] = useState<Course | null>(null);
-  const selectedCourseId = useSelector(
-    (state: RootState) => state.userReducer.selectedCourseId
-  );
+  const selectedCourseId = useSelector((state: RootState) => state.userReducer.selectedCourseId);
 
-  useEffect(() => {
+  const setCourseDetails = useCallback(() => {
     getSelectedCourse(selectedCourseId as string)
-      .then((res) => {console.log(res),setSelectedCourse(res as Course)})
+      .then((res) => {
+        setSelectedCourse(res as Course);
+      })
       .catch((err) => console.log(err));
   }, [selectedCourseId]);
+  useEffect(() => {
+    setCourseDetails();
+  }
+  , [setCourseDetails,dispatch]);
 
   return (
     <div className="flex flex-col md:flex-row justify-center items-center w-full h-full ">

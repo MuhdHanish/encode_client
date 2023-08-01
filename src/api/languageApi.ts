@@ -3,35 +3,35 @@ import { axiosInstance } from "./config";
 
 interface ResponseData {
   message?: string;
-  categories?: [
+  languages?: [
     {
       _id?:string;
-      categoryname?: string;
+      languagename?: string;
       description?: string;
     }
   ];
 }
 
-const getCategories = async (): Promise<
+const getLanguages = async (): Promise<
   | [
       {
         _id?: string;
-        categoryname?: string;
+        languagename?: string;
         description?: string;
       }
     ]
   | Error
 > => {
   try {
-    const response = await axiosInstance.get("/get/categories");
+    const response = await axiosInstance.get("/get/languages");
     const responseData = response.data as ResponseData;
-    if (!responseData.categories) {
-      throw new Error("Categories not found in the response data.");
+    if (!responseData.languages) {
+      throw new Error("Languages not found in the response data.");
     }
-    return Promise.resolve(responseData.categories);
+    return Promise.resolve(responseData.languages);
   } catch (error) {
     return Promise.reject(error);
   }
 };
 
-export { getCategories };
+export { getLanguages };

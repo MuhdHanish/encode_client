@@ -9,6 +9,7 @@ interface ResponseData {
 
 const postCourse = async (course: Course): Promise<Course | Error> => {
   try {
+    console.log(course)
     const response = await axiosAuthorized.post("/tutor/post/course", course);
     return response as Course;
   } catch (error) {
@@ -16,9 +17,9 @@ const postCourse = async (course: Course): Promise<Course | Error> => {
   }
 };
 
-const getCourses = async (): Promise<Course[] | Error> => {
+const getPopularCourses = async (): Promise<Course[] | Error> => {
   try {
-    const response = await axiosInstance.get('/get/courses');
+    const response = await axiosInstance.get('/get/popular/courses');
     const responseData = response.data as ResponseData;
     return responseData.courses as Course[];
   } catch (error) {
@@ -36,4 +37,4 @@ const getCourseById = async (id: string): Promise<Course | Error> => {
   }
 };
 
-export { postCourse, getCourses, getCourseById };
+export { postCourse, getPopularCourses, getCourseById };

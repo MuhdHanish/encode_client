@@ -6,7 +6,7 @@ export interface FormValues {
   role?: string;
   coursename?: string;
   description?: string,
-  category?: string;
+  language?: string;
   isPaid?: string;
   price?: string;
   level?: string;

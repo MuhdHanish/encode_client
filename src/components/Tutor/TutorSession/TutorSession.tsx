@@ -8,14 +8,21 @@ import { toast } from "react-toastify";
 import { handleUpload } from "../../../utils/classUpload/handleUpload";
 import LoadingSpinner from "../../Common/LoadingSpinner/LoadingSpinner";
 import SideNav from "./SessionComponents/SideNav/SideNav";
-import { CategorySelection, DescriptionInput, IsPaidSelection, LevelSelection, PriceInput, TitleInput } from "./SessionComponents/FormComponents";
-import VideoInput from "./SessionComponents/FormComponents/VideoInput";
+import {
+  LanguageSelection,
+  DescriptionInput,
+  IsPaidSelection,
+  VideoInput,
+  LevelSelection,
+  PriceInput,
+  TitleInput,
+} from "./SessionComponents/FormComponents";
 
 
 const TutorSession: React.FC = () => {
   const [sessionState, setSessionState, clearForm] = HandleForm({
     coursename: "",
-    category: "",
+    language: "",
     level: "",
     isPaid: "",
     price: "0",
@@ -23,22 +30,18 @@ const TutorSession: React.FC = () => {
   } as FormValues);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedVideos, setSelectedVideos] = useState<{ file: File; id: number }[]>([]);
-  const setVideo = (file: File, id: number) => {
-  setSelectedVideos([...selectedVideos, { file, id }]);
-  };
+  const setVideo = (file: File, id: number) => { setSelectedVideos([...selectedVideos, { file, id }]);};
   const removeVideo = (id: number) => {setSelectedVideos(selectedVideos.filter((videoFile) => videoFile.id !== id));}
   const [error, setError] = useState<string>("");
   const setErr = (error: string) => setError(error);
-  const user: User | null = useSelector(
-    (state: RootState) => state.userReducer.user
-  );
+  const user: User | null = useSelector((state: RootState) => state.userReducer.user);
   const userId = user?._id;
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
     event.preventDefault();
     if (
       !sessionState.coursename ||
-      !sessionState.category ||
+      !sessionState.language ||
       !sessionState.isPaid ||
       !sessionState.description ||
       !sessionState.price||
@@ -66,7 +69,7 @@ const TutorSession: React.FC = () => {
     handleUpload(
       {
         tutorId: userId as string,
-        category: sessionState.category,
+        language: sessionState.language,
         coursename: sessionState.coursename,
         description: sessionState.description,
         isPaid: isPaid,
@@ -111,18 +114,25 @@ const TutorSession: React.FC = () => {
         <div className="w-full  h-full p-5 overflow-hidden">
           <div className="w-full  h-full border rounded-lg  sm:items-start flex shadow-lg overflow-scroll">
             <div className="flex w-1/2 h-full  flex-col">
-              <TitleInput sessionState={sessionState} setSessionState={setSessionState} />
-              <DescriptionInput sessionState={sessionState} setSessionState={setSessionState} />
-              <VideoInput setVideo={setVideo} selectedVideos={selectedVideos} removeVideo={removeVideo} />
+              <TitleInput sessionState={sessionState} setSessionState={setSessionState}
+              />
+              <DescriptionInput sessionState={sessionState} setSessionState={setSessionState}
+              />
+              <VideoInput setVideo={setVideo} selectedVideos={selectedVideos} removeVideo={removeVideo}
+              />
             </div>
             <div className="flex w-1/2 h-full  flex-col">
               <div className="w-full h-fit  flex ">
-              <CategorySelection sessionState={sessionState} setSessionState={setSessionState} />
-              <LevelSelection  sessionState={sessionState} setSessionState={setSessionState} />
+                <LanguageSelection sessionState={sessionState} setSessionState={setSessionState}
+                />
+                <LevelSelection sessionState={sessionState} setSessionState={setSessionState}
+                />
               </div>
               <div className="w-full h-fit  flex ">
-              <IsPaidSelection sessionState={sessionState} setSessionState={setSessionState} />
-              <PriceInput  sessionState={sessionState} setSessionState={setSessionState} />
+                <IsPaidSelection sessionState={sessionState} setSessionState={setSessionState}
+                />
+                <PriceInput sessionState={sessionState} setSessionState={setSessionState}
+                />
               </div>
               <div className="w-full h-fit  flex pl-1">
                 <div className="flex flex-col w-full justify-center items-center h-fit p-3">

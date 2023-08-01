@@ -10,13 +10,13 @@ const descriptionRegex = /^[\w\s.,?!-]{20,500}$/;
 
 export const handleUpload = async ({
   tutorId,
-  category,
+  language,
   coursename,
   description,
   isPaid,
   level,
   price,
-}: Course, setErr: (error: string) => void, selectedVideos: {file:File,id:number}[]): Promise<boolean | Course|Error> => {
+}: Course, setErr: (error: string) => void, selectedVideos: { file: File, id: number }[]): Promise<boolean | Course | Error> => {
   try {
     if (!courseNameRegex.test(coursename as string)) { setErr("Enter Coursename properly");  return false; }
     if (!descriptionRegex.test(description as string)) { setErr("Enter Description properly"); return false; }
@@ -40,10 +40,9 @@ export const handleUpload = async ({
           uploadedVideos.push(videoLocation);
         })
         );
-        console.log(uploadedVideos);
           const course = {
             tutorId,
-            category,
+            language,
             coursename,
             description,
             isPaid,

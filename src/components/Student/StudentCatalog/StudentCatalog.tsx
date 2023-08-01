@@ -1,13 +1,13 @@
 import { Course } from "../../../dtos/Course";
 import React, { useState, useEffect, useCallback } from "react";
-import { getFullCourses } from "../../../utils/courseUtils";
-import { getFullCategories } from "../../../utils/categoryUtils";
+import { getFullPopularCoruses } from "../../../utils/courseUtils";
+import {  getFullLanguages } from "../../../utils/LanguageUtils";
 import SideBar from "./SideBar/SideBar";
 import MainHead from "./MainHead/MainHead";
 import PopularCourses from "./PopularCourses/PopularCourses";
 
 const StudentCatalog: React.FC = () => {
-  const [categories, setCategories] = useState<{ _id?: string; categoryname?: string; description?: string }[]>([]);
+  const [languages, setLanguages] = useState<{ _id?: string; categoryname?: string; description?: string }[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
   const [isMedium,setIsMedium] = useState<boolean>(false)
   const handleResize = () => {
@@ -19,13 +19,13 @@ const StudentCatalog: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     }
   }, []);
-  const fetchCategories = useCallback(() => {
-      getFullCategories()
+  const fetchLanguages = useCallback(() => {
+      getFullLanguages()
         .then((res) => {
-          setCategories(
+          setLanguages(
             res as {
               _id?: string;
-              categoryname?: string;
+              languagename?: string;
               description?: string;
             }[]
           );
@@ -33,21 +33,21 @@ const StudentCatalog: React.FC = () => {
         .catch((err) => console.log(err));
     }, []);
   const fetchCourses = useCallback(() => {
-      getFullCourses()
+      getFullPopularCoruses()
         .then((res) => {
           setCourses(res as Course[]);
         })
         .catch((err) => console.log(err));
     }, []);
   useEffect(() => {
-      fetchCategories();
+      fetchLanguages();
       fetchCourses();
-    }, [fetchCategories, fetchCourses]);
+    }, [fetchLanguages, fetchCourses]);
 
   return (
     <div className="w-full h-full flex justify-center items-center bg-white relative overflow-hidden">
       <SideBar
-        categories={categories}
+        languages={languages}
         closeSideBar={() => setIsMedium(false)}
         isMedium={isMedium}
       />
@@ -55,7 +55,7 @@ const StudentCatalog: React.FC = () => {
         <MainHead
           isMedium={isMedium}
           setIsMedium={() => setIsMedium(!isMedium)}
-          categories={categories}
+          languages={languages}
         />
         <PopularCourses
         courses={courses}

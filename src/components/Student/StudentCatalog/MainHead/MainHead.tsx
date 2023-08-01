@@ -8,10 +8,10 @@ import {
 interface MainHeadProps {
   isMedium: boolean;
   setIsMedium: () => void;
-  categories: { _id?: string; categoryname?: string; description?: string }[];
+  languages: { _id?: string; languagename?: string; description?: string }[];
 }
 
-const MainHead: React.FC<MainHeadProps> = ({ isMedium, setIsMedium, categories }) => {
+const MainHead: React.FC<MainHeadProps> = ({ isMedium, setIsMedium, languages }) => {
   
   const cardContainerRef = useRef<HTMLDivElement>(null);
    const bgImgArr = useMemo(
@@ -108,26 +108,28 @@ const MainHead: React.FC<MainHeadProps> = ({ isMedium, setIsMedium, categories }
           className="flex w-full h-fit overflow-x-scroll hide-scroll-bar justify-start py-1 items-center gap-9"
           ref={cardContainerRef}
         >
-          {categories?.map((category, index) => (
-            <div className="flex hover:bg-black delay-100 border  hover:border-black">
+          {languages?.map((language) => (
             <div
-              key={index}
-              className="min-w-[189px] sm:min-w-[280px] md:min-w-[330px] 
+              key={language._id}
+              className="flex hover:bg-black delay-100 border  hover:border-black"
+            >
+              <div
+                className="min-w-[189px] sm:min-w-[280px] md:min-w-[330px] 
                   flex justify-center items-center px-5  hover:translate-x-1 hover:-translate-y-1 transition
                   lg:min-w-[271px] w-full h-[150PX] border border-black "
-              style={{
-                backgroundImage: `url(${getRandomImageUrl()})`,
-                backgroundSize: "cover",
-              }}
-            >
-              <div className="flex w-full h-fit justify-center items-start flex-col gap-2 bg-white py-5 px-5">
+                style={{
+                  backgroundImage: `url(${getRandomImageUrl()})`,
+                  backgroundSize: "cover",
+                }}
+              >
+                <div className="flex w-full h-fit justify-center items-start flex-col gap-2 bg-white py-5 px-5">
                   <span className=" text-[16px]">Explore all</span>
                   <span className="font-semibold text-xl">
-                    {category.categoryname}
+                    {language.languagename}
                   </span>
                 </div>
               </div>
-              </div>
+            </div>
           ))}
         </div>
       </div>

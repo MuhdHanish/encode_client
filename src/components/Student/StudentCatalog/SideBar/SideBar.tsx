@@ -3,11 +3,11 @@ import { BsArrowLeftShort } from "react-icons/bs";
 
 interface SideBarProps {
   isMedium: boolean;
-  categories: { _id?: string; categoryname?: string; description?: string }[];
+  languages: { _id?: string; languagename?: string; description?: string }[];
   closeSideBar: () => void;
 }
 
-const SideBar: React.FC<SideBarProps> = ({isMedium,closeSideBar,categories}) => {
+const SideBar: React.FC<SideBarProps> = ({isMedium,closeSideBar,languages}) => {
   return (
     <>
       <div
@@ -32,7 +32,7 @@ const SideBar: React.FC<SideBarProps> = ({isMedium,closeSideBar,categories}) => 
           Languages
         </div>
         <div className="w-full h-full flex flex-col items-center  overflow-y-auto px-5 ">
-          {categories.map((category, index) => (
+          {languages.map((language, index) => (
             <div
               className="my-2 text-[14px]  p-1 w-full justify-center  flex transition 
               duration-500 hover:scale-105 cursor-pointer font-medium
@@ -40,7 +40,7 @@ const SideBar: React.FC<SideBarProps> = ({isMedium,closeSideBar,categories}) => 
               hover:shadow-lg hover:text-primary "
               key={index}
             >
-              {category.categoryname}
+              {language.languagename}
             </div>
           ))}
         </div>

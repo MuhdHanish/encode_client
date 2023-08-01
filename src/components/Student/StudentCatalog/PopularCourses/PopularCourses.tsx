@@ -8,7 +8,6 @@ import { setSelectedCourseId } from '../../../../redux/userSlice/userSlice';
 interface PopularCoursesProps {
   courses: Course[];
 }
-
 const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -19,7 +18,10 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
       </div>
       <div className="flex flex-wrap px-5 gap-5 md:gap-10 ">
         {courses?.map((course) => (
-          <div key={course._id} className="flex w-full md:w-[271px]  hover:bg-black delay-100 border rounded hover:border-black">
+          <div
+            key={course._id}
+            className="flex w-full md:w-[271px]  hover:bg-black delay-100 border rounded hover:border-black"
+          >
             <div
               onClick={() => {
                 dispatch(setSelectedCourseId(course._id as string)),
@@ -27,7 +29,7 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
               }}
               className="w-full md:w-[271px]  border-black bg-white hover:translate-x-1 hover:-translate-y-1 transition border rounded "
             >
-              <div className="flex  flex-col justify-between h-full p-3 gap-3">
+              <div className="flex  flex-col justify-between h-full p-3 gap-2">
                 <div className="text-[12px] bg-purple-300 rounded-sm p-1">
                   {course.isPaid ? "Paid Course" : "Free Course"}
                 </div>
@@ -37,8 +39,17 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                 <div className="text-[11px] overflow-hidden whitespace-normal p-1">
                   {course.description}
                 </div>
-                <div className="text-[12px] border-t border-black border-dotted p-1">
-                  {course.level}
+                {
+                  course.rating as number > 0 &&
+                <div className="text-[12px] border-t border-black border-dotted p-1 flex items-center gap-2">
+                  <span>{course.rating}</span><span>rating</span>
+                </div>
+                }
+                <div className="text-[12px] border-t border-black border-dotted p-1 flex items-center gap-2">
+                  <span>{course.videos?.length}</span><span>classes</span>
+                </div>
+                <div className="text-[12px] border-t border-black border-dotted p-1 flex items-center gap-2">
+                  <span>{course.level}</span><span>level</span>
                 </div>
               </div>
             </div>

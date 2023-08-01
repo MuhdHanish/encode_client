@@ -44,7 +44,7 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideos, removeVideo 
               onDragOver={handleDragOver}
               className="border border-dashed border-black text-[14px] p-2 w-full flex justify-center sm:justify-between h-[80px]  rounded-md outline-none shadow-md items-center px-5"
             >
-              <div className="hidden  md:flex p-2 w-fit h-full   justify-center items-center">
+              <div className="hidden  sm:flex p-2 w-fit h-full   justify-center items-center">
                 <div className="p-1">
                   <BsCloudUpload
                     style={{
@@ -57,8 +57,8 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideos, removeVideo 
               </div>
               <div className=" w-fit h-full">
                 <div className=" flex  flex-col justify-start items-center p-3 text-gray-500">
-                  <span className="hidden lg:flex text-[14px]">Upload your file</span>
-                  <span className="hidden md:flex text-[12px] ">
+                  <span className="hidden md:flex text-[14px]">Upload your file</span>
+                  <span className="hidden lg:flex text-[12px] ">
                     MP4, AVI, MOV, MKV or WEBM
                   </span>
                 </div>
@@ -80,7 +80,7 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideos, removeVideo 
                 selectedVideos.map((video) =>
                 (
                   <div key={video.id} className="flex  justify-center items-center m-1 mb-2 text-black border-dashed border-black border gap-1 p-1 rounded-lg">
-                    <div className='text-normal text-[15px]'>{video.file.name}</div>
+                    <div className='text-normal text-[15px]'>{video?.file?.name}</div>
                     <button type='button' onClick={() => removeVideo(video.id)}><AiOutlineCloseCircle style={{ fontSize: "18px" }} /></button>
                   </div>
                 )

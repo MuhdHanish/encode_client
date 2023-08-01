@@ -9,7 +9,7 @@ const courseNameRegex = /^[\w\s]{10,100}$/;
 const descriptionRegex = /^[\w\s.,?!-]{20,500}$/;
 
 export const handleUpload = async ({
-  tutorId,
+  tutor,
   language,
   coursename,
   description,
@@ -41,7 +41,7 @@ export const handleUpload = async ({
         })
         );
           const course = {
-            tutorId,
+            tutor,
             language,
             coursename,
             description,

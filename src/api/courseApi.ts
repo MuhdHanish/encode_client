@@ -9,7 +9,6 @@ interface ResponseData {
 
 const postCourse = async (course: Course): Promise<Course | Error> => {
   try {
-    console.log(course)
     const response = await axiosAuthorized.post("/tutor/post/course", course);
     return response as Course;
   } catch (error) {

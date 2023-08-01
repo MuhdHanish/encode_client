@@ -68,7 +68,7 @@ const TutorSession: React.FC = () => {
     }
     handleUpload(
       {
-        tutorId: userId as string,
+        tutor: userId as string,
         language: sessionState.language,
         coursename: sessionState.coursename,
         description: sessionState.description,

@@ -1,6 +1,8 @@
+import { User } from "./User";
+
 export interface Course {
   _id?: string;
-  tutorId?: string;
+  tutor?: string | User;
   language?: string;
   coursename?: string;
   isPaid?: boolean;

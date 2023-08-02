@@ -1,18 +1,23 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { Course } from '../../../../dtos/Course'
 import { GoLock } from "react-icons/go";
 import StarRating from "../../../Common/StarRating/StarRating";
+import { User } from "../../../../dtos/User";
 
 interface CourseDetailsProps {
   course:Course
 }
 
-const CourseDetails:React.FC<CourseDetailsProps> = ({course}) => {
+const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
+  const [tutor, setTutor] = useState<User | null>(null);
+  useEffect(() => {
+    setTutor(course?.tutor as User);
+  },[course])
   return (
     <>
-      <div className="flex flex-col w-full h-fit gap-2  bg-white border shadow-lg p-5 text-medium">
-        <div className="flex w-full h-fit justify-start items-center p-2">
-          <span className="flex gap-2 text-[14px]">
+      <div className="flex flex-col w-full h-fit p-3 gap-3 ">
+        <div className="flex w-full h-fit justify-start items-center ">
+          <span className="flex gap-2 text-[13px]">
             {course?.isPaid ? (
               <span className="bg-primary rounded-full text-white text-shadow-black px-2">
                 Paid
@@ -25,23 +30,40 @@ const CourseDetails:React.FC<CourseDetailsProps> = ({course}) => {
             <span className="text-shadow-black ">Course</span>
           </span>
         </div>
-        <div className="flex w-full h-fit justify-start items-center p-2">
+
+        <div className="flex w-full h-fit justify-start items-centser ">
           <div className="flex flex-wrap w-fit h-fit text-2xl font-semibold">
             {course?.coursename}
           </div>
         </div>
-        <div className="flex w-full  sm:w-1/2 h-fit justify-start items-center p-2">
-          <div className="flex flex-wrap w-fit h-fit text-md font-normal">
+
+        <div className="flex w-full   h-fit justify-start items-center ">
+          <div className="flex flex-wrap w-fit h-fit text-md font-normal text-[14px]">
             {course?.description}
           </div>
         </div>
-        {(course?.rating as number) > 0 && (
-          <div className="flex gap-2 p-2 items-center">
-            <span className="text-[18px`]">{course?.rating}</span>
-            <StarRating rating={course?.rating as number} />
+
+        <div className="flex flex-col items-center justify-start w-full ">
+          <div className="w-full flex gap-2 items-center">
+            <div className="flex p-2 ">
+              <img src={tutor?.profile } alt="" className="w-7 h-7 rounded-md" />
+            </div>
+            <div className="flex">
+              <span className="flex flex-wrap text-[14px]">
+                {tutor?.username}
+              </span>
+            </div>
           </div>
-        )}
-        <div className="flex w-full  sm:w-1/2 h-fit justify-start items-center p-2">
+          <div className="w-full">
+            {(course?.rating as number) > 0 && (
+              <div className="flex gap-2 p-2 items-center w-full">
+                <span className="text-[12px`]">{course?.rating}</span>
+                <StarRating rating={course?.rating as number} />
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="flex w-full  sm:w-1/2 h-fit justify-start items-center ">
           <div className="flex flex-wrap w-fit h-fit text-md font-normal">
             {(course?.price as number) > 0 ? (
               <div>
@@ -61,7 +83,7 @@ const CourseDetails:React.FC<CourseDetailsProps> = ({course}) => {
             )}
           </div>
         </div>
-      </div>
+        </div>
     </>
   );
 }

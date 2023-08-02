@@ -11,7 +11,7 @@ interface FirstBoxProps {
 const FirstBox:React.FC<FirstBoxProps> = ({course}) => {
   return (
     <>
-      <div className="flex  justify-around items-center w-full   h-fit gap-10  bg-white border  shadow-lg p-7 text-medium">
+      <div className="flex  justify-around items-center w-full lg:w-1/2   h-fit   bg-white p-7 text-medium">
         <div className="w-fit h-fit flex  ">
           <div className="flex justify-center items-center gap-2">
             <span>

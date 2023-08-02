@@ -80,3 +80,5 @@ a.active {
   .card-mover:hover {
     transform: scale(1.2); /* Increase the size by 20% on hover */
   }
+
+  

@@ -4,6 +4,9 @@ import { RootState } from "../../../redux/store";
 import { getSelectedCourse } from "../../../utils/courseUtils";
 import { Course } from "../../../dtos/Course";
 
+import { GoLock } from "react-icons/go";
+import StarRating from "../../Common/StarRating/StarRating";
+
 const StudentSelectedCourse: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const dispatch = useDispatch();
@@ -27,12 +30,12 @@ const StudentSelectedCourse: React.FC = () => {
       <div className="flex flex-col w-full justify-center items-center  h-full md:w-2/3  p-3">
         <div className="border w-full my-5 h-96 ">
           {course && (
-            <video 
+            <video
               ref={videoRef}
               className="w-full h-full object-cover "
-              src={`${import.meta.env.VITE_BUCKET_BASE_URL as string}/${
-                "course.video"
-                }`}
+              src={`${
+                import.meta.env.VITE_BUCKET_BASE_URL as string
+              }/${"course.video"}`}
               controls
               controlsList="nodownload"
             ></video>
@@ -50,6 +53,12 @@ const StudentSelectedCourse: React.FC = () => {
           </>
         )}
       </div>
+      {(course?.rating as number) > 0 && (
+        <div className="flex gap-2 p-2 items-center">
+          <span className="text-[18px`]">{course?.rating}</span>
+          <StarRating rating={course?.rating as number} />
+        </div>
+      )}
     </div>
   );
 };

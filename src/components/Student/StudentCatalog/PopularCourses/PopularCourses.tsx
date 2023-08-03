@@ -45,9 +45,9 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                   <span>{course.rating}</span><span>rating</span>
                 </div>
                 }
-                <div className="text-[12px] border-t border-black border-dotted p-1 flex items-center gap-2">
+                {/* <div className="text-[12px] border-t border-black border-dotted p-1 flex items-center gap-2">
                   <span>{course.videos?.length}</span><span>classes</span>
-                </div>
+                </div> */}
                 <div className="text-[12px] border-t border-black border-dotted p-1 flex items-center gap-2">
                   <span>{course.level}</span><span>level</span>
                 </div>

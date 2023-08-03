@@ -1,5 +1,5 @@
 import React, {useRef} from 'react'
-import { BsCloudUpload } from 'react-icons/bs';
+import { AiOutlineCloudUpload } from "react-icons/ai";
 
 interface InputRef {
   setVideo: (file: File) => void;
@@ -48,7 +48,7 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideo }) => {
             >
               <div className="hidden  sm:flex  w-fit h-full   justify-center items-center">
                 <div className="p-1">
-                  <BsCloudUpload
+                  <AiOutlineCloudUpload
                     style={{
                       width: "25px",
                       height: "25px",
@@ -57,20 +57,20 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideo }) => {
                   />
                 </div>
               </div>
-              <div className=" w-fit h-full">
-                <div className=" flex  flex-col justify-start items-center p-3 text-gray-500">
+              <div className=" w-fit h-fit">
+                <div className=" hidden  flex-col lg:flex justify-center items-center p-3 text-gray-500">
                   {selectedVideo ? (
                     <>
-                      <span className="hidden md:flex text-[14px]">
+                      <span className="hidden md:flex justify-center items-center text-[14px]">
                         {selectedVideo.name}
                       </span>
                     </>
                   ) : (
                     <>
-                      <span className="hidden md:flex text-[14px]">
+                      <span className="flex text-[14px] justify-center items-center">
                         Upload your file
                       </span>
-                      <span className="hidden lg:flex text-[12px] ">
+                      <span className="flex text-[12px] justify-center items-center">
                         MP4, AVI, MOV, MKV or WEBM
                       </span>
                     </>

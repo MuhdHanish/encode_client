@@ -82,7 +82,7 @@ const TutorSession: React.FC = () => {
         setSelectedOverview(null);
         if (res) {
           clearForm();
-          toast.success("Course uploaded successfully!", {
+          toast.success("Course registered successfully!, add tutorials", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -117,13 +117,13 @@ const TutorSession: React.FC = () => {
               />
             </div>
             <div className="flex w-1/2 h-full  flex-col">
-              <div className="w-full h-fit  flex ">
+              <div className="w-full h-fit  flex flex-col">
                 <LanguageSelection sessionState={sessionState} setSessionState={setSessionState}
                 />
                 <LevelSelection sessionState={sessionState} setSessionState={setSessionState}
                 />
               </div>
-              <div className="w-full h-fit  flex ">
+              <div className="w-full h-fit  flex">
                 <IsPaidSelection sessionState={sessionState} setSessionState={setSessionState}
                 />
                 <PriceInput sessionState={sessionState} setSessionState={setSessionState}
@@ -131,7 +131,7 @@ const TutorSession: React.FC = () => {
               </div>
               <div className="w-full h-fit  flex pl-1">
                 <div className="flex flex-col w-full justify-center items-center h-fit p-3">
-                  <div className="felx flex-col  items-center justify-center">
+                  <div className="felx flex-col w-full items-center justify-center mt-3">
                     {error && (
                       <div className="text-red-600 w-full text-sm font-semibold mb-2">
                         {error}

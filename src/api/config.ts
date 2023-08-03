@@ -52,7 +52,7 @@ axiosAuthorized.interceptors.response.use(
     ) {
       if (!isRefreshing) {
         isRefreshing = true;
-        return axiosInstance
+        return axiosAuthorized
           .post<ResponseData>("/refresh/token", null, {
             headers: {
               Authorization: `Bearer ${

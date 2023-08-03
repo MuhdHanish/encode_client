@@ -26,6 +26,16 @@ const getPopularCourses = async (): Promise<Course[] | Error> => {
   }
 };
 
+const getTutorCourses = async (id:string): Promise<Course[] | Error> => {
+  try {
+    const response = await axiosAuthorized.get(`/get/tutor/courses/${id}`);
+    const responseData = response.data as ResponseData;
+    return responseData.courses as Course[];
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 const getCourseById = async (id: string): Promise<Course | Error> => {
   try {
     const response = await axiosInstance.get(`/get/course/${id}`);
@@ -36,4 +46,4 @@ const getCourseById = async (id: string): Promise<Course | Error> => {
   }
 };
 
-export { postCourse, getPopularCourses, getCourseById };
+export { postCourse, getPopularCourses, getCourseById, getTutorCourses };

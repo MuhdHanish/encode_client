@@ -1,10 +1,20 @@
 import { AxiosError } from "axios";
-import { getCourseById, getPopularCourses } from "../api/courseApi";
+import { getCourseById, getPopularCourses, getTutorCourses} from "../api/courseApi";
 import { Course } from "../dtos/Course";
 
 export const getFullPopularCoruses = async (): Promise<Course[] | Error> => {
   try {
     const courses = (await getPopularCourses()) as Course[];
+    return courses;
+  } catch (error) {
+    const err = error as AxiosError;
+    return Promise.reject(err);
+  }
+};
+
+export const getTutorCourse = async (id: string): Promise<Course[] | null> => {
+  try {
+    const courses = (await getTutorCourses(id)) as Course[];
     return courses;
   } catch (error) {
     const err = error as AxiosError;

@@ -6,7 +6,7 @@ import { LoginPage, SignupPage, StudentPage,  TutorPage  } from "./pages";
 import AuthProtected from "./components/Common/ProtectedRoute/AuthProtected";
 import ProtectedRoute from "./components/Common/ProtectedRoute/ProtectedRoute";
 import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCourseGate } from "./components/Student";
-import { TutorHome, TutorSession } from "./components/Tutor";
+import { TutorHome, TutorSessionGate } from "./components/Tutor";
 import { RootState } from "./redux/store";
 import { useCallback, useEffect } from "react";
 
@@ -35,7 +35,7 @@ function App() {
         </Route>
         <Route path="/tutor" element={<ProtectedRoute element={<TutorPage />} allowedRoles={["tutor"]} />}>
           <Route index={true} element={<TutorHome/>}/>
-          <Route path="session" element={<TutorSession/>}/>
+          <Route path="session" element={<TutorSessionGate/>}/>
         </Route>
         <Route path="/login" element={<AuthProtected element={<LoginPage />} />}/>
         <Route path="/register"element={<AuthProtected element={<SignupPage />} />} />

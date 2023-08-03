@@ -1,5 +1,11 @@
 import { User } from "./User";
 
+export interface Tutorial {
+  title: string;
+  description: string;
+  url: string;
+}
+
 export interface Course {
   _id?: string;
   tutor?: string | User;
@@ -10,5 +16,6 @@ export interface Course {
   level?: string;
   price?: number;
   rating?: number;
-  videos?: string[];
+  overview?: string;
+  tutorial?: [Tutorial];
 }

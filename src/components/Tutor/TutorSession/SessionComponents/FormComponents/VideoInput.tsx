@@ -1,23 +1,21 @@
 import React, {useRef} from 'react'
 import { BsCloudUpload } from 'react-icons/bs';
-import { AiOutlineCloseCircle } from "react-icons/ai";
 
 interface InputRef {
-  setVideo: (file: File, id: number) => void;
-  removeVideo: (id: number) => void;
-  selectedVideos: {file:File,id:number}[];
+  setVideo: (file: File) => void;
+  selectedVideo:File | null;
 }
 
-const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideos, removeVideo }) => {
+const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideo }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleVideoInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
-    setVideo(selectedFile as File, Date.now());
+    setVideo(selectedFile as File);
   };
   const handleVideoDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const selectedFile = event.dataTransfer.files[0];
-    setVideo(selectedFile,Date.now());
+    setVideo(selectedFile );
   };
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -34,17 +32,21 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideos, removeVideo 
         />
       }
       <div className="w-full h-fit  flex ">
-        <div className="flex flex-col w-full justify-center items-start h-fit p-3">
-          <span className="text-sm font-medium">
-            File <span className="text-red-500">*</span>
-          </span>
+        <div className="flex flex-col w-full justify-center items-start h-fit p-1">
+          {selectedVideo ? (
+            <span className="text-sm font-medium">Change file</span>
+          ) : (
+            <span className="text-sm font-medium">
+              File <span className="text-red-500">*</span>
+            </span>
+          )}
           <div className="p-1 w-full h-fit">
             <div
               onDrop={handleVideoDrop}
               onDragOver={handleDragOver}
               className="border border-dashed border-black text-[14px] p-2 w-full flex justify-center sm:justify-between h-[80px]  rounded-md outline-none shadow-md items-center px-5"
             >
-              <div className="hidden  sm:flex p-2 w-fit h-full   justify-center items-center">
+              <div className="hidden  sm:flex  w-fit h-full   justify-center items-center">
                 <div className="p-1">
                   <BsCloudUpload
                     style={{
@@ -57,10 +59,22 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideos, removeVideo 
               </div>
               <div className=" w-fit h-full">
                 <div className=" flex  flex-col justify-start items-center p-3 text-gray-500">
-                  <span className="hidden md:flex text-[14px]">Upload your file</span>
-                  <span className="hidden lg:flex text-[12px] ">
-                    MP4, AVI, MOV, MKV or WEBM
-                  </span>
+                  {selectedVideo ? (
+                    <>
+                      <span className="hidden md:flex text-[14px]">
+                        {selectedVideo.name}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="hidden md:flex text-[14px]">
+                        Upload your file
+                      </span>
+                      <span className="hidden lg:flex text-[12px] ">
+                        MP4, AVI, MOV, MKV or WEBM
+                      </span>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="w-fit h-full flex justify-start items-center p-3 text-gray-500">
@@ -74,19 +88,6 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideos, removeVideo 
               </div>
             </div>
           </div>
-          { selectedVideos.length!==0 &&
-            <div className="flex flex-wrap gap-1 w-full h-fit">
-              {
-                selectedVideos.map((video) =>
-                (
-                  <div key={video.id} className="flex  justify-center items-center m-1 mb-2 text-black border-dashed border-black border gap-1 p-1 rounded-lg">
-                    <div className='text-normal text-[15px]'>{video?.file?.name}</div>
-                    <button type='button' onClick={() => removeVideo(video.id)}><AiOutlineCloseCircle style={{ fontSize: "18px" }} /></button>
-                  </div>
-                )
-                )}
-            </div>
-          }
         </div>
       </div>
     </>

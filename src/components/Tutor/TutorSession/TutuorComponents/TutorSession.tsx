@@ -1,13 +1,12 @@
 import React, {  useState } from "react";
-import { FormValues } from "../../../dtos/Form";
-import HandleForm from "../../../utils/handleFormState";
+import { FormValues } from "../../../../dtos/Form";
+import HandleForm from "../../../../utils/handleFormState";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { User } from "../../../dtos/User";
+import { RootState } from "../../../../redux/store";
+import { User } from "../../../../dtos/User";
 import { toast } from "react-toastify";
-import { handleUpload } from "../../../utils/classUpload/handleUpload";
-import LoadingSpinner from "../../Common/LoadingSpinner/LoadingSpinner";
-import SideNav from "./SessionComponents/SideNav/SideNav";
+import { handleUpload } from "../../../../utils/classUpload/handleUpload";
+import LoadingSpinner from "../../../Common/LoadingSpinner/LoadingSpinner";
 import {
   LanguageSelection,
   DescriptionInput,
@@ -16,7 +15,7 @@ import {
   LevelSelection,
   PriceInput,
   TitleInput,
-} from "./SessionComponents/FormComponents";
+} from "../SessionComponents/FormComponents";
 
 
 const TutorSession: React.FC = () => {
@@ -29,9 +28,8 @@ const TutorSession: React.FC = () => {
     description: "",
   } as FormValues);
   const [loading, setLoading] = useState<boolean>(false);
-  const [selectedVideos, setSelectedVideos] = useState<{ file: File; id: number }[]>([]);
-  const setVideo = (file: File, id: number) => { setSelectedVideos([...selectedVideos, { file, id }]);};
-  const removeVideo = (id: number) => {setSelectedVideos(selectedVideos.filter((videoFile) => videoFile.id !== id));}
+  const [selectedOverview, setSelectedOverview] = useState<File|null>(null);
+  const setVideo = (file: File) => { setSelectedOverview(file);};
   const [error, setError] = useState<string>("");
   const setErr = (error: string) => setError(error);
   const user: User | null = useSelector((state: RootState) => state.userReducer.user);
@@ -46,7 +44,7 @@ const TutorSession: React.FC = () => {
       !sessionState.description ||
       !sessionState.price||
       !sessionState.level ||
-      !selectedVideos.length
+      !selectedOverview
     ) {
       setLoading(false);
       setError("Please fill all required fields");
@@ -77,11 +75,11 @@ const TutorSession: React.FC = () => {
         price: price,
       },
       setErr,
-      selectedVideos
+      selectedOverview
     )
       .then((res) => {
         setLoading(false);
-        setSelectedVideos([]);
+        setSelectedOverview(null);
         if (res) {
           clearForm();
           toast.success("Course uploaded successfully!", {
@@ -108,9 +106,6 @@ const TutorSession: React.FC = () => {
         onSubmit={handleSubmit}
         className="bg-white w-full  h-full flex justify-center items-center overflow-hidden relative "
       >
-        <div className="hidden lg:flex">
-          <SideNav />
-        </div>
         <div className="w-full  h-full p-5 overflow-hidden">
           <div className="w-full  h-full border rounded-lg  sm:items-start flex shadow-lg overflow-scroll">
             <div className="flex w-1/2 h-full  flex-col">
@@ -118,7 +113,7 @@ const TutorSession: React.FC = () => {
               />
               <DescriptionInput sessionState={sessionState} setSessionState={setSessionState}
               />
-              <VideoInput setVideo={setVideo} selectedVideos={selectedVideos} removeVideo={removeVideo}
+              <VideoInput setVideo={setVideo} selectedVideo={selectedOverview} 
               />
             </div>
             <div className="flex w-1/2 h-full  flex-col">

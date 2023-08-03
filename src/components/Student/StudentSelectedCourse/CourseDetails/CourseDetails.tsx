@@ -15,7 +15,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
   },[course])
   return (
     <>
-      <div className="flex flex-col w-full h-fit p-3 gap-3 ">
+      <div className="flex flex-col border w-full h-fit p-10 gap-3 ">
         <div className="flex w-full h-fit justify-start items-center ">
           <span className="flex gap-2 text-[13px]">
             {course?.isPaid ? (
@@ -37,8 +37,8 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
           </div>
         </div>
 
-        <div className="flex w-full   h-fit justify-start items-center ">
-          <div className="flex flex-wrap w-fit h-fit text-md font-normal text-[14px]">
+        <div className="flex w-full  h-fit justify-start items-center ">
+          <div className="flex flex-wrap w-full sm:w-1/2 h-fit text-md font-normal text-[14px]">
             {course?.description}
           </div>
         </div>

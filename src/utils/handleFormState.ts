@@ -7,7 +7,6 @@ type FormEventHandler = (event: ChangeEvent<HTMLInputElement| HTMLTextAreaElemen
 
 const HandleForm = (initialState: FormValues) => {
   const [state, setState] = useState<FormValues>(initialState);
-
   const handleInput: FormEventHandler = (event) => {
     setState((prevState) => ({
       ...prevState,

@@ -6,7 +6,7 @@ import { BsHeadset } from "react-icons/bs";
 
 const BottumNav:React.FC = () => {
   return (
-    <div className=" bottom-0 w-full h-13 flex flex-row gap-5 p-2">
+    <div className=" bottom-0 w-full h-full flex flex-row gap-5 p-2">
       <div className="flex flex-row h-full w-full border shadow-xl rounded-md gap-5 p-2 ">
         <div
           className="w-full h-full rounded-md p-3 flex border transistion  cursor-pointer shadow-md justify-center items-center overflow-hidden"

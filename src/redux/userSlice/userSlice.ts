@@ -22,6 +22,7 @@ const userSlice = createSlice({
      localStorage.removeItem("accessToken");
      localStorage.removeItem("refreshToken");
      localStorage.removeItem("user");
+     state.selectedCourseId = null; 
      state.user = null;
    },
     setSelectedCourseId: (state,action: PayloadAction<string|null>) => {
@@ -31,4 +32,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const {saveUser,logout,setSelectedCourseId} = userSlice.actions;
+export const {saveUser,logout,setSelectedCourseId } = userSlice.actions;

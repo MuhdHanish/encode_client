@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { Chapter, Course } from '../../../../../dtos/Course';
 import AddChapter from '../AddComponents/AddChapter';
 import AddCourse from '../AddComponents/AddCourse';
@@ -10,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../../../redux/store';
 import { User } from '../../../../../dtos/User';
 import { toast } from 'react-toastify';
+import { BsArrowLeftShort } from 'react-icons/bs';
 
 interface ModalProps {
   setIsOpen: (value:boolean) => void
@@ -169,23 +169,20 @@ const EditCourseModal: React.FC<ModalProps> = ({ selectedCourse, setIsOpen }) =>
    };
   return (
     <>
-      <div className="flex w-full flex-col justify-center items-center h-full bg-white absolute p-5 gap-2 ">
+      <div className="flex w-full flex-col justify-center items-center h-full bg-white absolute px-5 py-1 gap-2 ">
         <div className="flex w-full h-fit border-green justify-end ">
           <button
             onClick={() => setIsOpen(false)}
             className=" flex  gap-2 items-center text-[13px]"
           >
-            close
-            <AiOutlineCloseCircle
-              style={{ fontSize: "18px", color: "red" }}
-            />
+            <BsArrowLeftShort style={{ fontSize: "25px" }} />
           </button>
         </div>
         <form
           onSubmit={handleSubmit}
           className="bg-white w-full  h-full flex justify-center items-center overflow-hidden relative "
         >
-          <div className="w-full  h-full p-5 overflow-hidden">
+          <div className="w-full  h-full  overflow-hidden">
             <div className="w-full  h-full border rounded-lg  sm:items-start flex shadow-lg overflow-scroll">
               <AddCourse
                 selectedVideo={selectedDemo}

@@ -13,7 +13,7 @@ const TutorSessionGate: React.FC = () => {
       </div>
       {sessionMode === 0 ? <TutorSession /> : null}
       {sessionMode === 1 ? <EditCourse/> : null}
-      {sessionMode === 2 ? <TutorSession /> : null}
+      {sessionMode === 2 ? (<div className='flex w-full h-full'></div>) : null}
       <div className="flex lg:hidden w-full justify-center items-center">
         <BottumNav sessionMode={sessionMode} setSessionMode={setSessionMode} />
       </div>

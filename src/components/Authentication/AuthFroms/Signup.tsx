@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { apiError } from "../../../api/ApiInterface";
 import handleForm from "../../../utils/handleFormState";
-import LoadingSpinner from "../../Common/LoadingSpinner/LoadingSpinner";
 import { PasswordField, AtuhenticationError } from "../AuthenticationComponents/Common";
 import { OtpField, EmailField, UsernameField } from "../AuthenticationComponents/Signup";
 import { handleSignupStepOne, handleSignupStepTwo } from "../../../utils/Authentication/handleSignup";
@@ -33,6 +32,7 @@ const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended,setResEr
   }, [isOtpSended, otpValidity]);
 
   const handleStepOne = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+    setResError("");
     setLoading(true);
     event.preventDefault();
     handleSignupStepOne({
@@ -71,21 +71,46 @@ const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended,setResEr
       <form onSubmit={isOtpSended ? handleStepTwo : handleStepOne}>
         <div className="flex flex-col justify-center gap-3 px-5 py-2">
           {isOtpSended ? (
-            <OtpField enteredOtp={enteredOtp} setEnteredOtp={setOtp} handleStepOne={handleStepOne}
-              errors={errors}otpValidity={otpValidity} setErrors={setErrors}
+            <OtpField
+              enteredOtp={enteredOtp}
+              setEnteredOtp={setOtp}
+              handleStepOne={handleStepOne}
+              errors={errors}
+              otpValidity={otpValidity}
+              setErrors={setErrors}
             />
           ) : (
             <div className="flex flex-col gap-2">
-              <UsernameField signupState={signupState} errors={errors} setSignupState={setSignupState} />
-              <EmailField signupState={signupState} errors={errors} setSignupState={setSignupState} setErrors={setErrors} />
-              <PasswordField passedState={signupState} errors={errors} setPassedState={setSignupState} setErrors={setErrors} />
+              <UsernameField
+                signupState={signupState}
+                errors={errors}
+                setSignupState={setSignupState}
+              />
+              <EmailField
+                signupState={signupState}
+                errors={errors}
+                setSignupState={setSignupState}
+                setErrors={setErrors}
+              />
+              <PasswordField
+                passedState={signupState}
+                errors={errors}
+                setPassedState={setSignupState}
+                setErrors={setErrors}
+              />
             </div>
           )}
           {signupError && <AtuhenticationError passedError={signupError} />}
-          <div className="flex flex-col">
-            <button className="btn-class flex justify-center items-center gap-2" type="submit">
-               {loading ?<><LoadingSpinner /> <span>Please wait</span></>  : isOtpSended ? "Confirm" : "Sign up"}
-            </button>
+          <div className="flex flex-col items-center">
+            {loading && <div className="loaderBar"></div>}
+            {
+              <button
+                className="btn-class flex justify-center items-center gap-2"
+                type="submit"
+              >
+                Sign up
+              </button>
+            }
           </div>
         </div>
       </form>

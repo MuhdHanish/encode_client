@@ -10,7 +10,6 @@ import {
   AtuhenticationError,
   PasswordField,
 } from "../AuthenticationComponents/Common";
-import LoadingSpinner from "../../Common/LoadingSpinner/LoadingSpinner";
 
 interface LoginProps {
   loginError: string;
@@ -35,6 +34,7 @@ const Login: React.FC<LoginProps> = ({ loginError, setResError }) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
+    setResError("")
     event.preventDefault();
     handLogin({
       setError,
@@ -77,19 +77,18 @@ const Login: React.FC<LoginProps> = ({ loginError, setResError }) => {
             />
             {loginError && <AtuhenticationError passedError={loginError} />}
           </div>
-          <div className="flex flex-col">
-            <button
-              className="btn-class flex justify-center items-center gap-2"
-              type="submit"
-            >
-              {loading ? (
-                <>
-                  <LoadingSpinner /> <span>Please wait</span>
-                </>
-              ) : (
-                "Log in"
-              )}
-            </button>
+          <div className="flex flex-col items-center ">
+            {loading && (<div className="loaderBar"></div>)}
+            {
+              
+              <button
+                className="btn-class flex justify-center items-center gap-2"
+                type="submit"
+              >
+                Log in
+              </button>
+            
+            }
           </div>
         </div>
       </form>

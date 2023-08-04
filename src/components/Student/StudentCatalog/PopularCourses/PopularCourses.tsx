@@ -42,19 +42,22 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                 <div className="text-[11px] overflow-hidden whitespace-normal p-1 line-clamp-3 text-gray-500">
                   {course.description}
                 </div>
-                {(course.rating as number) > 0 && (
-                  <div className="text-[12px] border-t border-gray-500 border-dotted p-1 flex items-center gap-2 text-gray-500">
-                    <span>{course.rating}</span>
-                    <span>rating</span>
-                  </div>
-                )}
-                <div className="text-[12px] border-t border-gray-500 border-dotted p-1 flex items-center gap-2 text-gray-500">
+                <div className="text-[12px] border-t border-gray-500 border-dotted p-1 flex justify-between items-center gap-2 text-gray-500">
                   <span>{course.language}</span>
+                  {(course.rating as number) > 0 && (
+                    <div className="flex gap-2">
+                      <span>{course.rating}</span>
+                      <span>Rating</span>
+                    </div>
+                  )}
                 </div>
                 <div className="text-[12px] border-t border-gray-500 border-dotted p-1 flex items-center gap-2 justify-between text-gray-500">
                   <span>{capitalizeFirstLetter(course?.level as string)}</span>
-                  {(course.tutorial?.length as number) > 0 && (
-                    <span>{course.tutorial?.length} Lessons</span>
+                  {(course.chapters?.length as number) > 0 && (
+                    <span>
+                      {course.chapters?.length}{" "}
+                      {course.chapters?.length === 1 ? "Chapter" : "Chapters"}
+                    </span>
                   )}
                 </div>
               </div>

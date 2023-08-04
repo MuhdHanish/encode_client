@@ -27,16 +27,16 @@ const BottumNav: React.FC<BottumNavProps> = ({
 
   return (
     <div className="bottom-0 w-full h-13 flex flex-row justify-center items-center">
-      <div className="flex h-full w-full justify-center items-center border shadow-xl rounded-t-xl  gap-10 p-2 px-8">
+      <div className="flex h-full w-full justify-center items-center border shadow-xl  gap-10 p-2 px-8">
         {[0, 1, 2].map((index) => (
           <div
             key={index}
             onClick={() => setSessionMode(index)}
-            className={`w-12 h-12 rounded-full ${
+            className={`w-12 h-12 rounded-md ${
               sessionMode === index
                 ? "-translate-y-6 shadow-2xl border-primary"
                 : " -translate-y-0"
-            }  flex items-center duration-500 justify-center border-2  bg-white cursor-pointer relative `}
+            }  flex items-center duration-500 justify-center border-2  bg-white cursor-pointer relative shadow-`}
             title={
               index === 0 ? "Add Course" : index === 1 ? "Manage" : "On Live"
             }

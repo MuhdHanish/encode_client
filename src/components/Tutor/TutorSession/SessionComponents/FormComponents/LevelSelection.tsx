@@ -26,9 +26,9 @@ const LevelSelection:React.FC<InputProps> = ({sessionState,setSessionState}) => 
             onChange={setSessionState}
           >
             <option value="">Select an option</option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate ">Intermediate </option>
-            <option value="expert ">Expert </option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate ">Intermediate </option>
+            <option value="Expert ">Expert </option>
           </select>
         </div>
       </div>

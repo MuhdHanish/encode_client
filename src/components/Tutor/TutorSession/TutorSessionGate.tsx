@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import SideNav from './SessionComponents/SideNav/SideNav';
 import { TutorSession } from '..';
 import BottumNav from './SessionComponents/BottumNav/BottumNav';
-import AddTutorial from './TutuorComponents/AddTutorial';
+import EditCourse from './TutuorComponents/EditCourse/EditCourse';
 
 const TutorSessionGate: React.FC = () => {
   const [sessionMode, setSessionMode] = useState<number>(0);
@@ -12,7 +12,7 @@ const TutorSessionGate: React.FC = () => {
         <SideNav setSessionMode={setSessionMode} sessionMode={sessionMode} />
       </div>
       {sessionMode === 0 ? <TutorSession /> : null}
-      {sessionMode === 1 ? <AddTutorial /> : null}
+      {sessionMode === 1 ? <EditCourse/> : null}
       {sessionMode === 2 ? <TutorSession /> : null}
       <div className="flex lg:hidden w-full justify-center items-center">
         <BottumNav sessionMode={sessionMode} setSessionMode={setSessionMode} />

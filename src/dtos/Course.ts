@@ -1,9 +1,9 @@
 import { User } from "./User";
 
-export interface Tutorial {
-  title: string;
-  description: string;
-  url: string;
+export interface Chapter {
+  title?: string;
+  description?: string;
+  url?: string | File;
 }
 
 export interface Course {
@@ -16,6 +16,6 @@ export interface Course {
   level?: string;
   price?: number;
   rating?: number;
-  overview?: string;
-  tutorial?: [Tutorial];
+  demoUrl?: string;
+  chapters?: Chapter[];
 }

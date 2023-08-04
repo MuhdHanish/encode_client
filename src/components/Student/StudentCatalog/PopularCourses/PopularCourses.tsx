@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useCallback} from 'react'
 import { Course } from '../../../../dtos/Course';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -10,7 +10,10 @@ interface PopularCoursesProps {
 }
 const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+    const capitalizeFirstLetter = useCallback((text: string) => {
+      return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    }, []);
   return (
     <>
       <div className="w-full h-fit justify-start flex  px-5 ">
@@ -36,20 +39,23 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                 <div className="text-[15px] font-semibold p-1">
                   {course.coursename}
                 </div>
-                <div className="text-[11px] overflow-hidden whitespace-normal p-1">
+                <div className="text-[11px] overflow-hidden whitespace-normal p-1 line-clamp-3 text-gray-500">
                   {course.description}
                 </div>
-                {
-                  course.rating as number > 0 &&
-                <div className="text-[12px] border-t border-black border-dotted p-1 flex items-center gap-2">
-                  <span>{course.rating}</span><span>rating</span>
+                {(course.rating as number) > 0 && (
+                  <div className="text-[12px] border-t border-gray-500 border-dotted p-1 flex items-center gap-2 text-gray-500">
+                    <span>{course.rating}</span>
+                    <span>rating</span>
+                  </div>
+                )}
+                <div className="text-[12px] border-t border-gray-500 border-dotted p-1 flex items-center gap-2 text-gray-500">
+                  <span>{course.language}</span>
                 </div>
-                }
-                {/* <div className="text-[12px] border-t border-black border-dotted p-1 flex items-center gap-2">
-                  <span>{course.videos?.length}</span><span>classes</span>
-                </div> */}
-                <div className="text-[12px] border-t border-black border-dotted p-1 flex items-center gap-2">
-                  <span>{course.level}</span><span>level</span>
+                <div className="text-[12px] border-t border-gray-500 border-dotted p-1 flex items-center gap-2 justify-between text-gray-500">
+                  <span>{capitalizeFirstLetter(course?.level as string)}</span>
+                  {(course.tutorial?.length as number) > 0 && (
+                    <span>{course.tutorial?.length} Lessons</span>
+                  )}
                 </div>
               </div>
             </div>

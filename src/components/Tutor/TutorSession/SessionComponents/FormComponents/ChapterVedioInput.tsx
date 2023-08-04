@@ -1,12 +1,12 @@
-import React, {useRef} from 'react'
+import React, { useRef } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 
-interface InputRef {
+interface VideoInputProps {
   setVideo: (file: File) => void;
-  selectedVideo:File| string | null;
+  selectedVideo: File | null;
 }
 
-const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideo }) => {
+const ChapterVideoInput: React.FC<VideoInputProps> = ({ setVideo, selectedVideo }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleVideoInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -15,12 +15,11 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideo }) => {
   const handleVideoDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const selectedFile = event.dataTransfer.files[0];
-    setVideo(selectedFile );
+    setVideo(selectedFile);
   };
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
   };
-  console.log(selectedVideo)
   return (
     <>
       {
@@ -38,7 +37,7 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideo }) => {
             <span className="text-sm font-medium">Change file</span>
           ) : (
             <span className="text-sm font-medium">
-              Demo video <span className="text-red-500">*</span>
+              Chapter video <span className="text-red-500">*</span>
             </span>
           )}
           <div className="w-full h-fit">
@@ -63,7 +62,7 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideo }) => {
                   {selectedVideo ? (
                     <>
                       <span className="hidden md:flex justify-center items-center text-[14px]">
-                        {typeof selectedVideo == "string" ? <span>{selectedVideo}</span> : <span>{selectedVideo.name}</span>}
+                        {selectedVideo.name}
                       </span>
                     </>
                   ) : (
@@ -92,4 +91,4 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideo }) => {
   );
 };
 
-export default VideoInput
+export default ChapterVideoInput;

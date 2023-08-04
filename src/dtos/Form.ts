@@ -10,4 +10,6 @@ export interface FormValues {
   isPaid?: string;
   price?: string;
   level?: string;
+  chapterTitle?: string
+  chapterDescription?: string
 }

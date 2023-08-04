@@ -29,6 +29,7 @@ const PriceInput: React.FC<InputProps> = ({
               className="border text-[14px] p-2  w-full rounded-md outline-none shadow-md"
               name="price"
               id="price"
+              value={sessionState.price}
               onChange={setSessionState}
             />
           ) : (

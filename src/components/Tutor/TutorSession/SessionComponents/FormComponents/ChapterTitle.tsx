@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
-import { FormValues } from '../../../../../dtos/Form';
 
+import { FormValues } from "../../../../../dtos/Form";
 interface InputProps {
   sessionState: FormValues;
   setSessionState: (
@@ -10,22 +10,22 @@ interface InputProps {
   ) => void;
 }
 
-const TitleInput: React.FC<InputProps> = ({ sessionState ,setSessionState}) => {
+const ChapterTitle: React.FC<InputProps> = ({sessionState,setSessionState}) => {
   return (
     <>
       <div className="w-full h-fit  flex ">
         <div className="flex flex-col w-full justify-center items-start h-fit p-3">
           <span className="text-sm font-medium">
-            Coursename <span className="text-red-500">*</span>
+            Chapter Title <span className="text-red-500">*</span>
           </span>
           <div className="p-1 w-full h-fit">
             <input
               type="text"
-              placeholder="coursename (max-50)"
+              placeholder="chapter title (max-50)"
               className="border text-[14px] p-2 w-full   rounded-md outline-none shadow-md"
-              name="coursename"
+              name="chapterTitle"
               onChange={setSessionState}
-              value={sessionState.coursename}
+              value={sessionState.chapterTitle}
             />
           </div>
         </div>
@@ -34,4 +34,4 @@ const TitleInput: React.FC<InputProps> = ({ sessionState ,setSessionState}) => {
   );
 };
 
-export default TitleInput
+export default ChapterTitle

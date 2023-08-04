@@ -21,8 +21,8 @@ const DescriptionInput: React.FC<InputProps> = ({sessionState,setSessionState}) 
           </span>
           <div className="p-1 w-full h-fit">
             <textarea
-              placeholder="description"
-              className="border text-[14px] p-2 w-full  h-[130px]   rounded-md outline-none shadow-md"
+              placeholder="description (max-200)"
+              className="border text-[14px] p-2 w-full  h-[100PX]   rounded-md outline-none shadow-md"
               name="description"
               onChange={setSessionState}
               value={sessionState.description}

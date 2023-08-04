@@ -5,17 +5,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
 import { User } from "../../../../dtos/User";
 import { toast } from "react-toastify";
-import { handleUpload } from "../../../../utils/classUpload/handleUpload";
-import LoadingSpinner from "../../../Common/LoadingSpinner/LoadingSpinner";
-import {
-  LanguageSelection,
-  DescriptionInput,
-  IsPaidSelection,
-  VideoInput,
-  LevelSelection,
-  PriceInput,
-  TitleInput,
-} from "../SessionComponents/FormComponents";
+import { courseNameRegex, descriptionRegex, handleUpload } from "../../../../utils/classUpload/handleUpload";
+import { Chapter } from "../../../../dtos/Course";
+import AddChapter from "./AddComponents/AddChapter";
+import AddCourse from "./AddComponents/AddCourse";
 
 
 const TutorSession: React.FC = () => {
@@ -27,77 +20,68 @@ const TutorSession: React.FC = () => {
     price: "0",
     description: "",
   } as FormValues);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [selectedOverview, setSelectedOverview] = useState<File|null>(null);
-  const setVideo = (file: File) => { setSelectedOverview(file);};
+
+  const [chapterState, setChapterState, clearChapterState] = HandleForm({
+    chapterTitle: "",
+    chapterDescription:""
+  } as FormValues)
+
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
+  const onUploadProgress = (progress: number) => { setUploadProgress(progress) }
+  const [selectedDemo, setSelectedDemo] = useState<File | null>(null);
+  const setVideo = (file: File) => { setSelectedDemo(file); };
+  
+  const [chapters, setChapters] = useState<Chapter[] | []>([]);
+  const [chapterVideo, setChapterVideo] = useState<File|null>(null);
+  const setChVideo = (file: File) => { setChapterVideo(file) };
+
   const [error, setError] = useState<string>("");
   const setErr = (error: string) => setError(error);
+
+  const addChapter = () => {
+    if (!chapterVideo||!chapterState.chapterDescription || !chapterState.chapterTitle) {setErr("Fill creadential to set chapters"); return;}
+    if (!courseNameRegex.test((chapterState.chapterTitle).trim())) { setErr("Enter Coursename properly"); return; }
+    if (!descriptionRegex.test((chapterState.chapterDescription).trim())) { setErr("Enter Description properly"); return ; }
+    setChapters([...chapters, { title: chapterState.chapterTitle, description: chapterState.chapterDescription, url: chapterVideo  }]);
+    setErr(" ");clearChapterState(); setChapterVideo(null);
+    return;
+  }
+
+  const removeChapter = (index: number) => {
+  setChapters((prevChapters) => prevChapters.filter((_, idx) => idx !== index));
+  };
+
   const user: User | null = useSelector((state: RootState) => state.userReducer.user);
   const userId = user?._id;
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    setLoading(true);
     event.preventDefault();
-    if (
-      !sessionState.coursename ||
-      !sessionState.language ||
-      !sessionState.isPaid ||
-      !sessionState.description ||
-      !sessionState.price||
-      !sessionState.level ||
-      !selectedOverview
-    ) {
-      setLoading(false);
-      setError("Please fill all required fields");
-      return;
+    if (!sessionState.coursename ||!sessionState.language ||!sessionState.isPaid ||
+      !sessionState.description || !sessionState.price||!sessionState.level ||!selectedDemo
+    ) {setError("Please fill all required fields");return;
+    } else if (chapters.length === 0) {setError("Add at leaset one chapter");return;
     }
-    setError("");
-    let isPaid = false;
-    if (sessionState.isPaid === "yes") {
-      isPaid = true;
-    }
-    let price = 0;
-    if (
-      sessionState.price !== "" &&
-      !isNaN(parseInt(sessionState.price)) &&
-      parseInt(sessionState.price) > 0 &&
-      sessionState.isPaid === "yes"
-    ) {
-      price = parseInt(sessionState.price);
-    }
+    setError("");let isPaid = false; if (sessionState.isPaid === "yes") {isPaid = true;}let price = 0;
+    if (sessionState.price !== "" &&!isNaN(parseInt(sessionState.price)) &&parseInt(sessionState.price) > 0 &&sessionState.isPaid === "yes"
+    ) { price = parseInt(sessionState.price); }
+    const isPost = true;
     handleUpload(
-      {
-        tutor: userId as string,
-        language: sessionState.language,
-        coursename: sessionState.coursename,
-        description: sessionState.description,
-        isPaid: isPaid,
-        level: sessionState.level,
-        price: price,
-      },
-      setErr,
-      selectedOverview
+      {tutor: userId as string,language: sessionState.language,coursename: sessionState.coursename,
+        description: sessionState.description,isPaid: isPaid,level: sessionState.level, price: price,
+      },setErr,selectedDemo,chapters,onUploadProgress,isPost
     )
-      .then((res) => {
-        setLoading(false);
-        setSelectedOverview(null);
-        if (res) {
-          clearForm();
-          toast.success("Course registered successfully!, add tutorials", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+      .then((res) => {setSelectedDemo(null);
+        if (res) {clearForm();clearChapterState();
+          toast.success("Course uploaded successfully!", {
+            position: "top-right", autoClose: 3000, hideProgressBar: false,closeOnClick: true,
+            pauseOnHover: true, draggable: true,progress: undefined,});
         }
       })
       .catch((error) => {
         if (error) {
-          setLoading(false);
-        }
-      });
+          toast.success(error as string, {
+            position: "top-right", autoClose: 3000, hideProgressBar: false,closeOnClick: true,
+            pauseOnHover: true, draggable: true,progress: undefined,});
+        }});
   };
 
   return (
@@ -108,26 +92,26 @@ const TutorSession: React.FC = () => {
       >
         <div className="w-full  h-full p-5 overflow-hidden">
           <div className="w-full  h-full border rounded-lg  sm:items-start flex shadow-lg overflow-scroll">
+            <AddCourse selectedVideo={selectedDemo} sessionState={sessionState} setSessionState={setSessionState} setVideo={setVideo}/>
             <div className="flex w-1/2 h-full  flex-col">
-              <TitleInput sessionState={sessionState} setSessionState={setSessionState}
-              />
-              <DescriptionInput sessionState={sessionState} setSessionState={setSessionState}
-              />
-              <VideoInput setVideo={setVideo} selectedVideo={selectedOverview} 
-              />
-            </div>
-            <div className="flex w-1/2 h-full  flex-col">
-              <div className="w-full h-fit  flex flex-col">
-                <LanguageSelection sessionState={sessionState} setSessionState={setSessionState}
+              <>
+                <AddChapter
+                  chapterState={chapterState}
+                  setChapterState={setChapterState}
+                  setChVideo={setChVideo}
+                  chapterVideo={chapterVideo}
+                  chapters={chapters}
+                  removeChapter={removeChapter}
                 />
-                <LevelSelection sessionState={sessionState} setSessionState={setSessionState}
-                />
-              </div>
-              <div className="w-full h-fit  flex">
-                <IsPaidSelection sessionState={sessionState} setSessionState={setSessionState}
-                />
-                <PriceInput sessionState={sessionState} setSessionState={setSessionState}
-                />
+              </>
+              <div className="flex gap-3 w-full h-fit justify-end items-center text-[14px] px-5">
+                <button
+                  className="border py-1 px-5 border-dashed border-gray-500  rounded-full hover:bg-purple-300 transition-all"
+                  type="button"
+                  onClick={() => addChapter()}
+                >
+                  Add
+                </button>
               </div>
               <div className="w-full h-fit  flex pl-1">
                 <div className="flex flex-col w-full justify-center items-center h-fit p-3">
@@ -137,13 +121,19 @@ const TutorSession: React.FC = () => {
                         {error}
                       </div>
                     )}
+                    {uploadProgress > 0 && uploadProgress < 100 && (
+                      <div className="flex justify-center items-center flex-col gap-1">
+                        <p>{`Uploading... ${uploadProgress.toFixed(2)}%`}</p>
+                        <div className="loaderBar"></div>
+                      </div>
+                    )}
                     <button
                       type="submit"
                       className="btn-class border w-full   text-[14px] p-2  mb-5  rounded-md outline-none shadow-md"
                     >
-                      {loading ? (
+                      {uploadProgress < 0 || uploadProgress > 100 ? (
                         <>
-                          <LoadingSpinner /> <span>Please wait</span>
+                          <span>Please wait</span>
                         </>
                       ) : (
                         "Submit"

@@ -33,7 +33,7 @@ function App() {
     </Route>
     <Route path="/tutor" element={<ProtectedRoute element={<TutorPage />} allowedRoles={["tutor"]} />}>
       <Route index={true} element={<TutorHome />} />
-      <Route path="session" element={<TutorSessionGate />} />
+      <Route path="section" element={<TutorSessionGate />} />
     </Route>
     <Route path="/login" element={<AuthProtected element={<LoginPage />} />} />
     <Route path="/register" element={<AuthProtected element={<SignupPage />} />} />

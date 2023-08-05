@@ -48,7 +48,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
         <div className="flex flex-col items-center justify-start w-full ">
           <div className="w-full flex gap-2 items-center">
             <div className="flex p-2 ">
-              <img src={tutor?.profile} alt="" className="w-7 h-7 rounded-md" />
+              <img src={tutor?.profile} alt="tutor-profile" className="w-7 h-7 rounded-md" />
             </div>
             <div className="flex">
               <span className="flex flex-wrap text-[14px]">

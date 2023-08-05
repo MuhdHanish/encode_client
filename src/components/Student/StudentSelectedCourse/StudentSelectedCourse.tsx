@@ -3,10 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { getSelectedCourse } from "../../../utils/courseUtils";
 import { Course } from "../../../dtos/Course";
+import { User } from "../../../dtos/User";
+import PlayList from "./PlayList/PlayList";
+
 
 const StudentSelectedCourse: React.FC = () => {
   const dispatch = useDispatch();
   const [course, setSelectedCourse] = useState<Course | null>(null);
+  const [tutor,setTutor] = useState<User|null>(null)
   const [selectedChapter, setSelectedChapter] = useState<number >(0);
   const selectedCourseId = useSelector((state: RootState) => state.userReducer.selectedCourseId);
 
@@ -14,36 +18,56 @@ const StudentSelectedCourse: React.FC = () => {
     getSelectedCourse(selectedCourseId as string)
       .then((res) => {
         setSelectedCourse(res as Course);
+        setTutor(res?.tutor as User);
       })
       .catch((err) => console.log(err));
   }, [selectedCourseId]);
   useEffect(() => {
     setCourseDetails();
   }
-  , [setCourseDetails,dispatch]);
+    , [setCourseDetails, dispatch]);
 
   return (
     <div className="flex flex-col md:flex-row justify-center items-center w-full h-full overflow-hidden bg-white">
       <div className="flex w-full h-full flex-col overflow-y-scroll">
-        <div className="flex flex-col justify-center items-center w-full h-fit">
-          <div className="flex w-full  justify-start items-center px-10 py-5 h-fit text-xl font-semibold ">
-            {course?.coursename}
-          </div>
-        </div>
-        <div className="flex flex-col md:flex-row justify-center items-center w-full h-fit">
-          <div className="flex flex-col justify-start items-center w-full md:w-2/2  px-10  mb-6 h-full">
-            <div className="flex  border ">
-              <video
-                src={`${import.meta.env.VITE_BUCKET_BASE_URL as string}/${
-                  course?.chapters?.[selectedChapter]?.url as string
-                }`}
-                autoPlay
-                controls
-                controlsList="nodownload"
-              ></video>
+
+        <div className="flex flex-col justify-center items-center w-full py-5 h-fit ">
+          <div className="flex w-full flex-col lg:flex-row h-full px-10 gap-5 mb-7">
+            <div className="flex flex-col justify-start items-center w-full lg:w-2/3  h-full gap-3 text-medium ">
+              <div className="flex  border w-full h-full">
+                <video
+                  className="w-full h-full"
+                  src={`${import.meta.env.VITE_BUCKET_BASE_URL as string}/${
+                    course?.chapters?.[selectedChapter]?.url as string
+                  }`}
+                  autoPlay
+                  controls
+                  controlsList="nodownload"
+                ></video>
+              </div>
+              <div className="flex flex-col  w-full h-full gap-5">
+                <div className="flex w-full  justify-start items-center h-fit text-lg font-medium ">
+                  {course?.chapters?.[selectedChapter]?.title}
+                </div>
+                <div className="flex w-full  justify-start items-center h-fit text-sm ">
+                  {course?.chapters?.[selectedChapter]?.description}
+                </div>
+                 <div className="flex w-full  justify-start items-center h-fit text-lg font-medium gap-2 ">
+                  <div className="w-8 h-8 rounded-sm">
+                    <img src={tutor?.profile} className="w-full h-full rounded-sm" alt="" />
+                  </div>
+                  <div className="w-fit h-fit text-[13px]">
+                   {tutor?.username}
+                  </div>
+                 </div>
+              </div>
             </div>
+            <PlayList
+              course={course as Course}
+              selectedChapter={selectedChapter}
+              setSelectedChapter={setSelectedChapter}
+            />
           </div>
-          <div className="flex flex-col justify-start items-center w-full md:w-1/2  h-fit  gap-3 text-medium "></div>
         </div>
       </div>
     </div>
@@ -51,47 +75,3 @@ const StudentSelectedCourse: React.FC = () => {
 };
 
 export default StudentSelectedCourse;
-
-
-      {
-        /* <div className="flex flex-col w-full justify-center items-center  h-full md:w-2/3  p-3"> */
-      }
-      {
-        /* <div className="border w-full my-5 h-96 ">
-          {course && (
-            <video
-              ref={videoRef}
-              className="w-full h-full object-cover "
-              src={`${
-                import.meta.env.VITE_BUCKET_BASE_URL as string
-              }/${"course.video"}`}
-              controls
-              controlsList="nodownload"
-            ></video>
-          )}
-        </div> */
-      }
-      {
-        /* </div> */
-      }
-      {
-        /* <div className="flex flex-col w-full h-96 justify-center  md:w-1/3 bg-white my-5 px-5 ">
-        {course && (
-          <>
-            <h1 className="text-xl font-semibold mb-4">{course.coursename}</h1>
-            <div className="text-sm text-gray-500 mb-4">
-              {course.description}
-            </div>
-            <div className="text-sm text-gray-500">Level: {course.level}</div>
-          </>
-        )}
-      </div> */
-      }
-      {
-        /* {(course?.rating as number) > 0 && (
-        <div className="flex gap-2 p-2 items-center">
-          <span className="text-[18px`]">{course?.rating}</span>
-          <StarRating rating={course?.rating as number} />
-        </div>
-      )} */
-      }

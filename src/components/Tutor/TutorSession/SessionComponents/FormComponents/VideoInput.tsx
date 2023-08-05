@@ -20,7 +20,6 @@ const VideoInput: React.FC<InputRef> = ({ setVideo, selectedVideo }) => {
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
   };
-  console.log(selectedVideo)
   return (
     <>
       {

@@ -6,6 +6,7 @@ import { Course } from "../../../dtos/Course";
 import FirstBox from "./FirstBox/FirstBox";
 import CourseDetails from "./CourseDetails/CourseDetails";
 import { GoLock, GoUnlock } from "react-icons/go";
+import Duration from "./Duration/Duration";
 
 const StudentSelectedCourseGate: React.FC = () => {
   const dispatch = useDispatch();
@@ -39,8 +40,9 @@ const StudentSelectedCourseGate: React.FC = () => {
           <div className="flex w-full  justify-center items-center  h-fit mt-6">
             <div className="flex w-full flex-col lg:flex-row h-fit px-10 py-6 gap-5 ">
               <div className="flex flex-col justify-start items-center w-full lg:w-1/2  h-full  gap-3 text-medium ">
-                <div className="flex  border ">
+                <div className="flex  border w-full h-full">
                   <video
+                    className="w-full h-full"
                     src={`${import.meta.env.VITE_BUCKET_BASE_URL as string}/${
                       course?.demoUrl as string
                     }`}
@@ -56,14 +58,19 @@ const StudentSelectedCourseGate: React.FC = () => {
                 </div>
                 <div className="flex flex-col gap-3 w-full h-full justify-center sm:px-10  ">
                   <div
-                    className="flex w-full h-fit p-3   justify-start px-10 items-center bg-primary 
-                  bg-opacity-70 gap-5 rounded  border text-white shadow-md "
+                    className="flex w-full h-fit p-3   justify-between px-10 items-center bg-primary 
+                   rounded  border text-white shadow-md "
                   >
-                    <button>
-                      <GoUnlock style={{ fontSize: "15px" }} />
-                    </button>
-                    <span className="text-[13px] text-shadow-black">
-                      Course Overview
+                    <span className="flex justify-center items-center gap-5">
+                      <button>
+                        <GoUnlock style={{ fontSize: "15px" }} />
+                      </button>
+                      <span className="text-[13px] text-shadow-black">
+                        Course Overview
+                      </span>
+                    </span>
+                    <span className="text-[12px] text-shadow-black">
+                      <Duration url={course?.demoUrl as string} />
                     </span>
                   </div>
                   {course?.chapters?.map((chapter, idx) => (
@@ -72,16 +79,21 @@ const StudentSelectedCourseGate: React.FC = () => {
                       key={idx}
                     >
                       <div
-                        className="flex w-full h-fit p-3   justify-start px-10 items-center gap-5 rounded border
+                        className="flex w-full h-fit p-3   justify-between px-10 items-center gap-5 rounded border
                       hover:translate-x-1 hover:-translate-y-1
                       hover:first-letter:bg-opacity-70 text-black
                         hover:bg-primary  cursor-pointer transition duration-300 shadow-md hover:text-white "
                       >
-                        <button>
-                          <GoLock style={{ fontSize: "15px" }} />
-                        </button>
-                        <span className="text-[13px] text-shadow-black">
-                          {chapter.title}
+                        <span className="flex justify-center items-center gap-5">
+                          <button>
+                            <GoLock style={{ fontSize: "15px" }} />
+                          </button>
+                          <span className="text-[13px] text-shadow-black">
+                            {chapter.title}
+                          </span>
+                        </span>
+                        <span className="text-[12px] text-shadow-black">
+                          <Duration url={chapter.url as string} />
                         </span>
                       </div>
                     </div>

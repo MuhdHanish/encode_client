@@ -23,7 +23,7 @@ const NavBar: React.FC<NavProps> = ({ isTutor }) => {
             {isTutor ? "Dashboard" : "Progress"}
           </NavLink>
           <NavLink
-            to={isTutor ? "/tutor/session" : "/catalog"}
+            to={isTutor ? "/tutor/section" : "/catalog"}
             className={`flex h-full justify-center items-center border-b-2 pt-2 transition ease-in-out border-transparent duration-300 `}>
             {isTutor ? "Section" : "Catalog"}
           </NavLink>

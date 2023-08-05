@@ -1,5 +1,5 @@
 import { User } from "./dtos/User";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { saveUser } from "./redux/userSlice/userSlice";
 import { LoginPage, SignupPage, StudentPage,  TutorPage  } from "./pages";
@@ -7,7 +7,6 @@ import AuthProtected from "./components/Common/ProtectedRoute/AuthProtected";
 import ProtectedRoute from "./components/Common/ProtectedRoute/ProtectedRoute";
 import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCourseGate } from "./components/Student";
 import { TutorHome, TutorSessionGate } from "./components/Tutor";
-import { RootState } from "./redux/store";
 import { useCallback, useEffect } from "react";
 
 function App() {
@@ -23,24 +22,24 @@ function App() {
     saveUserFromLocalStorage(); 
   }, [saveUserFromLocalStorage]);
 
-  const { selectedCourseId } = useSelector((state: RootState) => state.userReducer);
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<ProtectedRoute element={<StudentPage />} allowedRoles={["student"]} />} >
-           <Route index={true} element={<StudentHome/>}/>
-          <Route path="catalog" element={<StudentCatalog />} />
-          <Route path={`course/${selectedCourseId as string}`} element={<StudentSelectedCourseGate/>} />
-          <Route path={`course/started/${selectedCourseId as string}`} element={<StudentSelectedCourse/>} />
-        </Route>
-        <Route path="/tutor" element={<ProtectedRoute element={<TutorPage />} allowedRoles={["tutor"]} />}>
-          <Route index={true} element={<TutorHome/>}/>
-          <Route path="session" element={<TutorSessionGate/>}/>
-        </Route>
-        <Route path="/login" element={<AuthProtected element={<LoginPage />} />}/>
-        <Route path="/register"element={<AuthProtected element={<SignupPage />} />} />
-      </Routes>
-    </>
+<>
+  <Routes>
+    <Route path="/" element={<ProtectedRoute element={<StudentPage />} allowedRoles={["student"]} />} >
+      <Route index={true} element={<StudentHome />} />
+      <Route path="catalog" element={<StudentCatalog />} />
+      <Route path="course/:selectedCourseId" element={<StudentSelectedCourseGate />} />
+      <Route path="selected/course/:selectedCourseId" element={<StudentSelectedCourse />} />
+    </Route>
+    <Route path="/tutor" element={<ProtectedRoute element={<TutorPage />} allowedRoles={["tutor"]} />}>
+      <Route index={true} element={<TutorHome />} />
+      <Route path="session" element={<TutorSessionGate />} />
+    </Route>
+    <Route path="/login" element={<AuthProtected element={<LoginPage />} />} />
+    <Route path="/register" element={<AuthProtected element={<SignupPage />} />} />
+  </Routes>
+</>
+
   );
 }
 export default App;

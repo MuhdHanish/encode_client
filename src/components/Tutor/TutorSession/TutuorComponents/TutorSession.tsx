@@ -91,7 +91,7 @@ const TutorSession: React.FC = () => {
         className="bg-white w-full  h-full flex justify-center items-center overflow-hidden relative "
       >
         <div className="w-full  h-full p-5 overflow-hidden">
-          <div className="w-full  h-full border rounded-lg  sm:items-start flex shadow-lg overflow-scroll">
+          <div className="w-full  h-full border   sm:items-start flex shadow-lg overflow-scroll">
             <AddCourse selectedVideo={selectedDemo} sessionState={sessionState} setSessionState={setSessionState} setVideo={setVideo}/>
             <div className="flex w-1/2 h-full  flex-col">
               <>

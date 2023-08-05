@@ -15,11 +15,11 @@ const BottumNav: React.FC<BottumNavProps> = ({
   const getMenuIcon = (index: number) => {
     switch (index) {
       case 0:
-        return <AiOutlinePlus style={{ fontSize: "26px", color: "#9C4DF4" }} />;
+        return <AiOutlinePlus style={{ fontSize: "26px" }} />;
       case 1:
-        return <LuImagePlus style={{ fontSize: "26px", color: "#9C4DF4" }} />;
+        return <LuImagePlus style={{ fontSize: "26px"}} />;
       case 2:
-        return <BsHeadset style={{ fontSize: "26px", color: "#9C4DF4" }} />;
+        return <BsHeadset style={{ fontSize: "26px"}} />;
       default:
         return null;
     }
@@ -32,11 +32,11 @@ const BottumNav: React.FC<BottumNavProps> = ({
           <div
             key={index}
             onClick={() => setSessionMode(index)}
-            className={`w-12 h-12 rounded-md ${
+            className={`w-12 h-12 rounded-full ${
               sessionMode === index
-                ? "-translate-y-6 shadow-2xl border-primary"
-                : " -translate-y-0"
-            }  flex items-center duration-500 justify-center border-2  bg-white cursor-pointer relative shadow-`}
+                ? "bg-primary text-white shadow-2xl  border-primary"
+                : " bg-white  text-primary"
+            }  flex items-center duration-700 justify-center border-2 transition-all   cursor-pointer relative `}
             title={
               index === 0 ? "Add Course" : index === 1 ? "Manage" : "On Live"
             }

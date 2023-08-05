@@ -11,7 +11,7 @@ interface FirstBoxProps {
 const FirstBox:React.FC<FirstBoxProps> = ({course}) => {
   return (
     <>
-      <div className="flex  justify-around items-center w-full lg:w-1/2   h-fit   bg-white p-7 text-medium">
+      <div className="flex  justify-around items-center w-full border  h-fit   bg-white p-4 text-medium">
         <div className="w-fit h-fit flex  ">
           <div className="flex justify-center items-center gap-2">
             <span>
@@ -33,7 +33,10 @@ const FirstBox:React.FC<FirstBoxProps> = ({course}) => {
             <div className="font-semibold flex flex-col justify-center items-center ">
               <span className="font-normal text-[12px]">Duration</span>
               <span className="text-[13px] sm:text-[16px]">
-                {course?.videos?.length} videos
+                <span>
+                  {course?.chapters?.length}{" "}
+                  {course?.chapters?.length === 1 ? "Chapter" : "Chapters"}
+                </span>
               </span>
             </div>
           </div>

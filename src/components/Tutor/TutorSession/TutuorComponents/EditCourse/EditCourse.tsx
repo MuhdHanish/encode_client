@@ -30,7 +30,7 @@ const EditCourse: React.FC = () => {
           {courses?.map((course, idx) => (
             <div
               key={idx}
-              className="flex h-fit whitespace-normal  border justify-between items-start  flex-col  gap-3  border-dashed border-gray-400  p-3 "
+              className="flex h-fit whitespace-normal  border justify-between items-start  flex-col  gap-3     p-3 "
             >
               <div className="flex flex-wrap justify-center items-center">
                 {course.coursename}
@@ -48,7 +48,7 @@ const EditCourse: React.FC = () => {
               </div>
               <div className="flex  w-full h-fit   justify-end text-[13px]">
                 <button
-                  className="flex gap-3 border p-2 border-gray-400 border-dashed   transition duration-500 hover:scale-105"
+                  className="flex gap-3 border p-2 border-gray-300 border-dashed   transition duration-500 hover:scale-105"
                   onClick={() => {setSelectedCourse(course),setIsOpen(true)}}
                 >
                   <span>Edit</span>

@@ -1,16 +1,13 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { getSelectedCourse } from "../../../utils/courseUtils";
 import { Course } from "../../../dtos/Course";
 
-import { GoLock } from "react-icons/go";
-import StarRating from "../../Common/StarRating/StarRating";
-
 const StudentSelectedCourse: React.FC = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
   const dispatch = useDispatch();
   const [course, setSelectedCourse] = useState<Course | null>(null);
+  const [selectedChapter, setSelectedChapter] = useState<number >(0);
   const selectedCourseId = useSelector((state: RootState) => state.userReducer.selectedCourseId);
 
   const setCourseDetails = useCallback(() => {
@@ -26,9 +23,41 @@ const StudentSelectedCourse: React.FC = () => {
   , [setCourseDetails,dispatch]);
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center w-full h-full ">
-      <div className="flex flex-col w-full justify-center items-center  h-full md:w-2/3  p-3">
-        <div className="border w-full my-5 h-96 ">
+    <div className="flex flex-col md:flex-row justify-center items-center w-full h-full overflow-hidden bg-white">
+      <div className="flex w-full h-full flex-col overflow-y-scroll">
+        <div className="flex flex-col justify-center items-center w-full h-fit">
+          <div className="flex w-full  justify-start items-center px-10 py-5 h-fit text-xl font-semibold ">
+            {course?.coursename}
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row justify-center items-center w-full h-fit">
+          <div className="flex flex-col justify-start items-center w-full md:w-2/2  px-10  mb-6 h-full">
+            <div className="flex  border ">
+              <video
+                src={`${import.meta.env.VITE_BUCKET_BASE_URL as string}/${
+                  course?.chapters?.[selectedChapter]?.url as string
+                }`}
+                autoPlay
+                controls
+                controlsList="nodownload"
+              ></video>
+            </div>
+          </div>
+          <div className="flex flex-col justify-start items-center w-full md:w-1/2  h-fit  gap-3 text-medium "></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default StudentSelectedCourse;
+
+
+      {
+        /* <div className="flex flex-col w-full justify-center items-center  h-full md:w-2/3  p-3"> */
+      }
+      {
+        /* <div className="border w-full my-5 h-96 ">
           {course && (
             <video
               ref={videoRef}
@@ -40,9 +69,13 @@ const StudentSelectedCourse: React.FC = () => {
               controlsList="nodownload"
             ></video>
           )}
-        </div>
-      </div>
-      <div className="flex flex-col w-full h-96 justify-center  md:w-1/3 bg-white my-5 px-5 ">
+        </div> */
+      }
+      {
+        /* </div> */
+      }
+      {
+        /* <div className="flex flex-col w-full h-96 justify-center  md:w-1/3 bg-white my-5 px-5 ">
         {course && (
           <>
             <h1 className="text-xl font-semibold mb-4">{course.coursename}</h1>
@@ -52,15 +85,13 @@ const StudentSelectedCourse: React.FC = () => {
             <div className="text-sm text-gray-500">Level: {course.level}</div>
           </>
         )}
-      </div>
-      {(course?.rating as number) > 0 && (
+      </div> */
+      }
+      {
+        /* {(course?.rating as number) > 0 && (
         <div className="flex gap-2 p-2 items-center">
           <span className="text-[18px`]">{course?.rating}</span>
           <StarRating rating={course?.rating as number} />
         </div>
-      )}
-    </div>
-  );
-};
-
-export default StudentSelectedCourse;
+      )} */
+      }

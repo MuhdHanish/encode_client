@@ -3,6 +3,7 @@ import { Course } from '../../../../dtos/Course'
 import { GoLock } from "react-icons/go";
 import StarRating from "../../../Common/StarRating/StarRating";
 import { User } from "../../../../dtos/User";
+import { useNavigate } from 'react-router-dom';
 
 interface CourseDetailsProps {
   course:Course
@@ -10,6 +11,7 @@ interface CourseDetailsProps {
 
 const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
   const [tutor, setTutor] = useState<User | null>(null);
+  const navigate = useNavigate();
   useEffect(() => {
     setTutor(course?.tutor as User);
   },[course])
@@ -46,7 +48,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
         <div className="flex flex-col items-center justify-start w-full ">
           <div className="w-full flex gap-2 items-center">
             <div className="flex p-2 ">
-              <img src={tutor?.profile } alt="" className="w-7 h-7 rounded-md" />
+              <img src={tutor?.profile} alt="" className="w-7 h-7 rounded-md" />
             </div>
             <div className="flex">
               <span className="flex flex-wrap text-[14px]">
@@ -67,7 +69,14 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
           <div className="flex flex-wrap w-fit h-fit text-md font-normal">
             {(course?.price as number) > 0 ? (
               <div>
-                <button className="btn-class min-w-[250px]  flex items-center justify-center gap-2">
+                <button
+                  className="btn-class min-w-[250px]  flex items-center justify-center gap-2"
+                  onClick={() =>
+                    navigate(`/selected/course/${course._id as string}`, {
+                      replace: true,
+                    })
+                  }
+                >
                   <span className="text-shadow-black">
                     <GoLock />
                   </span>
@@ -76,14 +85,21 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
               </div>
             ) : (
               <div>
-                <button className="btn-class min-w-[250px]  flex items-center justify-center gap-2">
+                <button
+                  className="btn-class min-w-[250px]  flex items-center justify-center gap-2"
+                  onClick={() =>
+                    navigate(`/selected/course/${course._id as string}`, {
+                      replace: true,
+                    })
+                  }
+                >
                   <span>Start</span>
                 </button>
               </div>
             )}
           </div>
         </div>
-        </div>
+      </div>
     </>
   );
 }

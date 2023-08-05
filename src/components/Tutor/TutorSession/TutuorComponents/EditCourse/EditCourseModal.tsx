@@ -17,7 +17,6 @@ interface ModalProps {
 }
 
 const EditCourseModal: React.FC<ModalProps> = ({ selectedCourse, setIsOpen }) => {
-  console.log(selectedCourse)
    const [sessionState, setSessionState, clearForm] = HandleForm({
      coursename: selectedCourse.coursename,
      language: selectedCourse.language,

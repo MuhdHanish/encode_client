@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/Common/ProtectedRoute/ProtectedRoute";
 import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCourseGate } from "./components/Student";
 import { TutorHome, TutorSessionGate } from "./components/Tutor";
 import { useCallback, useEffect } from "react";
+import TutorSelectedCourse from "./components/Tutor/TutorSession/TutuorComponents/EditCourse/TutorSelectedCourse/TutorSelectedCourse";
 
 function App() {
   
@@ -34,6 +35,7 @@ function App() {
     <Route path="/tutor" element={<ProtectedRoute element={<TutorPage />} allowedRoles={["tutor"]} />}>
       <Route index={true} element={<TutorHome />} />
       <Route path="section" element={<TutorSessionGate />} />
+      <Route path="selected/course/:selectedCourseId" element={<TutorSelectedCourse/>} />
     </Route>
     <Route path="/login" element={<AuthProtected element={<LoginPage />} />} />
     <Route path="/register" element={<AuthProtected element={<SignupPage />} />} />

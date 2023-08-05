@@ -1,16 +1,19 @@
 import React, { useState , useCallback, useEffect} from 'react'
 import { Course } from '../../../../../dtos/Course'
 import { getTutorCourse } from '../../../../../utils/courseUtils';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../../../redux/store';
 import { TbEdit } from "react-icons/tb";
 import { User } from '../../../../../dtos/User';
 import EditCourseModal from './EditCourseModal';
+import { useNavigate } from 'react-router-dom';
+import { setSelectedCourseId } from '../../../../../redux/userSlice/userSlice';
 
 const EditCourse: React.FC = () => {
   const [courses, setCourses] = useState<Course[] | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const user: User | null = useSelector((state: RootState) => state.userReducer.user);
+  const dispatch = useDispatch();
   const userId = user?._id;
     const fetchCourses = useCallback(() => {
       getTutorCourse(userId as string)
@@ -23,6 +26,7 @@ const EditCourse: React.FC = () => {
       fetchCourses();
     }, [fetchCourses]);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const navigate = useNavigate();
   return (
     <div className="bg-white w-full  h-full flex justify-center items-center overflow-hidden relative ">
       <div className="w-full  h-full p-5 overflow-hidden  overflow-y-scroll">
@@ -30,12 +34,24 @@ const EditCourse: React.FC = () => {
           {courses?.map((course, idx) => (
             <div
               key={idx}
-              className="flex h-fit whitespace-normal  border justify-between items-start  flex-col  gap-3     p-3 "
+              className="flex h-fit whitespace-normal  border justify-between items-start  flex-col  gap-3   p-3 "
             >
-              <div className="flex flex-wrap justify-center items-center">
+              <div
+                className="flex flex-wrap justify-center items-center cursor-pointer"
+                onClick={() => {
+                  dispatch(setSelectedCourseId(course?._id as string)),
+                    navigate(`/tutor/selected/course/${course?._id as string}`);
+                }}
+              >
                 {course.coursename}
               </div>
-              <div className="flex flex-wrap justify-center items-center text-[12px] gap-2">
+              <div
+                className="flex flex-wrap justify-center items-center text-[12px] gap-2 cursor-pointer"
+                onClick={() => {
+                  dispatch(setSelectedCourseId(course?._id as string)),
+                    navigate(`/tutor/selected/course/${course?._id as string}`);
+                }}
+              >
                 <span>{course.language}</span>|<span>{course.level}</span>|
                 {course.chapters?.length && course.chapters.length === 1 ? (
                   <span>{course.chapters?.length} chapter</span>
@@ -43,13 +59,21 @@ const EditCourse: React.FC = () => {
                   <span>{course.chapters?.length} chapters</span>
                 )}
               </div>
-              <div className="flex flex-wrap justify-center items-center text-[12px] ">
+              <div
+                className="flex flex-wrap justify-center items-center text-[12px] cursor-pointer"
+                onClick={() => {
+                  dispatch(setSelectedCourseId(course?._id as string)),
+                    navigate(`/tutor/selected/course/${course?._id as string}`);
+                }}
+              >
                 {course.description}
               </div>
               <div className="flex  w-full h-fit   justify-end text-[13px]">
                 <button
                   className="flex gap-3 border p-2 border-gray-300 border-dashed   transition duration-500 hover:scale-105"
-                  onClick={() => {setSelectedCourse(course),setIsOpen(true)}}
+                  onClick={() => {
+                    setSelectedCourse(course), setIsOpen(true);
+                  }}
                 >
                   <span>Edit</span>
                   <span>
@@ -62,7 +86,10 @@ const EditCourse: React.FC = () => {
         </div>
       </div>
       {isOpen && (
-        <EditCourseModal selectedCourse={selectedCourse as Course} setIsOpen={setIsOpen} />
+        <EditCourseModal
+          selectedCourse={selectedCourse as Course}
+          setIsOpen={setIsOpen}
+        />
       )}
     </div>
   );

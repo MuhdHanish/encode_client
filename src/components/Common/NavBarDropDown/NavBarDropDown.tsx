@@ -31,7 +31,7 @@ export const NavBarDropDown = () => {
   };
 
   const dropDownItemsClasses = classNames(
-    "text-xs", "font-normal",
+    "text-sm", "font-normal",
     "p-2.5","hover:bg-gray-100",
     "flex","flex-row",
     "gap-1.5","items-center"
@@ -76,9 +76,9 @@ export const NavBarDropDown = () => {
               />
             </div>
             <div className={"w-max"}>
-              <p className={"text-[10px]"}>Logged in as</p>
+              <p className={"text-[11px]"}>Logged in as</p>
               <p className={"text-[13px] "}>
-                {currentUser ? currentUser?.username : "User"}
+                {currentUser  ? currentUser?.username : "User"}
               </p>
             </div>
           </div>

@@ -1,15 +1,15 @@
 import { User } from "./dtos/User";
+import { useCallback, useEffect } from "react";
 import { useDispatch} from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { saveUser } from "./redux/userSlice/userSlice";
-import { LoginPage, SignupPage, StudentPage,  TutorPage  } from "./pages";
+import { AdminPage, LoginPage, SignupPage, StudentPage,  TutorPage  } from "./pages";
 import AuthProtected from "./components/Common/ProtectedRoute/AuthProtected";
 import ProtectedRoute from "./components/Common/ProtectedRoute/ProtectedRoute";
 import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCourseGate } from "./components/Student";
-import { TutorHome, TutorSessionGate } from "./components/Tutor";
-import { useCallback, useEffect } from "react";
-import TutorSelectedCourse from "./components/Tutor/TutorSession/TutuorComponents/EditCourse/TutorSelectedCourse/TutorSelectedCourse";
+import { TutorHome, TutorSelectedCourse, TutorSessionGate } from "./components/Tutor";
 import { CourseProtectedCaseOne, CourseProtectedCaseTwo } from "./components/Common/ProtectedCourseRoute/ProtetedCourseRoute";
+import { AdminHome } from "./components/admin";
 
 function App() {
   
@@ -37,6 +37,12 @@ function App() {
       <Route index={true} element={<TutorHome />} />
       <Route path="section" element={<TutorSessionGate />} />
       <Route path="selected/course/:selectedCourseId" element={<TutorSelectedCourse/>} />
+    </Route>
+    <Route path="/admin" element={<ProtectedRoute element={<AdminPage />} allowedRoles={["admin"]} />}>
+      <Route index={true} element={<AdminHome/>} />
+      <Route path="users" element={<AdminHome/>} />
+      <Route path="courses" element={<AdminHome/>} />
+      <Route path="languages" element={<AdminHome/>} />
     </Route>
     <Route path="/login" element={<AuthProtected element={<LoginPage />} />} />
     <Route path="/register" element={<AuthProtected element={<SignupPage />} />} />

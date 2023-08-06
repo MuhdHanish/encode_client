@@ -18,4 +18,5 @@ export interface Course {
   rating?: number;
   demoUrl?: string;
   chapters?: Chapter[];
+  students?: string[];
 }

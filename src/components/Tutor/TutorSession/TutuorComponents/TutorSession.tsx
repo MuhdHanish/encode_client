@@ -70,7 +70,8 @@ const TutorSession: React.FC = () => {
       },setErr,selectedDemo,chapters,onUploadProgress,isPost
     )
       .then((res) => {setSelectedDemo(null);
-        if (res) {clearForm();clearChapterState();
+        if (res) {
+          clearForm(); clearChapterState(); setChapters([]);
           toast.success("Course uploaded successfully!", {
             position: "top-right", autoClose: 3000, hideProgressBar: false,closeOnClick: true,
             pauseOnHover: true, draggable: true,progress: undefined,});

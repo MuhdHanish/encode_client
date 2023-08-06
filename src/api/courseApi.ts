@@ -1,5 +1,7 @@
 import { Course } from "../dtos/Course";
 import { axiosAuthorized, axiosInstance } from "./config";
+import { setSelectedCourse } from "../redux/userSlice/userSlice";
+import { store } from "../redux/store";
 
 interface ResponseData {
   message?: string;
@@ -55,4 +57,19 @@ const getCourseById = async (id: string): Promise<Course | Error> => {
   }
 };
 
-export { postCourse, getPopularCourses, getCourseById, getTutorCourses, upadteCourse };
+const setStudentToCourse = async ( courseId: string,userId: string,): Promise<Course|null> => {
+  try {
+    const response = await axiosAuthorized.patch(`/set/selected/course`,{courseId,userId});
+    const responseData = response.data as ResponseData;
+    const course =  responseData.course as Course;
+    if (course) {
+      store.dispatch(setSelectedCourse(course));
+      return Promise.resolve(course);
+    }
+    return null;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+export { postCourse, getPopularCourses, getCourseById, getTutorCourses, upadteCourse,setStudentToCourse };

@@ -7,7 +7,7 @@ import { TbEdit } from "react-icons/tb";
 import { User } from '../../../../../dtos/User';
 import EditCourseModal from './EditCourseModal';
 import { useNavigate } from 'react-router-dom';
-import { setSelectedCourseId } from '../../../../../redux/userSlice/userSlice';
+import { setSelectedCourse } from '../../../../../redux/userSlice/userSlice';
 
 const EditCourse: React.FC = () => {
   const [courses, setCourses] = useState<Course[] | null>(null);
@@ -25,7 +25,6 @@ const EditCourse: React.FC = () => {
     useEffect(() => {
       fetchCourses();
     }, [fetchCourses]);
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const navigate = useNavigate();
   return (
     <div className="bg-white w-full  h-full flex justify-center items-center overflow-hidden relative ">
@@ -39,7 +38,7 @@ const EditCourse: React.FC = () => {
               <div
                 className="flex flex-wrap justify-center items-center cursor-pointer"
                 onClick={() => {
-                  dispatch(setSelectedCourseId(course?._id as string)),
+                  dispatch(setSelectedCourse(course)),
                     navigate(`/tutor/selected/course/${course?._id as string}`);
                 }}
               >
@@ -48,7 +47,7 @@ const EditCourse: React.FC = () => {
               <div
                 className="flex flex-wrap justify-center items-center text-[12px] gap-2 cursor-pointer"
                 onClick={() => {
-                  dispatch(setSelectedCourseId(course?._id as string)),
+                  dispatch(setSelectedCourse(course)),
                     navigate(`/tutor/selected/course/${course?._id as string}`);
                 }}
               >
@@ -62,7 +61,7 @@ const EditCourse: React.FC = () => {
               <div
                 className="flex flex-wrap justify-center items-center text-[12px] cursor-pointer"
                 onClick={() => {
-                  dispatch(setSelectedCourseId(course?._id as string)),
+                  dispatch(setSelectedCourse(course)),
                     navigate(`/tutor/selected/course/${course?._id as string}`);
                 }}
               >
@@ -87,7 +86,6 @@ const EditCourse: React.FC = () => {
       </div>
       {isOpen && (
         <EditCourseModal
-          selectedCourse={selectedCourse as Course}
           setIsOpen={setIsOpen}
         />
       )}

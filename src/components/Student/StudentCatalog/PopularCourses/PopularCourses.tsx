@@ -2,7 +2,7 @@ import React,{useCallback} from 'react'
 import { Course } from '../../../../dtos/Course';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setSelectedCourseId } from '../../../../redux/userSlice/userSlice';
+import { setSelectedCourse } from '../../../../redux/userSlice/userSlice';
 
 
 interface PopularCoursesProps {
@@ -27,7 +27,7 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
           >
             <div
               onClick={() => {
-                dispatch(setSelectedCourseId(course._id as string)),
+                dispatch(setSelectedCourse(course)),
                   navigate(`/course/${course._id as string}`);
               }}
               className="w-full md:w-[271px]  border-black bg-white hover:translate-x-1 hover:-translate-y-1 transition border rounded "

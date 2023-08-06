@@ -1,27 +1,14 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {  useState } from "react";
+import { useSelector } from "react-redux";
 import { Course } from "../../../../../../dtos/Course";
 import { RootState } from "../../../../../../redux/store";
-import { getSelectedCourse } from "../../../../../../utils/courseUtils";
 import PlayList from "../../../../../Student/StudentSelectedCourse/PlayList/PlayList";
 
 const TutorSelectedCourse: React.FC = () => {
-  const dispatch = useDispatch();
-  const [course, setSelectedCourse] = useState<Course | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<number>(0);
-  const selectedCourseId = useSelector(
-    (state: RootState) => state.userReducer.selectedCourseId
+  const course = useSelector(
+    (state: RootState) => state.userReducer.selectedCourse
   );
-  const setCourseDetails = useCallback(() => {
-    getSelectedCourse(selectedCourseId as string)
-      .then((res) => {
-        setSelectedCourse(res as Course);
-      })
-      .catch((err) => console.log(err));
-  }, [selectedCourseId]);
-  useEffect(() => {
-    setCourseDetails();
-  }, [setCourseDetails, dispatch]);
 
   return (
     <div className="flex flex-col md:flex-row justify-center items-center w-full h-full overflow-hidden bg-white">

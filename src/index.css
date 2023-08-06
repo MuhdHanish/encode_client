@@ -103,6 +103,7 @@ a.active {
   animation-fill-mode: forwards;
 }
 
+
 @keyframes fillProgress {
   0% {
     width: 0;

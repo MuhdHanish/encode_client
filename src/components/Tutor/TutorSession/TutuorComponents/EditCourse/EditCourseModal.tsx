@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Chapter, Course } from '../../../../../dtos/Course';
+import { Chapter } from '../../../../../dtos/Course';
 import AddChapter from '../AddComponents/AddChapter';
 import AddCourse from '../AddComponents/AddCourse';
 import HandleForm from '../../../../../utils/handleFormState';
@@ -13,17 +13,17 @@ import { BsArrowLeftShort } from 'react-icons/bs';
 
 interface ModalProps {
   setIsOpen: (value:boolean) => void
-  selectedCourse: Course
 }
 
-const EditCourseModal: React.FC<ModalProps> = ({ selectedCourse, setIsOpen }) => {
+const EditCourseModal: React.FC<ModalProps> = ({ setIsOpen }) => {
+   const selectedCourse = useSelector((state:RootState)=>state.userReducer.selectedCourse)
    const [sessionState, setSessionState, clearForm] = HandleForm({
-     coursename: selectedCourse.coursename,
-     language: selectedCourse.language,
-     level: selectedCourse.level,
-     isPaid: selectedCourse.isPaid ? "yes" : "no",
-     price: selectedCourse.price,
-     description: selectedCourse.description,
+     coursename: selectedCourse?.coursename,
+     language: selectedCourse?.language,
+     level: selectedCourse?.level,
+     isPaid: selectedCourse?.isPaid ? "yes" : "no",
+     price: selectedCourse?.price,
+     description: selectedCourse?.description,
    } as FormValues);
 
    const [chapterState, setChapterState, clearChapterState] = HandleForm({
@@ -126,7 +126,7 @@ const EditCourseModal: React.FC<ModalProps> = ({ selectedCourse, setIsOpen }) =>
        price = parseInt(sessionState.price);
      }
      const isPost = false;
-     const _id = selectedCourse._id;
+     const _id = selectedCourse?._id;
      handleUpload(
        {
          tutor: userId as string,
@@ -149,6 +149,7 @@ const EditCourseModal: React.FC<ModalProps> = ({ selectedCourse, setIsOpen }) =>
          if (res) {
            clearForm();
            clearChapterState();
+           setChapters([]);
            toast.success("Course update successfully!", {
              position: "top-right",
              autoClose: 3000,

@@ -11,21 +11,19 @@ import Duration from "./Duration/Duration";
 const StudentSelectedCourseGate: React.FC = () => {
   const dispatch = useDispatch();
   const [course, setSelectedCourse] = useState<Course | null>(null);
-  const selectedCourseId = useSelector(
-    (state: RootState) => state.userReducer.selectedCourseId
+  const courseDetails = useSelector(
+    (state: RootState) => state.userReducer.selectedCourse
   );
   const setCourseDetails = useCallback(() => {
-    getSelectedCourse(selectedCourseId as string)
+    getSelectedCourse(courseDetails?._id as string)
       .then((res) => {
         setSelectedCourse(res as Course);
       })
       .catch((err) => console.log(err));
-  }, [selectedCourseId]);
+  }, [courseDetails?._id]);
   useEffect(() => {
     setCourseDetails();
   }, [setCourseDetails, dispatch]);
-
-  
 
   return (
     <div className="bg-white w-full h-full flex justify-center items-center overflow-hidden">

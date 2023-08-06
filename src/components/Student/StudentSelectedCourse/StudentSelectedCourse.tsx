@@ -1,31 +1,28 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { getSelectedCourse } from "../../../utils/courseUtils";
 import { Course } from "../../../dtos/Course";
 import { User } from "../../../dtos/User";
 import PlayList from "./PlayList/PlayList";
+import { getSelectedCourse } from "../../../utils/courseUtils";
 
 
 const StudentSelectedCourse: React.FC = () => {
-  const dispatch = useDispatch();
-  const [course, setSelectedCourse] = useState<Course | null>(null);
   const [tutor,setTutor] = useState<User|null>(null)
-  const [selectedChapter, setSelectedChapter] = useState<number >(0);
-  const selectedCourseId = useSelector((state: RootState) => state.userReducer.selectedCourseId);
-
+  const [selectedChapter, setSelectedChapter] = useState<number>(0);
+  const [course,setSelectedCourse] = useState<Course|null>(null)
+  const courseDetails = useSelector((state: RootState) => state.userReducer.selectedCourse);
   const setCourseDetails = useCallback(() => {
-    getSelectedCourse(selectedCourseId as string)
+    getSelectedCourse(courseDetails?._id as string)
       .then((res) => {
         setSelectedCourse(res as Course);
         setTutor(res?.tutor as User);
       })
       .catch((err) => console.log(err));
-  }, [selectedCourseId]);
+  }, [courseDetails]);
   useEffect(() => {
     setCourseDetails();
-  }
-    , [setCourseDetails, dispatch]);
+  }, [setCourseDetails]);
 
   return (
     <div className="flex flex-col md:flex-row justify-center items-center w-full h-full overflow-hidden bg-white">

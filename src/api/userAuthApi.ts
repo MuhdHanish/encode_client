@@ -1,5 +1,4 @@
-import { axiosInstance } from "./config";
-
+import {  axiosInstance } from "./config";
 import { store } from "../redux/store";
 import { saveUser } from "../redux/userSlice/userSlice";
 import { User } from "../dtos/User";
@@ -90,4 +89,6 @@ const googleSignup = async (credentialResponse: GoogleCredentialResponse,role:st
   }
 }
 
-export { registerStepOne, registerStepTwo, login, googleLogin, googleSignup };
+
+export {
+  registerStepOne, registerStepTwo, login, googleLogin, googleSignup };

@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
-import { getCourseById, getPopularCourses, getTutorCourses,postCourse, upadteCourse} from "../api/courseApi";
+import { getCourseById, getPopularCourses, getTutorCourses, postCourse, upadteCourse } from "../api/courseApi";
+import { setStudentToCourse } from "../api/courseApi";
 import { Course } from "../dtos/Course";
 
 export const getFullPopularCoruses = async (): Promise<Course[] | Error> => {
@@ -45,6 +46,16 @@ export const getTutorCourse = async (id: string): Promise<Course[] | null> => {
 export const getSelectedCourse = async(id: string): Promise<Course|null> => {
   try {
     const course = (await getCourseById(id)) as Course;
+    return course;
+  } catch (error) {
+    const err = error as AxiosError;
+    return Promise.reject(err);
+  }
+}
+
+export const setCourse = async (courseId: string, userId: string,): Promise<Course | null> => {
+  try {
+    const course = (await setStudentToCourse(courseId, userId)) as Course;
     return course;
   } catch (error) {
     const err = error as AxiosError;

@@ -4,17 +4,30 @@ import { GoLock } from "react-icons/go";
 import StarRating from "../../../Common/StarRating/StarRating";
 import { User } from "../../../../dtos/User";
 import { useNavigate } from 'react-router-dom';
+import PayPal from '../../../PayPal/PayPal';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
+import { setCourse } from '../../../../utils/courseUtils';
 
 interface CourseDetailsProps {
   course:Course
 }
 
 const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
+  const user = useSelector((state: RootState) => state.userReducer.user);
   const [tutor, setTutor] = useState<User | null>(null);
   const navigate = useNavigate();
   useEffect(() => {
     setTutor(course?.tutor as User);
-  },[course])
+  }, [course]);
+  const handleCourseAdd = async () => {
+    const courseDetails = await setCourse(course?._id as string, user?._id as string);
+    if (courseDetails) {
+      navigate(`/selected/course/${course?._id as string}`, {
+        replace: true,
+      });
+    }
+  }
   return (
     <>
       <div className="flex flex-col border w-full h-fit p-10 gap-3 ">
@@ -48,7 +61,11 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
         <div className="flex flex-col items-center justify-start w-full ">
           <div className="w-full flex gap-2 items-center">
             <div className="flex p-2 ">
-              <img src={tutor?.profile} alt="tutor-profile" className="w-7 h-7 rounded-md" />
+              <img
+                src={tutor?.profile}
+                alt="tutor-profile"
+                className="w-7 h-7 rounded-md"
+              />
             </div>
             <div className="flex">
               <span className="flex flex-wrap text-[14px]">
@@ -68,30 +85,20 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
         <div className="flex w-full  sm:w-1/2 h-fit justify-start items-center ">
           <div className="flex flex-wrap w-fit h-fit text-md font-normal">
             {(course?.price as number) > 0 ? (
-              <div>
-                <button
-                  className="btn-class min-w-[250px]  flex items-center justify-center gap-2"
-                  onClick={() =>
-                    navigate(`/selected/course/${course._id as string}`, {
-                      replace: true,
-                    })
-                  }
-                >
+              <div className="flex flex-col gap-2">
+                <button className="btn-class min-w-[250px]  flex items-center justify-center gap-2">
                   <span className="text-shadow-black">
                     <GoLock />
                   </span>
                   <span>Purchase & Start</span>
                 </button>
+                <PayPal course={course} handleAddcourse={handleCourseAdd} />
               </div>
             ) : (
               <div>
                 <button
                   className="btn-class min-w-[250px]  flex items-center justify-center gap-2"
-                  onClick={() =>
-                    navigate(`/selected/course/${course._id as string}`, {
-                      replace: true,
-                    })
-                  }
+                  onClick={() => handleCourseAdd}
                 >
                   <span>Start</span>
                 </button>

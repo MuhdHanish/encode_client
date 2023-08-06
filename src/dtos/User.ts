@@ -4,6 +4,4 @@ export interface User {
   email: string;
   profile: string;
   role: string;
-  seletedCourses?: string[];
-  uploadedCourses?: string[];
 }

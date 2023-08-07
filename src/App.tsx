@@ -1,5 +1,5 @@
 import { User } from "./dtos/User";
-import { useCallback, useEffect } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useDispatch} from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { saveUser } from "./redux/userSlice/userSlice";
@@ -9,7 +9,8 @@ import ProtectedRoute from "./components/Common/ProtectedRoute/ProtectedRoute";
 import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCourseGate } from "./components/Student";
 import { TutorHome, TutorSelectedCourse, TutorSessionGate } from "./components/Tutor";
 import { CourseProtectedCaseOne, CourseProtectedCaseTwo } from "./components/Common/ProtectedCourseRoute/ProtetedCourseRoute";
-import { AdminHome } from "./components/admin";
+import Loader from "./components/Common/Loader/Loader";
+import { AdminHome, CourseList, LanguageList, UsersList } from "./components/admin";
 
 function App() {
   
@@ -23,11 +24,17 @@ function App() {
   useEffect(() => {
     saveUserFromLocalStorage(); 
   }, [saveUserFromLocalStorage]);
+  const [loading, setLoading] = useState<boolean>(true);
+ useEffect(() => {
+  setTimeout(() => setLoading(false), 100);
+  }, []);
 
-  return (
+return loading ? (
+  <Loader />
+) : (
 <>
   <Routes>
-    <Route path="/" element={<ProtectedRoute element={<StudentPage />} allowedRoles={["student"]} />} >
+    <Route path="/" element={<ProtectedRoute element={ <Suspense fallback={<Loader/>}><StudentPage /></Suspense>} allowedRoles={["student"]} />} >
       <Route index={true} element={<StudentHome />} />
       <Route path="catalog" element={<StudentCatalog />} />
       <Route path="course/:selectedCourseId" element={<CourseProtectedCaseOne element={<StudentSelectedCourseGate />} />}  />
@@ -40,9 +47,9 @@ function App() {
     </Route>
     <Route path="/admin" element={<ProtectedRoute element={<AdminPage />} allowedRoles={["admin"]} />}>
       <Route index={true} element={<AdminHome/>} />
-      <Route path="users" element={<AdminHome/>} />
-      <Route path="courses" element={<AdminHome/>} />
-      <Route path="languages" element={<AdminHome/>} />
+      <Route path="users" element={<UsersList/>} />
+      <Route path="courses" element={<CourseList/>} />
+      <Route path="languages" element={<LanguageList/>} />
     </Route>
     <Route path="/login" element={<AuthProtected element={<LoginPage />} />} />
     <Route path="/register" element={<AuthProtected element={<SignupPage />} />} />

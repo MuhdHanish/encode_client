@@ -1,4 +1,4 @@
-import {  axiosInstance } from "./config";
+import {  axiosAuthorized, axiosInstance } from "./config";
 import { store } from "../redux/store";
 import { saveUser } from "../redux/userSlice/userSlice";
 import { User } from "../dtos/User";
@@ -17,6 +17,7 @@ interface UserCredentials {
 interface ResponseData {
  uId?:string,
  user?: User;
+ users?: User[];
  accessToken?: string, 
  refreshToken?: string
 }
@@ -89,6 +90,39 @@ const googleSignup = async (credentialResponse: GoogleCredentialResponse,role:st
   }
 }
 
+const getUsers = async (): Promise<User[]| Error> => {
+  try {
+    const response = await axiosAuthorized.get("/admin/get/users");
+    const { users } = response.data as ResponseData;
+    return Promise.resolve(users as User[]);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+
+const blockUser = async (userId:string): Promise<User | Error> => {
+  try {
+    const response = await axiosAuthorized.patch(`/admin/block/user/${userId}`);
+    const { user } = response.data as ResponseData;
+    return Promise.resolve(user as User);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const unBlockUser = async (userId:string): Promise<User | Error> => {
+  try {
+    const response = await axiosAuthorized.patch(`/admin/unblock/user/${userId}`);
+    const { user } = response.data as ResponseData;
+    return Promise.resolve(user as User);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 
 export {
-  registerStepOne, registerStepTwo, login, googleLogin, googleSignup };
+  registerStepOne, registerStepTwo,
+  login, googleLogin, googleSignup,
+  getUsers, blockUser, unBlockUser
+};

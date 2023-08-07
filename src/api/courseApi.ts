@@ -72,4 +72,35 @@ const setStudentToCourse = async ( courseId: string,userId: string,): Promise<Co
   }
 }
 
-export { postCourse, getPopularCourses, getCourseById, getTutorCourses, upadteCourse,setStudentToCourse };
+const getCourses = async (): Promise<Course[] | Error> => {
+  try {
+    const response = await axiosAuthorized.get("/get/courses");
+    const { courses } = response.data as ResponseData;
+    return Promise.resolve(courses as Course[]);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const unListCourse = async (courseId:string): Promise<Course | Error> => {
+  try {
+    const response = await axiosAuthorized.patch(`/admin/unlist/course/${courseId}`);
+    const { course } = response.data as ResponseData;
+    return Promise.resolve(course as Course);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const listCourse = async (courseId:string): Promise<Course | Error> => {
+  try {
+    const response = await axiosAuthorized.patch(`/admin/list/course/${courseId}`);
+    const { course } = response.data as ResponseData;
+    return Promise.resolve(course as Course);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+
+export { postCourse, getPopularCourses, getCourseById, getTutorCourses, upadteCourse,setStudentToCourse, getCourses, listCourse, unListCourse };

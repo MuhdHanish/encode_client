@@ -4,4 +4,5 @@ export interface User {
   email: string;
   profile: string;
   role: string;
+  status: boolean
 }

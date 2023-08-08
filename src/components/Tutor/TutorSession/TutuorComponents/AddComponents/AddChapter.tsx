@@ -31,7 +31,7 @@ const AddChapter:React.FC<InputProps> = ({chapterState,setChapterState,setChVide
         setSessionState={setChapterState}
       />
       <ChapterVideoInput setVideo={setChVideo} selectedVideo={chapterVideo} />
-      {chapters?.length !== 0 && chapters.length > 0 && (
+      {chapters?.length !== 0 && chapters?.length  > 0 && (
         <div className="flex justify-start items-center w-full flex-wrap h-fit px-5 gap-2">
           {chapters.map((_, idx) => (
             <div

@@ -145,11 +145,9 @@ const EditCourseModal: React.FC<ModalProps> = ({ setIsOpen }) => {
      )
        .then((res) => {
          setLoading(false);
-         setSelectedDemo(null);
          if (res) {
            clearForm();
            clearChapterState();
-           setChapters([]);
            toast.success("Course update successfully!", {
              position: "top-right",
              autoClose: 3000,

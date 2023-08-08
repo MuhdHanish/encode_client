@@ -70,13 +70,11 @@ const EditCourse: React.FC = () => {
               <div className="flex  w-full h-fit   justify-end text-[13px]">
                 <button
                   className="flex gap-3 border p-2 border-gray-300 border-dashed   transition duration-500 hover:scale-105"
-                  onClick={() => {
-                    setSelectedCourse(course), setIsOpen(true);
-                  }}
+                  onClick={() => {dispatch(setSelectedCourse(course)), setIsOpen(true)}}
                 >
                   <span>Edit</span>
                   <span>
-                    <TbEdit style={{ fontSize: "20px " }} />
+                    <TbEdit style={{ fontSize: "16px " }} />
                   </span>
                 </button>
               </div>

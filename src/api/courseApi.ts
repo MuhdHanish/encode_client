@@ -1,5 +1,5 @@
 import { Course } from "../dtos/Course";
-import { axiosAuthorized, axiosInstance } from "./config";
+import { axiosAuthorized } from "./config";
 import { setSelectedCourse } from "../redux/userSlice/userSlice";
 import { store } from "../redux/store";
 

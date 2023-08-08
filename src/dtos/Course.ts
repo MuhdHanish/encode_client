@@ -13,6 +13,7 @@ export interface Course {
   coursename?: string;
   isPaid?: boolean;
   description?: string;
+  status?: boolean|number;
   level?: string;
   price?: number;
   rating?: number;

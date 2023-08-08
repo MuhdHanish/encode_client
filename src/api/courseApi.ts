@@ -29,7 +29,7 @@ const upadteCourse = async (course: Course , _id:string): Promise<Course | Error
 
 const getPopularCourses = async (): Promise<Course[] | Error> => {
   try {
-    const response = await axiosInstance.get('/get/popular/courses');
+    const response = await  axiosAuthorized.get('/get/popular/courses');
     const responseData = response.data as ResponseData;
     return responseData.courses as Course[];
   } catch (error) {
@@ -49,7 +49,7 @@ const getTutorCourses = async (id:string): Promise<Course[] | Error> => {
 
 const getCourseById = async (id: string): Promise<Course | Error> => {
   try {
-    const response = await axiosInstance.get(`/get/course/${id}`);
+    const response = await axiosAuthorized.get(`/get/course/${id}`);
     const responseData = response.data as ResponseData;
     return responseData.course as Course;
   } catch (error) {

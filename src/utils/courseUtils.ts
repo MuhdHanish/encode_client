@@ -73,9 +73,9 @@ export const setCourse = async (courseId: string, userId: string,): Promise<Cour
   }
 }
 
-export const muteCourse = async (courseId: string): Promise<Course | null> => {
+export const listTheCourse = async (courseId: string): Promise<Course | null> => {
   try {
-    const course = (await unListCourse(courseId)) as Course;
+    const course = (await listCourse(courseId)) as Course;
     return course;
   } catch (error) {
     const err = error as AxiosError;
@@ -83,9 +83,9 @@ export const muteCourse = async (courseId: string): Promise<Course | null> => {
   }
 }
 
-export const unMuteCourse = async (courseId: string): Promise<Course | null> => {
+export const unListTheCourse = async (courseId: string): Promise<Course | null> => {
   try {
-    const course = (await listCourse(courseId)) as Course;
+    const course = (await unListCourse(courseId)) as Course;
     return course;
   } catch (error) {
     const err = error as AxiosError;

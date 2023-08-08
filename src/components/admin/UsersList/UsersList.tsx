@@ -34,7 +34,7 @@ const UsersList: React.FC = () => {
         return usernameMatch || emailMatch;
       }
     });
-    setFilteredUserList(filteredList);
+     setFilteredUserList(filteredList);
   }, [searchQuery, users, selectedOption]);
 
   useEffect(() => {

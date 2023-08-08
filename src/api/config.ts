@@ -38,8 +38,6 @@ axiosAuthorized.interceptors.request.use(
   }
 );
 
-let isRefreshing = false;
-
 axiosAuthorized.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
@@ -50,9 +48,7 @@ axiosAuthorized.interceptors.response.use(
       (error.response.data as ErrorData)?.message ===
         "Access forbidden, Invalid token"
     ) {
-      if (!isRefreshing) {
-        isRefreshing = true;
-        return axiosAuthorized
+        return axiosInstance
           .post<ResponseData>("/refresh/token", null, {
             headers: {
               Authorization: `Bearer ${
@@ -69,25 +65,12 @@ axiosAuthorized.interceptors.response.use(
                 "Authorization"
               ] = `Bearer ${accessToken}`;
             }
-            isRefreshing = false;
             return axiosAuthorized(originalRequest!);
           })
           .catch((error) => {
             store.dispatch(logout());
-            isRefreshing = false;
             return Promise.reject(error);
-          });
-      } else {
-        store.dispatch(logout());
-        return new Promise((resolve) => {
-          const interval = setInterval(() => {
-            if (!isRefreshing) {
-              clearInterval(interval);
-              resolve(axiosAuthorized(originalRequest!));
-            }
-          }, 100);
-        });
-      }
+          })
     }
     return Promise.reject(error);
   }

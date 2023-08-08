@@ -46,9 +46,9 @@ const TutorHome: React.FC = () => {
             <div className="flex justify-center items-center w-full h-fit">
               <button
                 className="btn-class min-w-[200px]"
-                onClick={() => navigate("/tutor/session")}
+                onClick={() => navigate("/tutor/section")}
               >
-                Start session
+                Start section
               </button>
             </div>
           </div>

@@ -36,7 +36,7 @@ const AddChapter:React.FC<InputProps> = ({chapterState,setChapterState,setChVide
           {chapters.map((_, idx) => (
             <div
               key={idx}
-              className="flex w-fit h-fit border border-dashed border-gray-400 p-1 rounded-lg gap-2 justify-center items-center flex-wrap text-[14px]"
+              className="flex w-fit h-fit  shadow-md border p-1 rounded-lg gap-2 justify-center items-center flex-wrap text-[14px]"
             >
               <span> {`chapter ${idx + 1}`}</span>
               <button type='button' onClick={() => removeChapter(idx)}><CiCircleRemove style={{ fontSize:'18px'}} /></button>

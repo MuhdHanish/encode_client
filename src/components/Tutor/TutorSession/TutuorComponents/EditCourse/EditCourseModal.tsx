@@ -199,14 +199,16 @@ const EditCourseModal: React.FC<ModalProps> = ({ setIsOpen }) => {
                     removeChapter={removeChapter}
                   />
                 </>
-                <div className="flex gap-3 w-full h-fit justify-end items-center text-[14px] px-5">
-                  <button
-                    className="border py-1 px-5 border-dashed border-gray-500  rounded-full hover:bg-purple-300 transition-all"
-                    type="button"
-                    onClick={() => addChapter()}
-                  >
-                    Add
-                  </button>
+                <div className="flex gap-3 w-full h-fit justify-end items-center text-[14px] px-5 ">
+                  <div className="bg-[#c9c9c8] w-fit h-fit rounded-md">
+                    <button
+                      className="flex gap-3 border px-4 py-1 translate-x-1 -translate-y-1 active:translate-x-0 active:-translate-y-0 shadow-2xl border-slate-200 bg-white rounded-md   transition duration-150 "
+                      type="button"
+                      onClick={() => addChapter()}
+                    >
+                      Add
+                    </button>
+                  </div>
                 </div>
                 <div className="w-full h-fit  flex pl-1">
                   <div className="flex flex-col w-full justify-center items-center h-fit p-3">

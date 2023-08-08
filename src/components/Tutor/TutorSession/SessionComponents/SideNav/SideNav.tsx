@@ -27,22 +27,25 @@ const SideNav: React.FC<SideNavProps> = ({ setSessionMode, sessionMode }) => {
       <div className="left-0 w-13 h-full flex flex-col justify-center items-center z-10">
         <div className="flex flex-col h-full justify-center items-center border shadow-xl   gap-10 p-2 py-8">
           {[0, 1, 2].map((index) => (
-            <div
-              key={index}
-              onClick={() => setSessionMode(index)}
-              className={`w-12 h-12 rounded-full ${
-                sessionMode === index
-                  ? "bg-primary text-white shadow-2xl   "
-                  : " bg-white  text-primary"
-              }  flex items-center duration-700 justify-center border-2 transition-all   cursor-pointer relative`}
-              title={
-                index === 0 ? "Add Course" : index === 1 ? "Manage" : "On Live"
-              }
-            >
-              {getMenuIcon(index)}
-              {sessionMode === index && (
-                <div className="absolute bottom-0 left-1/2 w-6 h-6 rounded-full transform -translate-x-1/2 -rotate-45 z-10 " />
-              )}
+            <div className="bg-[#c9c9c8]  rounded-lg" key={index}>
+              <div
+                onClick={() => setSessionMode(index)}
+                className={`${
+                  sessionMode === index
+                    ? " translate-x-0 -translate-y-0"
+                    : "  translate-x-1 -translate-y-1  shadow-2xl"
+                }  flex items-center duration-700  text-primary border rounded-md 
+                    justify-center  transition-all hover:translate-x-0 hover:-translate-y-0 bg-white  w-12 h-12  cursor-pointer relative`}
+                title={
+                  index === 0
+                    ? "Add Course"
+                    : index === 1
+                    ? "Manage"
+                    : "On Live"
+                }
+              >
+                {getMenuIcon(index)}
+              </div>
             </div>
           ))}
         </div>

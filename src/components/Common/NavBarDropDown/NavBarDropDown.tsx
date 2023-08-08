@@ -84,7 +84,7 @@ export const NavBarDropDown = () => {
           </div>
           <ul className={"w-full flex flex-col cursor-pointer"}>
             <li className={dropDownItemsClasses}>
-              <RxAvatar /> Update Profile
+              <RxAvatar /> Profile
             </li>
             <li className={dropDownItemsClasses}>
               <FiSettings />

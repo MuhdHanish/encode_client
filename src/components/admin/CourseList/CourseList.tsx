@@ -3,7 +3,7 @@ import {
 getFullCoruses,listTheCourse,unListTheCourse
 } from "../../../utils/courseUtils";
 import { Course } from "../../../dtos/Course";
-import { PaidCoruseCard, FreeCoruseCard } from "../../Common/CardCompnent/CardCompoent"; 
+// import { PaidCoruseCard, FreeCoruseCard } from "../../Common/CardCompnent/CardCompoent"; 
 
 const CourseList: React.FC = () => {
   
@@ -70,7 +70,7 @@ const CourseList: React.FC = () => {
         </div>
       </div>
       <div className="flex h-full w-full flex-wrap p-2 justify-start items-start">
-        {filteredCourseList.map((course, idx) => (
+        {/* {filteredCourseList.map((course, idx) => (
           <div className="flex w-fit" key={idx}>
             {
               course.isPaid
@@ -78,7 +78,7 @@ const CourseList: React.FC = () => {
                 : (<FreeCoruseCard course={course} listCourse={listCourse} unListCourse={unLIstCourse}/>)
             }
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );

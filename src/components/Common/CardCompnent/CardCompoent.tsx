@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { User } from "../../../dtos/User";
 import { Course } from "../../../dtos/Course";
+import { BsArrowRightShort } from "react-icons/bs";
 
 interface UserCardProps {
   user: User,
@@ -19,37 +20,52 @@ interface LangaugeCardProps {
     _id?: string;
     languagename?: string;
     description?: string;
-  };
+    status?:boolean
+  }
+  list: (languageId: string) => void;
+  unList: (languageId: string) => void;
 }
 
 export const UsersCard:React.FC<UserCardProps> = ({user,blockUser,unBlockUser}) => {
   const [drop, setDrop] = useState<boolean>(false);
 
  return (
-   <div className="container ">
-     <div className="card2 relative ">
-       {drop && (
-         <div className="absolute left-0.5 top-0.5 w-fti h-fit text-[13px] border  px-2  rounded-br-md">
-           {user.status ? (
-             <button
-               onClick={() => blockUser(user._id)}
-               className="text-danger shadow-sm "
-             >
-               Block
-             </button>
-           ) : (
-             <button
-               onClick={() => unBlockUser(user._id)}
-               className="text-green-400 shadow-sm "
-             >
-               Unblock
-             </button>
-           )}
-         </div>
-       )}
-       <h3>{user.username}</h3>
-       <p className="text-[13px] flex flex-wrap my-1">{user.email}</p>
-       <div className="hit flex justify-start gap-2 text-[12px] my-1">
+   <div className=" relative col-span-1 h-fit border hover:-translate-y-0.5 hover:shadow-lg hover:border-gray-300 transition duration-300 bg-[#f2f8f9] hover:bg-white p-2">
+     {drop && (
+       <div className="absolute left-0.5 top-0.5 w-fti h-fit text-[13px] border  px-2  rounded-br-md">
+         {user.status ? (
+           <button
+             onClick={() => blockUser(user._id)}
+             className="text-danger shadow-sm "
+           >
+             Block
+           </button>
+         ) : (
+           <button
+             onClick={() => unBlockUser(user._id)}
+             className="text-green-400 shadow-sm "
+           >
+             Unblock
+           </button>
+         )}
+       </div>
+     )}
+     <div
+       className="absolute   bg-primary right-0.5 top-0.5 w-fit h-fit text-[13px] border  px-2  rounded-bl-full  shadow-sm"
+       onClick={() => setDrop((state) => !state)}
+     >
+       <button className=" flex justify-center items-center text-white">
+         <BsArrowRightShort style={{ fontSize: "20px" }} />
+       </button>
+     </div>
+     <div className="flex w-full h-fit flex-col flex-wrap text-ellipsis line-clamp-1 gap-1 overflow-auto px-3 pt-7 pb-2">
+       <div className="flex w-full flex-wrap text-sm">
+         <span>{user.username}</span>
+       </div>
+       <div className="flex w-full flex-wrap text-[12px]">
+         <span>{user.email}</span>
+       </div>
+       <div className="w-full h-fit flex-wrap flex justify-start gap-2 text-[12px]">
          <span>{user.role}</span>|
          {user.status ? (
            <span className="text-green-400">active</span>
@@ -57,121 +73,53 @@ export const UsersCard:React.FC<UserCardProps> = ({user,blockUser,unBlockUser}) 
            <span className="text-danger">blocked</span>
          )}
        </div>
-       <div className="go-corner" onClick={() => setDrop((state) => !state)}>
-         <button className="go-arrow">→</button>
-       </div>
      </div>
    </div>
  );
 };
 
-export const LanguageCard:React.FC<LangaugeCardProps> = ({language}) => {
-
- return (
-   <div className="container ">
-     <div className="card2 relative ">
-       <h3>{language.languagename}</h3>
-       <div className="hit flex justify-start gap-2 text-[12px] my-1">
-         <span>{language.description}</span>|
-       </div>
-       <div className="go-corner">
-         <button className="go-arrow">→</button>
-       </div>
-     </div>
-   </div>
- );
-};
-
-export const FreeCoruseCard: React.FC<CourseCardProps> = ({ course, listCourse, unListCourse }) => {
+export const LanguageCard: React.FC<LangaugeCardProps> = ({ language, list, unList }) => {
   const [drop, setDrop] = useState<boolean>(false);
   return (
-    <div className="container">
-      <div className="card2 relative">
-        {drop && (
-          <div className="absolute left-0.5 top-0.5 w-fti h-fit text-[13px] border  px-2  rounded-br-md">
-            {(course.status as boolean) ? (
-              <button
-                onClick={() => listCourse(course?._id as string)}
-                className="text-danger shadow-sm "
-              >
-                Mute
-              </button>
-            ) : (
-              <button
-                onClick={() => unListCourse(course?._id as string)}
-                className="text-green-400 shadow-sm "
-              >
-                Unmute
-              </button>
-            )}
-          </div>
-        )}
-        <h3>{course.coursename}</h3>
-        <p className=" text-[12px] flex line-clamp-1 text-ellipsis">
-          {course.description}
-        </p>
-        <div className="flex w-full h-fit gap-2 text-[12px]">
-         { course.status=== true ? (<span className="text-green-400">Listed</span>) : (<span className="text-danger">Unlisted</span>)}
+    <div className=" relative col-span-1 h-[250px] overflow-scroll border hover:-translate-y-0.5 hover:shadow-lg hover:border-gray-300 transition duration-300 bg-[#f2f8f9] hover:bg-white p-2">
+      {drop && (
+        <div className="absolute left-0.5 top-0.5 w-fti h-fit text-[13px] border  px-2  rounded-br-md">
+          {language.status ? (
+            <button
+              onClick={() => unList(language?._id as string)}
+              className="text-danger shadow-sm "
+            >
+              Block
+            </button>
+          ) : (
+            <button
+              onClick={() => list(language?._id as string)}
+              className="text-green-400 shadow-sm "
+            >
+              Unblock
+            </button>
+          )}
         </div>
-        <div className="dimmer"></div>
-        <div className="go-corner" onClick={() => setDrop((state) => !state)}>
-          <button className="go-arrow">→</button>
+      )}
+      <div
+        className="absolute   bg-primary right-0.5 top-0.5 w-fit h-fit text-[13px] border  px-2  rounded-bl-full  shadow-sm"
+        onClick={() => setDrop((state) => !state)}
+      >
+        <button className=" flex justify-center items-center text-white">
+          <BsArrowRightShort style={{ fontSize: "20px" }} />
+        </button>
+      </div>
+      <div className="flex w-full h-fit flex-col flex-wrap  gap-3  px-3 pt-7 pb-2">
+        <div className="flex w-full flex-wrap text-md ">
+          <span>{language.languagename}</span>
+        </div>
+        <div className="flex flex-col flex-wrap w-full h-fit text-ellipsis  line-clamp-1 text-[13px]">
+          {language.description}
         </div>
       </div>
     </div>
   );
 };
 
-export const PaidCoruseCard: React.FC<CourseCardProps> = ({ course, listCourse, unListCourse }) => {
-  const [drop, setDrop] = useState<boolean>(false);
-  return (
-    <div className="container">
-      <div className="card4 relative">
-        {drop && (
-          <div className="absolute left-0.5 top-0.5 w-fti h-fit text-[13px] border  px-2  rounded-br-md">
-            {(course.status as boolean) ? (
-              <button
-                onClick={() => {
-                  unListCourse(course?._id as string);
-                }}
-                className="text-danger shadow-sm "
-              >
-                Unlsit
-              </button>
-            ) : (
-              <button
-                onClick={() => listCourse(course?._id as string)}
-                className="text-green-400 shadow-sm "
-              >
-                List
-              </button>
-            )}
-          </div>
-        )}
-        <h3>{course.coursename}</h3>
-        <p className=" text-[12px] flex line-clamp-1 text-ellipsis">
-          {course.description}
-        </p>
-        <div className="flex w-full h-fit gap-2 text-[12px]">
-          <span>{course.price}</span>|
-          {course.status === true ? (
-            <span className="text-green-400">Listed</span>
-          ) : (
-            <span className="text-danger">Unlisted</span>
-          )}
-          |
-          { course.students?.length && (course.students?.length) > 1 ? (
-            <span>{course.students?.length} student</span>
-          ) : (
-            <span>{course.students?.length} students</span>
-          )}
-        </div>
-        <div className="dimmer"></div>
-        <div className="go-corner" onClick={() => setDrop((state) => !state)}>
-          <button className="go-arrow">→</button>
-        </div>
-      </div>
-    </div>
-  );
-};
+
 

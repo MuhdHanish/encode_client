@@ -43,9 +43,14 @@ const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended,setResEr
     })
       .then((res) => {
         setLoading(false);
-        if (res) { setUId(res as string),setOtpValidity(120);setIsOtpSended(true);setResError("");}
+        if (res) {
+           setIsOtpSended(true),
+           setUId(res as string),
+           setOtpValidity(120),
+           setResError("");
+        }
       })
-      .catch((err: apiError) => {setLoading(false), setResError(err.message)});
+      .catch((err: apiError) => {setLoading(false), setIsOtpSended(false), setResError(err.message);});
   };
 
   const handleStepTwo = (event: React.FormEvent<HTMLFormElement>) => {

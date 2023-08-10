@@ -200,7 +200,7 @@ const EditCourseModal: React.FC<ModalProps> = ({ setIsOpen }) => {
                   />
                 </>
                 <div className="flex gap-3 w-full h-fit justify-end items-center text-[14px] px-5 ">
-                  <div className="bg-[#c9c9c8] w-fit h-fit rounded-md">
+                  <div className="bg-[#C5C5C5] w-fit h-fit rounded-md">
                     <button
                       className="flex gap-3 border px-4 py-1 translate-x-1 -translate-y-1 active:translate-x-0 active:-translate-y-0 shadow-2xl border-slate-200 bg-white rounded-md   transition duration-150 "
                       type="button"

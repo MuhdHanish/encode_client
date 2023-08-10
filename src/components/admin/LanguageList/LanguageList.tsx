@@ -43,7 +43,7 @@ const LanguageList: React.FC = () => {
       .catch((err) => console.log(err));
   }, []);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const postPerPage = 8;
+  const postPerPage = 4;
   const lastPostIndex = currentPage * postPerPage;
   const firstPostIndex = lastPostIndex - postPerPage;
   const [currentPosts,setCurrentPosts] = useState< {
@@ -118,7 +118,7 @@ const LanguageList: React.FC = () => {
           />
         </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 w-full  p-5 ">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full  p-5 ">
         {currentPosts?.map((language, idx) => (
           <LanguageCard
             key={idx}

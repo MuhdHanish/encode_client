@@ -27,7 +27,7 @@ const SideNav: React.FC<SideNavProps> = ({ setSessionMode, sessionMode }) => {
       <div className="left-0 w-13 h-full flex flex-col justify-center items-center z-10">
         <div className="flex flex-col h-full justify-center items-center border shadow-xl   gap-10 p-2 py-8">
           {[0, 1, 2].map((index) => (
-            <div className="bg-[#c9c9c8]  rounded-lg" key={index}>
+            <div className="bg-[#C5C5C5]  rounded-lg" key={index}>
               <div
                 onClick={() => setSessionMode(index)}
                 className={`${

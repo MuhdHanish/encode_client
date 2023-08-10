@@ -29,7 +29,7 @@ const BottumNav: React.FC<BottumNavProps> = ({
     <div className="bottom-0 w-full h-13 flex flex-row justify-center items-center">
       <div className="flex h-full w-full justify-center items-center border shadow-xl  gap-10 p-2 px-8">
         {[0, 1, 2].map((index) => (
-          <div className="bg-[#c9c9c8] rounded-lg" key={index}>
+          <div className="bg-[#C5C5C5] rounded-lg" key={index}>
             <div
               onClick={() => setSessionMode(index)}
               className={`${

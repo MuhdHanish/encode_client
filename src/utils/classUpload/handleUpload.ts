@@ -5,8 +5,8 @@ import { v4 } from "uuid";
 import { s3Config } from "./s3Config";
 import { postFullCourse, upadteCourseDetails } from "../courseUtils";
 
-export const courseNameRegex = /^[\w\s,?!-'".]{10,50}$/;
-export const descriptionRegex = /^[\w\s.,'"?!-]{20,200}$/;
+export const courseNameRegex = /^[\w\s,()?!-/'#:".]{10,50}$/;
+export const descriptionRegex = /^[\w\s.,'():/"#?!-]{20,200}$/;
 
 
 interface S3UploadProgress {

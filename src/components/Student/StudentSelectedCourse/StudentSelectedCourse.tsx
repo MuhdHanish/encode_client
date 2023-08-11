@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import {  useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { Course } from "../../../dtos/Course";
+import { toast } from "react-toastify";
 import { User } from "../../../dtos/User";
 import PlayList from "./PlayList/PlayList";
 import { getSelectedCourse } from "../../../utils/courseUtils";
@@ -18,7 +19,17 @@ const StudentSelectedCourse: React.FC = () => {
         setSelectedCourse(res as Course);
         setTutor(res?.tutor as User);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err as string, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   }, [courseDetails]);
   useEffect(() => {
     setCourseDetails();

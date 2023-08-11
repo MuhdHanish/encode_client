@@ -3,6 +3,7 @@ import {
 getFullCoruses
 } from "../../../utils/courseUtils";
 import { Course } from "../../../dtos/Course";
+import { toast } from "react-toastify";
 import { CourseCard } from "../../Common/CardCompnent/CardCompoent";
 import Pagination from "../../Common/Pagination/Pagination";
 
@@ -16,7 +17,17 @@ const CourseList: React.FC = () => {
       .then((res) => {
         setCourses(res as Course[]);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err as string, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   }, []);
 
     const [currentPage, setCurrentPage] = useState<number>(1);

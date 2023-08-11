@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { toast } from "react-toastify";
 import {
   getAdLanguages,
   listTheLanguage,
@@ -40,7 +41,17 @@ const LanguageList: React.FC = () => {
           }[]
         );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err as string, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   }, []);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const postPerPage = 8;
@@ -64,7 +75,12 @@ const LanguageList: React.FC = () => {
         if (res) fetchLanguages();
         return;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err as string, {
+        position: "top-right", autoClose: 3000, hideProgressBar: false,closeOnClick: true,
+          pauseOnHover: true, draggable: true, progress: undefined,
+        });
+      });
   };
   const listLanguage = (id: string) => {
     listTheLanguage(id)
@@ -72,7 +88,10 @@ const LanguageList: React.FC = () => {
         if (res) fetchLanguages();
         return;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => toast.error(err as string, {
+        position: "top-right", autoClose: 3000, hideProgressBar: false,closeOnClick: true,
+          pauseOnHover: true, draggable: true, progress: undefined,
+        }));
   };
   useEffect(() => {
     const filteredList = languages.filter((language) => {

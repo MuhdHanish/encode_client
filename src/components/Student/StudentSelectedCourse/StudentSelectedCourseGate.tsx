@@ -5,6 +5,7 @@ import { RootState } from "../../../redux/store";
 import { Course } from "../../../dtos/Course";
 import FirstBox from "./FirstBox/FirstBox";
 import CourseDetails from "./CourseDetails/CourseDetails";
+import { toast } from 'react-toastify';
 import { GoLock, GoUnlock } from "react-icons/go";
 import Duration from "./Duration/Duration";
 
@@ -19,7 +20,17 @@ const StudentSelectedCourseGate: React.FC = () => {
       .then((res) => {
         setSelectedCourse(res as Course);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err as string, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   }, [courseDetails?._id]);
   useEffect(() => {
     setCourseDetails();

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { User } from '../../../dtos/User';
 import { blockTheUser, getFullUsers, unBlockTheUser } from '../../../utils/userUtils';
 import { UsersCard } from '../../Common/CardCompnent/CardCompoent';
+import { toast } from "react-toastify";
 import Pagination from '../../Common/Pagination/Pagination';
 
 const UsersList: React.FC = () => {
@@ -15,7 +16,17 @@ const UsersList: React.FC = () => {
       .then((res) => {
         setUsers(res as User[]);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err as string, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   }, []);
 
   useEffect(() => {
@@ -52,11 +63,31 @@ const UsersList: React.FC = () => {
   }, [fetchUsers]);
   
   const blockUser = (id: string) => {
-    blockTheUser(id).then((res) => { if(res)fetchUsers(); return }).catch(err => console.log(err));
+    blockTheUser(id).then((res) => { if (res) fetchUsers(); return }).catch(err => {
+      toast.error(err as string, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    });
   }
 
   const unBlockUser = (id: string) => {
-    unBlockTheUser(id).then((res) => { if(res)fetchUsers(); return }).catch(err => console.log(err));
+    unBlockTheUser(id).then((res) => { if (res) fetchUsers(); return }).catch(err => {
+      toast.error(err as string, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    });
   }
   return (
     <div className="w-full h-full flex flex-col  overflow-x-hidden">

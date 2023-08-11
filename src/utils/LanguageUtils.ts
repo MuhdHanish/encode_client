@@ -1,10 +1,10 @@
-import { AxiosError } from "axios";
 import {
   getAdminLanguages,
   getLanguages,
   listLangauge,
   unListLangauge,
 } from "../api/languageApi";
+import { apiError } from "../api/ApiInterface";
 
 export const getFullLanguages = async (): Promise<
   [{ _id?: string; languagename?: string; description?: string }] | Error
@@ -20,8 +20,8 @@ export const getFullLanguages = async (): Promise<
     ];
     return Promise.resolve(languages);
   } catch (error) {
-    const err = error as AxiosError;
-    return Promise.reject(err);
+    const err = error as apiError;
+    return Promise.reject(err.message);
   }
 };
 
@@ -39,8 +39,8 @@ export const getAdLanguages = async (): Promise<
     ];
     return Promise.resolve(languages);
   } catch (error) {
-    const err = error as AxiosError;
-    return Promise.reject(err);
+    const err = error as apiError;
+    return Promise.reject(err.message);
   }
 };
 
@@ -61,8 +61,8 @@ export const listTheLanguage = async (
     };
     return language;
   } catch (error) {
-    const err = error as AxiosError;
-    return Promise.reject(err);
+   const err = error as apiError;
+   return Promise.reject(err.message);
   }
 };
 
@@ -83,7 +83,7 @@ export const unlistTheLanguage = async (
     };
     return language;
   } catch (error) {
-    const err = error as AxiosError;
-    return Promise.reject(err);
+    const err = error as apiError
+    return Promise.reject(err.message);
   }
 };

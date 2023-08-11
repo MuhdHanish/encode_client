@@ -2,6 +2,7 @@ import { Course } from "../dtos/Course";
 import { axiosAuthorized } from "./config";
 import { setSelectedCourse } from "../redux/userSlice/userSlice";
 import { store } from "../redux/store";
+import { AxiosError } from "axios";
 
 interface ResponseData {
   message?: string;
@@ -15,7 +16,8 @@ const postCourse = async (course: Course): Promise<Course | Error> => {
     const response = await axiosAuthorized.post("/tutor/post/course", course);
     return response as Course;
   } catch (error) {
-    return Promise.reject(error);
+    const err = error as AxiosError;
+    return Promise.reject(err.response?.data);
   }
 };
 
@@ -25,7 +27,8 @@ const getCourseDetailsAdmin = async (): Promise<{ _id: string, total: number }[]
     const data = response.data as ResponseData
     return data.data as { _id: string; total: number }[];
   } catch (error) {
-    return Promise.reject(error);
+     const err = error as AxiosError;
+     return Promise.reject(err.response?.data);
   }
 }
 
@@ -35,7 +38,8 @@ const getCourseDetailsTutor = async (tutorId:string): Promise<{ _id: string, tot
      const data = response.data as ResponseData;
      return data.data as { _id: string; total: number }[];
   } catch (error) {
-    return Promise.reject(error);
+    const err = error as AxiosError;
+    return Promise.reject(err.response?.data);
   }
 }
 
@@ -44,7 +48,8 @@ const upadteCourse = async (course: Course , _id:string): Promise<Course | Error
     const response = await axiosAuthorized.put(`/tutor/update/course/${_id}`, course);
     return response as Course;
   } catch (error) {
-    return Promise.reject(error);
+    const err = error as AxiosError;
+    return Promise.reject(err.response?.data);
   }
 };
 
@@ -54,7 +59,8 @@ const getPopularCourses = async (): Promise<Course[] | Error> => {
     const responseData = response.data as ResponseData;
     return responseData.courses as Course[];
   } catch (error) {
-    return Promise.reject(error);
+    const err = error as AxiosError;
+    return Promise.reject(err.response?.data);
   }
 };
 
@@ -64,7 +70,8 @@ const getTutorCourses = async (id:string): Promise<Course[] | Error> => {
     const responseData = response.data as ResponseData;
     return responseData.courses as Course[];
   } catch (error) {
-    return Promise.reject(error);
+    const err = error as AxiosError;
+    return Promise.reject(err.response?.data);
   }
 };
 
@@ -74,7 +81,8 @@ const getCourseById = async (id: string): Promise<Course | Error> => {
     const responseData = response.data as ResponseData;
     return responseData.course as Course;
   } catch (error) {
-    return Promise.reject(error);
+    const err = error as AxiosError;
+    return Promise.reject(err.response?.data);
   }
 };
 
@@ -89,7 +97,8 @@ const setStudentToCourse = async ( courseId: string,userId: string,): Promise<Co
     }
     return null;
   } catch (error) {
-    return Promise.reject(error);
+     const err = error as AxiosError;
+     return Promise.reject(err.response?.data);
   }
 }
 
@@ -99,7 +108,8 @@ const getCourses = async (): Promise<Course[] | Error> => {
     const { courses } = response.data as ResponseData;
     return Promise.resolve(courses as Course[]);
   } catch (error) {
-    return Promise.reject(error);
+     const err = error as AxiosError;
+     return Promise.reject(err.response?.data);
   }
 };
 
@@ -109,7 +119,8 @@ const unListCourse = async (courseId:string): Promise<Course | Error> => {
     const { course } = response.data as ResponseData;
     return Promise.resolve(course as Course);
   } catch (error) {
-    return Promise.reject(error);
+     const err = error as AxiosError;
+     return Promise.reject(err.response?.data);
   }
 };
 
@@ -119,7 +130,8 @@ const listCourse = async (courseId:string): Promise<Course | Error> => {
     const { course } = response.data as ResponseData;
     return Promise.resolve(course as Course);
   } catch (error) {
-    return Promise.reject(error);
+     const err = error as AxiosError;
+     return Promise.reject(err.response?.data);
   }
 };
 

@@ -1,5 +1,5 @@
-
 import { axiosAuthorized } from "./config";
+import { AxiosError } from "axios";
 
 interface ResponseData {
   message?: string;
@@ -18,6 +18,7 @@ interface ResponseData {
     status?: boolean;
   };
 }
+
 
 const getLanguages = async (): Promise<
   | [
@@ -38,7 +39,8 @@ const getLanguages = async (): Promise<
     }
     return Promise.resolve(responseData.languages);
   } catch (error) {
-    return Promise.reject(error);
+     const err = error as AxiosError;
+     return Promise.reject(err.response?.data);
   }
 };
 
@@ -61,7 +63,8 @@ const getAdminLanguages = async (): Promise<
     }
     return Promise.resolve(responseData.languages);
   } catch (error) {
-    return Promise.reject(error);
+     const err = error as AxiosError;
+     return Promise.reject(err.response?.data);
   }
 };
 
@@ -86,7 +89,8 @@ const unListLangauge = async (
     }
     return Promise.resolve(responseData.language);
   } catch (error) {
-    return Promise.reject(error);
+    const err = error as AxiosError;
+    return Promise.reject(err.response?.data);
   }
 };
 
@@ -111,7 +115,8 @@ const listLangauge = async (
     }
     return Promise.resolve(responseData.language);
   } catch (error) {
-    return Promise.reject(error);
+    const err = error as AxiosError;
+    return Promise.reject(err.response?.data);
   }
 };
 

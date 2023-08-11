@@ -81,7 +81,7 @@ const TutorSession: React.FC = () => {
       })
       .catch((error) => {
         if (error) {
-          toast.success(error as string, {
+          toast.error(error as string, {
             position: "top-right", autoClose: 3000, hideProgressBar: false,closeOnClick: true,
             pauseOnHover: true, draggable: true,progress: undefined,});
         }});

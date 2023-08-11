@@ -3,6 +3,7 @@ import { store } from "../redux/store";
 import { saveUser } from "../redux/userSlice/userSlice";
 import { User } from "../dtos/User";
 import { GoogleCredentialResponse } from "@react-oauth/google";
+import { AxiosError } from "axios";
 
 interface UserCredentials {
  credential?: string,
@@ -32,7 +33,8 @@ const login = async ({ credential, password }:UserCredentials): Promise<User|Err
     store.dispatch(saveUser(user as User));
     return Promise.resolve(user as User);
   } catch (error) {
-   return Promise.reject(error);
+    const err = error as AxiosError;
+    return Promise.reject(err.response?.data);
   }
 }
 
@@ -42,7 +44,8 @@ const registerStepOne = async ({ email, username, role }: UserCredentials): Prom
     const { uId } = response.data as ResponseData;
     return Promise.resolve(uId as string);
   } catch (error) {
-    return Promise.reject(error);
+     const err = error as AxiosError;
+     return Promise.reject(err.response?.data);
   }
 }
 
@@ -57,7 +60,8 @@ const registerStepTwo = async ({ email,username,password,role,uId ,enteredOtp }:
     store.dispatch(saveUser(user as User));
     return Promise.resolve(user as User);
   } catch (error) {
-   return Promise.reject(error);
+    const err = error as AxiosError;
+    return Promise.reject(err.response?.data);
   }
 }
 
@@ -71,7 +75,8 @@ const googleLogin = async (credentialResponse: GoogleCredentialResponse):Promise
     store.dispatch(saveUser(user as User));
     return Promise.resolve(user as User);
   } catch (error) {
-    return Promise.reject(error);
+    const err = error as AxiosError;
+    return Promise.reject(err.response?.data);
   }
 }
 
@@ -86,7 +91,8 @@ const googleSignup = async (credentialResponse: GoogleCredentialResponse,role:st
     store.dispatch(saveUser(user as User));
     return Promise.resolve(user as User);
   } catch (error) {
-    return Promise.reject(error);
+     const err = error as AxiosError;
+     return Promise.reject(err.response?.data);
   }
 }
 
@@ -96,7 +102,8 @@ const getUsers = async (): Promise<User[]| Error> => {
     const { users } = response.data as ResponseData;
     return Promise.resolve(users as User[]);
   } catch (error) {
-    return Promise.reject(error);
+     const err = error as AxiosError;
+     return Promise.reject(err.response?.data);
   }
 }
 
@@ -107,7 +114,8 @@ const blockUser = async (userId:string): Promise<User | Error> => {
     const { user } = response.data as ResponseData;
     return Promise.resolve(user as User);
   } catch (error) {
-    return Promise.reject(error);
+     const err = error as AxiosError;
+     return Promise.reject(err.response?.data);
   }
 };
 
@@ -117,7 +125,8 @@ const unBlockUser = async (userId:string): Promise<User | Error> => {
     const { user } = response.data as ResponseData;
     return Promise.resolve(user as User);
   } catch (error) {
-    return Promise.reject(error);
+     const err = error as AxiosError;
+     return Promise.reject(err.response?.data);
   }
 };
 

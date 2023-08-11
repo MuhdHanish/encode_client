@@ -7,6 +7,7 @@ import { TbEdit } from "react-icons/tb";
 import { User } from '../../../../../dtos/User';
 import EditCourseModal from './EditCourseModal';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 import { setSelectedCourse } from '../../../../../redux/userSlice/userSlice';
 
 const EditCourse: React.FC = () => {
@@ -20,7 +21,17 @@ const EditCourse: React.FC = () => {
         .then((res) => {
           setCourses(res as Course[]);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          toast.error(err as string, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        });
     }, [userId]);
     useEffect(() => {
       fetchCourses();

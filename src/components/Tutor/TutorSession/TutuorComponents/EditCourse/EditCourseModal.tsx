@@ -162,6 +162,15 @@ const EditCourseModal: React.FC<ModalProps> = ({ setIsOpen }) => {
        .catch((error) => {
          if (error) {
            setLoading(false);
+           toast.error(error as string, {
+             position: "top-right",
+             autoClose: 3000,
+             hideProgressBar: false,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+             progress: undefined,
+           });
          }
        });
    };

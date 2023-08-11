@@ -39,8 +39,7 @@ const getLanguages = async (): Promise<
     }
     return Promise.resolve(responseData.languages);
   } catch (error) {
-     const err = error as AxiosError;
-     return Promise.reject(err.response?.data);
+     return Promise.reject(error);
   }
 };
 
@@ -63,8 +62,7 @@ const getAdminLanguages = async (): Promise<
     }
     return Promise.resolve(responseData.languages);
   } catch (error) {
-     const err = error as AxiosError;
-     return Promise.reject(err.response?.data);
+      return Promise.reject(error);
   }
 };
 

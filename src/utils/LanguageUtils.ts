@@ -20,8 +20,7 @@ export const getFullLanguages = async (): Promise<
     ];
     return Promise.resolve(languages);
   } catch (error) {
-    const err = error as apiError;
-    return Promise.reject(err.message);
+    return Promise.reject(error);
   }
 };
 
@@ -39,8 +38,7 @@ export const getAdLanguages = async (): Promise<
     ];
     return Promise.resolve(languages);
   } catch (error) {
-    const err = error as apiError;
-    return Promise.reject(err.message);
+    return Promise.reject(error);
   }
 };
 

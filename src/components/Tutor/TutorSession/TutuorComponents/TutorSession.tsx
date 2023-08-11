@@ -79,12 +79,7 @@ const TutorSession: React.FC = () => {
             pauseOnHover: true, draggable: true,progress: undefined,});
         }
       })
-      .catch((error) => {
-        if (error) {
-          toast.error(error as string, {
-            position: "top-right", autoClose: 3000, hideProgressBar: false,closeOnClick: true,
-            pauseOnHover: true, draggable: true,progress: undefined,});
-        }});
+      .catch((error) => {console.log(error)});
   };
 
   return (

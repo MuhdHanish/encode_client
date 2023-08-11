@@ -43,7 +43,7 @@ const LanguageList: React.FC = () => {
       .catch((err) => console.log(err));
   }, []);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const postPerPage = 4;
+  const postPerPage = 8;
   const lastPostIndex = currentPage * postPerPage;
   const firstPostIndex = lastPostIndex - postPerPage;
   const [currentPosts,setCurrentPosts] = useState< {

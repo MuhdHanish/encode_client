@@ -1,7 +1,13 @@
 import React from 'react'
 import { PiStudentDuotone } from 'react-icons/pi'
+import { User } from '../../../../dtos/User'
 
-const StudentCount:React.FC = () => {
+
+interface Props {
+  list: User[];
+}
+
+const StudentCount:React.FC<Props> = ({list}) => {
   return (
     <div>
       <div className="flex  hover:bg-primary rounded-xl transition duration-300 ">
@@ -12,12 +18,12 @@ const StudentCount:React.FC = () => {
                   fontSize: "30px" }} />
               </div>
               <div className="flex justify-center items-center w-[32px] h-[32px] rounded-full border-4 p-5 font-bold border-primary">
-               70
+               {list.length}
               </div>
             </div>
             <div className="flex items-baseline gap-4 text-[15px]  text-gray-400">
               <span>students</span>
-              <span className='font-bold text-[16px] text-black'>70</span>
+            <span className='font-bold text-[16px] text-black'>{list.length}</span>
             </div>
           </div>
         </div>

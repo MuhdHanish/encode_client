@@ -11,8 +11,6 @@ interface UserCardProps {
 
 interface CourseCardProps {
   course: Course,
-  listCourse: (id: string) => void
-  unListCourse: (id:string) => void
 }
 
 interface LangaugeCardProps {
@@ -133,37 +131,9 @@ export const LanguageCard: React.FC<LangaugeCardProps> = ({ language, list, unLi
   );
 };
 
-export const CourseCard: React.FC<CourseCardProps> = ({ course, listCourse, unListCourse }) => {
-  const [drop, setDrop] = useState<boolean>(false);
+export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   return (
       <div className=" relative col-span-1 rounded-xl md:h-[230px] overflow-hidden border transform hover:scale-105  hover:shadow-lg hover:border-gray-300 transition duration-500 bg-[#f2f8f9] hover:bg-white p-2">
-        {drop && (
-          <div className="absolute left-0 top-0 w-fit h-fit text-[13px] border-2  px-2  rounded-br-xl rounded-tl-xl border-l-transparent border-t-transparent">
-            {course.status ? (
-              <button
-                onClick={() => unListCourse(course?._id as string)}
-                className="text-danger shadow-sm "
-              >
-                Unlist
-              </button>
-            ) : (
-              <button
-                onClick={() => listCourse(course?._id as string)}
-                className="text-green-400 shadow-sm "
-              >
-                List
-              </button>
-            )}
-          </div>
-        )}
-        <div
-          className="absolute right-0 bg-primary top-0 w-fit h-fit text-[13px]  border-2  px-2  rounded-bl-xl rounded-tr-xl border-transparent"
-          onClick={() => setDrop((state) => !state)}
-        >
-          <button className=" flex justify-center items-center text-white text-shadow-black">
-            <BsArrowRightShort style={{ fontSize: "20px" }} />
-          </button>
-        </div>
         <div className="flex w-full h-fit flex-col flex-wrap  gap-3  px-3 pt-7 pb-2 ">
           <div className="flex w-full flex-wrap text-[15px] ">
             <span>{course.coursename}</span>

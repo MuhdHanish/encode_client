@@ -7,6 +7,7 @@ interface ResponseData {
   message?: string;
   course?: Course;
   courses?: Course[];
+  data?: { _id: string; total: number }[];
 }
 
 const postCourse = async (course: Course): Promise<Course | Error> => {
@@ -17,6 +18,26 @@ const postCourse = async (course: Course): Promise<Course | Error> => {
     return Promise.reject(error);
   }
 };
+
+const getCourseDetailsAdmin = async (): Promise<{ _id: string, total: number }[] | []> => {
+  try {
+    const response = await axiosAuthorized.get("/admin/get/course/data/dashboard");
+    const data = response.data as ResponseData
+    return data.data as { _id: string; total: number }[];
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+const getCourseDetailsTutor = async (tutorId:string): Promise<{ _id: string, total: number }[] | []> => {
+  try {
+    const response = await axiosAuthorized.get(`/admin/get/course/data/dashboard/${tutorId}`);
+     const data = response.data as ResponseData;
+     return data.data as { _id: string; total: number }[];
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
 
 const upadteCourse = async (course: Course , _id:string): Promise<Course | Error> => {
   try {
@@ -84,7 +105,7 @@ const getCourses = async (): Promise<Course[] | Error> => {
 
 const unListCourse = async (courseId:string): Promise<Course | Error> => {
   try {
-    const response = await axiosAuthorized.patch(`/admin/unlist/course/${courseId}`);
+    const response = await axiosAuthorized.patch(`/tutor/unlist/course/${courseId}`);
     const { course } = response.data as ResponseData;
     return Promise.resolve(course as Course);
   } catch (error) {
@@ -94,7 +115,7 @@ const unListCourse = async (courseId:string): Promise<Course | Error> => {
 
 const listCourse = async (courseId:string): Promise<Course | Error> => {
   try {
-    const response = await axiosAuthorized.patch(`/admin/list/course/${courseId}`);
+    const response = await axiosAuthorized.patch(`/tutor/list/course/${courseId}`);
     const { course } = response.data as ResponseData;
     return Promise.resolve(course as Course);
   } catch (error) {
@@ -103,4 +124,8 @@ const listCourse = async (courseId:string): Promise<Course | Error> => {
 };
 
 
-export { postCourse, getPopularCourses, getCourseById, getTutorCourses, upadteCourse,setStudentToCourse, getCourses, listCourse, unListCourse };
+export {
+  postCourse, getPopularCourses, getCourseById, getTutorCourses,
+  upadteCourse, setStudentToCourse, getCourses, listCourse, unListCourse,
+  getCourseDetailsAdmin,getCourseDetailsTutor
+};

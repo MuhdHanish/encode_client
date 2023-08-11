@@ -39,7 +39,7 @@ const UsersList: React.FC = () => {
   }, [searchQuery, users, selectedOption]);
 
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const postPerPage = 8;
+    const postPerPage = 12 ;
     const lastPostIndex = currentPage * postPerPage;
     const firstPostIndex = lastPostIndex - postPerPage;
     const [currentPosts, setCurrentPosts] = useState<User[] | []>([]);

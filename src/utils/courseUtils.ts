@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { getCourseById, getPopularCourses, getTutorCourses, postCourse, unListCourse, upadteCourse,getCourses,listCourse } from "../api/courseApi";
+import { getCourseById, getPopularCourses, getTutorCourses, postCourse, unListCourse, upadteCourse,getCourses,listCourse, getCourseDetailsAdmin, getCourseDetailsTutor } from "../api/courseApi";
 import { setStudentToCourse } from "../api/courseApi";
 import { Course } from "../dtos/Course";
 
@@ -31,6 +31,26 @@ export const postFullCourse = async (course:Course): Promise<Course | Error> => 
     const err = error as AxiosError;
     return Promise.reject(err);
   }
+};
+
+export const getCourseDetailsDashborad = async (): Promise<{ _id: string, total: string }[] | Error> => {
+   try {
+     const details = await getCourseDetailsAdmin() as { _id: string, total: string }[] ;
+     return details;
+   } catch (error) {
+     const err = error as AxiosError;
+     return Promise.reject(err);
+   }
+};
+
+export const getCourseDetailsTutorDashborad = async (tutorId:string): Promise<{ _id: string, total: string }[] | Error> => {
+   try {
+     const details = await getCourseDetailsTutor(tutorId) as { _id: string, total: string }[] ;
+     return details;
+   } catch (error) {
+     const err = error as AxiosError;
+     return Promise.reject(err);
+   }
 };
 
 export const upadteCourseDetails = async (course:Course, _id:string): Promise<Course | Error> => {

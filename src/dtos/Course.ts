@@ -20,4 +20,11 @@ export interface Course {
   demoUrl?: string;
   chapters?: Chapter[];
   students?: string[];
+  puchaseHistory?: [
+    {
+      studentId: string,
+      date: Date,
+      Month: number
+    }
+  ]
 }

@@ -9,7 +9,7 @@ interface PopularCoursesProps {
   courses: Course[];
 }
 const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
     <>

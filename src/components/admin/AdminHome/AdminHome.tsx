@@ -11,17 +11,17 @@ import {
   getCourseDetailsDashborad,
   getFullCoruses,
 } from "../../../utils/courseUtils";
-import { Bar } from "react-chartjs-2"; // Import Bar component
+import { Line } from "react-chartjs-2"; // Import Bar component
 import {
   Chart as ChartJS,
-  BarElement,
+  LineElement,
   CategoryScale,
   LinearScale,
   PointElement,
 } from "chart.js";
 import { getFullLanguages } from "../../../utils/LanguageUtils";
 
-ChartJS.register(BarElement,CategoryScale, LinearScale, PointElement);
+ChartJS.register(LineElement,CategoryScale, LinearScale, PointElement);
 
 const AdminHome: React.FC = () => {
   const [courses, setCourses] = useState<Course[] | []>([]);
@@ -35,7 +35,6 @@ const AdminHome: React.FC = () => {
   >([]);
 
   const fetchDatas = useCallback(() => {
-    try {
       getFullUsers()
         .then((res) => {
           if (res) {
@@ -65,52 +64,56 @@ const AdminHome: React.FC = () => {
           }
         })
         .catch((error) => {
-          if (error) {
             console.log(error);
-          }
         });
       getFullLanguages().then((res) => {
         if (res) { setLanguages(
           res as [{ _id?: string; languagename?: string; description?: string }]
         ); }
       }).catch((error) => console.log(error));
-    } catch (error) {
-      console.log(error);
-    }
   }, []);
   useEffect(() => {
     fetchDatas();
   }, [fetchDatas]);
-  const barData = {
-    labels: [...chartData.map((obj) => obj._id)],
-    datasets: [
-      {
-        label: "Revenue",
-        data: [...chartData.map((obj) => obj.total)],
-        backgroundColor: "#9C4DF4",
-        borderColor: "#9C4DF4",
-        borderWidth: 1,
-      },
-    ],
-  };
-  const options = {
-    plugins: {
-      legend: {
+const lineData = {
+  labels: [...chartData.map((obj) => obj._id)],
+  datasets: [
+    {
+      label: "Revenue",
+      data: [...chartData.map((obj) => obj.total)],
+      borderColor: "#9C4DF4",
+      borderWidth: 2,
+      pointBackgroundColor: "#9C4DF4",
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      pointHitRadius: 10,
+      pointHoverBorderColor: "#fff",
+      pointHoverBackgroundColor: "#9C4DF4",
+      pointHoverBorderWidth: 2,
+      tension:0.4
+    },
+  ],
+};
+
+const options = {
+  plugins: {
+    legend: {
+      display: true,
+    },
+  },
+  scales: {
+    x: {
+      beginAtZero: true,
+    },
+    y: {
+      title: {
         display: true,
+        text: "Revenue",
       },
     },
-    scales: {
-      x: {
-        beginAtZero: true,
-      },
-      y: {
-        title: {
-          display: true,
-          text: "Revenue",
-        },
-      },
-    },
-  };
+  },
+};
+
 
   return (
     <div className="flex flex-col w-full p-5 gap-10 overflow-x-hidden">
@@ -147,10 +150,10 @@ const AdminHome: React.FC = () => {
           </div>
         </div>
         <div className="col-span-2 w-full h-full p-5 hidden lg:flex">
-          <Bar style={{ width: "80%" }} data={barData} options={options} />
+          <Line style={{ width: "80%" }} data={lineData} options={options} />
         </div>
         <div className=" w-full h-full p-5 flex lg:hidden">
-          <Bar style={{ width: "100%" }} data={barData} options={options} />
+          <Line style={{ width: "100%" }} data={lineData} options={options} />
         </div>
       </div>
     </div>

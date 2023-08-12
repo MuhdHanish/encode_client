@@ -2,10 +2,12 @@ import { Course } from "../dtos/Course";
 import { axiosAuthorized } from "./config";
 import { setSelectedCourse } from "../redux/userSlice/userSlice";
 import { store } from "../redux/store";
+import { User } from "../dtos/User";
 
 interface ResponseData {
   message?: string;
   course?: Course;
+  students?: User[];
   courses?: Course[];
   data?: { _id: string; total: number }[];
 }
@@ -19,6 +21,16 @@ const postCourse = async (course: Course): Promise<Course | Error> => {
   }
 };
 
+const getCourseStudents = async (courseId: string): Promise<User[] | Error> => {
+  try {
+    const response = await axiosAuthorized.get(`/tutor/get/course/students/${courseId}`) ;
+    const responseData = response.data as ResponseData;
+    return responseData.students as User[];
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
 const getCourseDetailsAdmin = async (): Promise<{ _id: string, total: number }[] | []> => {
   try {
     const response = await axiosAuthorized.get("/admin/get/course/data/dashboard");
@@ -31,7 +43,7 @@ const getCourseDetailsAdmin = async (): Promise<{ _id: string, total: number }[]
 
 const getCourseDetailsTutor = async (tutorId:string): Promise<{ _id: string, total: number }[] | []> => {
   try {
-    const response = await axiosAuthorized.get(`/admin/get/course/data/dashboard/${tutorId}`);
+    const response = await axiosAuthorized.get(`/get/tutor/course/data/dashboard/${tutorId}`);
      const data = response.data as ResponseData;
      return data.data as { _id: string; total: number }[];
   } catch (error) {
@@ -61,6 +73,16 @@ const getPopularCourses = async (): Promise<Course[] | Error> => {
 const getTutorCourses = async (id:string): Promise<Course[] | Error> => {
   try {
     const response = await axiosAuthorized.get(`/get/tutor/courses/${id}`);
+    const responseData = response.data as ResponseData;
+    return responseData.courses as Course[];
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const getTutorPopularCourses = async (id:string): Promise<Course[] | Error> => {
+  try {
+    const response = await axiosAuthorized.get(`/get/tutor/popular/courses/${id}`);
     const responseData = response.data as ResponseData;
     return responseData.courses as Course[];
   } catch (error) {
@@ -127,5 +149,5 @@ const listCourse = async (courseId:string): Promise<Course | Error> => {
 export {
   postCourse, getPopularCourses, getCourseById, getTutorCourses,
   upadteCourse, setStudentToCourse, getCourses, listCourse, unListCourse,
-  getCourseDetailsAdmin,getCourseDetailsTutor
+  getCourseDetailsAdmin,getCourseDetailsTutor,getTutorPopularCourses, getCourseStudents
 };

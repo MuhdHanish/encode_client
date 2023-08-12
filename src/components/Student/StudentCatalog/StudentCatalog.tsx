@@ -8,7 +8,7 @@ import PopularCourses from "./PopularCourses/PopularCourses";
 
 const StudentCatalog: React.FC = () => {
   const [languages, setLanguages] = useState<{ _id?: string; categoryname?: string; description?: string }[]>([]);
-  const [courses, setCourses] = useState<Course[]>([]);
+  const [popularCourses, setPopularCourses] = useState<Course[]>([]);
   const [isMedium,setIsMedium] = useState<boolean>(false)
   const handleResize = () => {
     setIsMedium(window.innerWidth >= 2000  ? true : false);
@@ -19,8 +19,12 @@ const StudentCatalog: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     }
   }, []);
-  const fetchLanguages = useCallback(() => {
-      getFullLanguages()
+  const fetchDatas = useCallback(() => {
+        getFullPopularCoruses()
+        .then((res) => {
+          setPopularCourses(res as Course[]);
+        }).catch((err) => console.log(err));
+         getFullLanguages()
         .then((res) => {
           setLanguages(
             res as {
@@ -29,20 +33,11 @@ const StudentCatalog: React.FC = () => {
               description?: string;
             }[]
           );
-        })
-        .catch((err) => console.log(err));
-    }, []);
-  const fetchCourses = useCallback(() => {
-      getFullPopularCoruses()
-        .then((res) => {
-          setCourses(res as Course[]);
-        })
-        .catch((err) => console.log(err));
+        }).catch((err) => console.log(err));
     }, []);
   useEffect(() => {
-      fetchLanguages();
-      fetchCourses();
-    }, [fetchLanguages, fetchCourses]);
+    fetchDatas();
+  }, [fetchDatas]);
 
   return (
     <div className="w-full h-full flex justify-center items-center bg-white relative overflow-hidden">
@@ -57,9 +52,7 @@ const StudentCatalog: React.FC = () => {
           setIsMedium={() => setIsMedium(!isMedium)}
           languages={languages}
         />
-        <PopularCourses
-        courses={courses}
-        />
+        <PopularCourses courses={popularCourses} />
       </div>
     </div>
   );

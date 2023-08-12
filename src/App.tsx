@@ -6,10 +6,10 @@ import { saveUser } from "./redux/userSlice/userSlice";
 import { AdminPage, LoginPage, SignupPage, StudentPage,  TutorPage  } from "./pages";
 import AuthProtected from "./components/Common/ProtectedRoute/AuthProtected";
 import ProtectedRoute from "./components/Common/ProtectedRoute/ProtectedRoute";
-import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCourseGate } from "./components/Student";
-import { TutorHome, TutorSelectedCourse, TutorSessionGate } from "./components/Tutor";
-import { CourseProtectedCaseOne, CourseProtectedCaseTwo } from "./components/Common/ProtectedCourseRoute/ProtetedCourseRoute";
 import Loader from "./components/Common/Loader/Loader";
+import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCourseGate } from "./components/Student";
+import { TutorDashboard, TutorHome, TutorSelectedCourse, TutorSessionGate } from "./components/Tutor";
+import { CourseProtectedCaseOne, CourseProtectedCaseTwo } from "./components/Common/ProtectedCourseRoute/ProtetedCourseRoute";
 import { AdminHome, CourseList, LanguageList, UsersList } from "./components/admin";
 
 function App() {
@@ -43,6 +43,7 @@ return loading ? (
     <Route path="/tutor" element={<ProtectedRoute element={<TutorPage />} allowedRoles={["tutor"]} />}>
       <Route index={true} element={<TutorHome />} />
       <Route path="section" element={<TutorSessionGate />} />
+      <Route path="dashboard" element={<TutorDashboard />} />
       <Route path="selected/course/:selectedCourseId" element={<TutorSelectedCourse/>} />
     </Route>
     <Route path="/admin" element={<ProtectedRoute element={<AdminPage />} allowedRoles={["admin"]} />}>

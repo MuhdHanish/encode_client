@@ -1,7 +1,12 @@
 import { AxiosError } from "axios";
-import { getCourseById, getPopularCourses, getTutorCourses, postCourse, unListCourse, upadteCourse,getCourses,listCourse, getCourseDetailsAdmin, getCourseDetailsTutor } from "../api/courseApi";
-import { setStudentToCourse } from "../api/courseApi";
+import {
+  getCourseById, getPopularCourses, getTutorCourses, 
+  postCourse, unListCourse, upadteCourse, getCourses, listCourse,
+  getCourseDetailsAdmin, getCourseDetailsTutor, getTutorPopularCourses, setStudentToCourse,
+  getCourseStudents
+} from "../api/courseApi";
 import { Course } from "../dtos/Course";
+import { User } from "../dtos/User";
 
 export const getFullPopularCoruses = async (): Promise<Course[] | Error> => {
   try {
@@ -20,6 +25,15 @@ export const getFullCoruses = async (): Promise<Course[] | Error> => {
     return Promise.reject(error);
   }
 };
+
+export const getStudentsFromCourse = async (courseId:string): Promise<User[] | Error> => {
+  try {
+    const students = (await getCourseStudents(courseId)) as User[];
+    return students;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
 
 export const postFullCourse = async (course:Course): Promise<Course | Error> => {
   try {
@@ -61,6 +75,15 @@ export const upadteCourseDetails = async (course:Course, _id:string): Promise<Co
 export const getTutorCourse = async (id: string): Promise<Course[] | null> => {
   try {
     const courses = (await getTutorCourses(id)) as Course[];
+    return courses;
+  } catch (error) {
+  return Promise.reject(error);
+  }
+};
+
+export const getTutorPopularCourse = async (id: string): Promise<Course[] | null> => {
+  try {
+    const courses = (await getTutorPopularCourses(id)) as Course[];
     return courses;
   } catch (error) {
   return Promise.reject(error);

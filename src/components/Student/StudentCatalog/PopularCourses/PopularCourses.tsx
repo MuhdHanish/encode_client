@@ -149,14 +149,16 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
         ) : (
           <span>No course found !</span>
         )}
-        <div className="flex w-full p-5 justify-center items-end ">
-          <Pagination
-            postsPerPage={postPerPage}
-            totalPosts={filteredCourseList?.length}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          />
-        </div>
+        { filteredCourseList.length > postPerPage && (
+          <div className="flex w-full p-5 justify-center items-end ">
+            <Pagination
+              postsPerPage={postPerPage}
+              totalPosts={filteredCourseList?.length}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+            />
+          </div>
+        )}
       </div>
     </>
   );

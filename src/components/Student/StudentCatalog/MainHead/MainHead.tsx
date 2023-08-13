@@ -118,7 +118,7 @@ const MainHead: React.FC<MainHeadProps> = ({ isMedium, setIsMedium, languages })
               className="flex hover:bg-black delay-100 border  hover:border-black"
             >
               <div
-                className="min-w-[189px] sm:min-w-[280px] md:min-w-[330px] 
+                className="min-w-[189px] sm:min-w-[280px] md:min-w-[330px] cursor-pointer
                   flex justify-center items-center px-5  hover:translate-x-1 hover:-translate-y-1 transition
                   lg:min-w-[271px] w-full h-[150PX] border border-black "
                 style={{

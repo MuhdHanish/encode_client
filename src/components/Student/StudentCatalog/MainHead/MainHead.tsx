@@ -4,6 +4,7 @@ import {
   BsArrowLeftSquare,
   BsArrowRightSquare,
 } from "react-icons/bs";
+import { HiOutlineTrendingUp } from "react-icons/hi";
 
 interface MainHeadProps {
   isMedium: boolean;
@@ -78,11 +79,13 @@ const MainHead: React.FC<MainHeadProps> = ({ isMedium, setIsMedium, languages })
         </div>
       )}
       <div className="flex w-full h-fit justify-start items-center px-5 text-3xl">
-        <span className="font-semibold">Explore the catalog</span>
+        <span className="font-semibold">Explore The Catalog</span>
       </div>
       <div className="flex w-full h-fit flex-col px-5">
         <div className="flex w-full h-fit justify-between items-center">
-          <div className="flex text-[18px] font-medium">Popular Languages</div>
+          <div className="flex text-[18px] font-medium items-center gap-3">
+            <HiOutlineTrendingUp /> Popular Languages
+          </div>
           <div className="flex justify-center items-center gap-3">
             <div className="flex justify-center items-center">
               <button className="hover:bg-gray-200 transition">

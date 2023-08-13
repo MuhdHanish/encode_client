@@ -38,7 +38,6 @@ const StudentCatalog: React.FC = () => {
   useEffect(() => {
     fetchDatas();
   }, [fetchDatas]);
-
   return (
     <div className="w-full h-full flex justify-center items-center bg-white relative overflow-hidden">
       <SideBar

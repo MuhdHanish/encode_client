@@ -1,9 +1,10 @@
 import React from 'react'
 import { BsArrowLeftShort } from "react-icons/bs";
+import { Language } from '../../../../dtos/Language';
 
 interface SideBarProps {
   isMedium: boolean;
-  languages: { _id?: string; languagename?: string; description?: string }[];
+  languages: Language[];
   closeSideBar: () => void;
 }
 

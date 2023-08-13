@@ -5,11 +5,12 @@ import {
   BsArrowRightSquare,
 } from "react-icons/bs";
 import { HiOutlineTrendingUp } from "react-icons/hi";
+import { Language } from "../../../../dtos/Language";
 
 interface MainHeadProps {
   isMedium: boolean;
   setIsMedium: () => void;
-  languages: { _id?: string; languagename?: string; description?: string }[];
+  languages: Language[];
 }
 
 const MainHead: React.FC<MainHeadProps> = ({ isMedium, setIsMedium, languages }) => {

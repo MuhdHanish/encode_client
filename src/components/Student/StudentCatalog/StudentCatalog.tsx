@@ -5,9 +5,10 @@ import {  getFullLanguages } from "../../../utils/LanguageUtils";
 import SideBar from "./SideBar/SideBar";
 import MainHead from "./MainHead/MainHead";
 import PopularCourses from "./PopularCourses/PopularCourses";
+import { Language } from "../../../dtos/Language";
 
 const StudentCatalog: React.FC = () => {
-  const [languages, setLanguages] = useState<{ _id?: string; categoryname?: string; description?: string }[]>([]);
+  const [languages, setLanguages] = useState<Language[]>([]);
   const [popularCourses, setPopularCourses] = useState<Course[]>([]);
   const [isMedium,setIsMedium] = useState<boolean>(false)
   const handleResize = () => {
@@ -27,11 +28,7 @@ const StudentCatalog: React.FC = () => {
          getFullLanguages()
         .then((res) => {
           setLanguages(
-            res as {
-              _id?: string;
-              languagename?: string;
-              description?: string;
-            }[]
+            res as Language[]
           );
         }).catch((err) => console.log(err));
     }, []);

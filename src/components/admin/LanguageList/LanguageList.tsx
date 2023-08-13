@@ -7,39 +7,17 @@ import {
 } from "../../../utils/LanguageUtils";
 import { LanguageCard } from "../../Common/CardCompnent/CardCompoent";
 import Pagination from "../../Common/Pagination/Pagination";
+import { Language } from "../../../dtos/Language";
 
 const LanguageList: React.FC = () => {
-  const [languages, setLanguages] = useState<
-    | {
-        _id?: string;
-        languagename?: string;
-        description?: string;
-        status?: boolean;
-      }[]
-    | []
-  >([]);
-  const [filteredLangugeList, setFilteredLanguageList] = useState<
-    | {
-        _id?: string;
-        languagename?: string;
-        description?: string;
-        status?: boolean;
-      }[]
-    | []
-    >([]);
+  const [languages, setLanguages] = useState<Language[] | []>([]);
+  const [filteredLangugeList, setFilteredLanguageList] = useState<Language[] | []>([]);
   const [selectedOption, setSelectedOption] = useState<string>("option1");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const fetchLanguages = useCallback(() => {
     getAdLanguages()
       .then((res) => {
-        setLanguages(
-          res as {
-            _id?: string;
-            languagename?: string;
-            description?: string;
-            status?: boolean;
-          }[]
-        );
+        setLanguages(res as Language[]);
       })
       .catch((err) => {
         toast.error(err as string, {
@@ -57,12 +35,7 @@ const LanguageList: React.FC = () => {
   const postPerPage = 8;
   const lastPostIndex = currentPage * postPerPage;
   const firstPostIndex = lastPostIndex - postPerPage;
-  const [currentPosts,setCurrentPosts] = useState< {
-        _id?: string;
-        languagename?: string;
-        description?: string;
-        status?: boolean;
-      }[]|[]>([])
+  const [currentPosts, setCurrentPosts] = useState<Language[] | []>([]);
   useEffect(() => {
     setCurrentPosts(filteredLangugeList.slice(firstPostIndex, lastPostIndex)); 
   },[filteredLangugeList, firstPostIndex, lastPostIndex])

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { User } from "../../../dtos/User";
 import { Course } from "../../../dtos/Course";
 import { BsArrowRightShort } from "react-icons/bs";
+import { Language } from "../../../dtos/Language";
 
 interface UserCardProps {
   user: User,
@@ -14,12 +15,7 @@ interface CourseCardProps {
 }
 
 interface LangaugeCardProps {
-  language: {
-    _id?: string;
-    languagename?: string;
-    description?: string;
-    status?:boolean
-  }
+  language: Language;
   list: (languageId: string) => void;
   unList: (languageId: string) => void;
 }

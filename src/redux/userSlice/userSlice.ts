@@ -1,15 +1,18 @@
 import { Course } from "../../dtos/Course";
+import { Language } from "../../dtos/Language";
 import { User } from "../../dtos/User";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface userState {
   user: User | null;
   selectedCourse: Course | null
+  selectedLanguage: Language | null
 }
 
 const initialState: userState = {
   user: null,
   selectedCourse: null,
+  selectedLanguage: null
 };
 
 const userSlice = createSlice({

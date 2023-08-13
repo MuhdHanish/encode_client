@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import { FormValues } from "../../../../../dtos/Form";
 import { getFullLanguages } from '../../../../../utils/LanguageUtils';
+import { Language } from '../../../../../dtos/Language';
 interface InputProps {
   sessionState: FormValues;
   setSessionState: (
@@ -16,7 +17,7 @@ const LanguageSelection: React.FC<InputProps> = ({ sessionState, setSessionState
     getFullLanguages()
       .then((res) => {
         if (Array.isArray(res)) {
-          const languagesArray = res as [{ _id?: string; languagename?: string; description?: string; }];
+          const languagesArray = res as [Language];
           setLanguages(languagesArray.map((value)=> value.languagename as string))
         } else {
           console.log('Error:', res); 

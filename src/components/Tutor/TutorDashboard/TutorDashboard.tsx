@@ -31,6 +31,7 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 const TutorDashboard: React.FC = () => {
   const [courses, setCourses] = useState<Course[] | []>([]);
+  const [selectedOption, setSelectedOption] = useState<string>("option1");
   const [popularCourses, setPopularCourses] = useState<Course[] | []>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [students, setStudents] = useState<User[] | []>([]);
@@ -85,13 +86,12 @@ const TutorDashboard: React.FC = () => {
       },
     ],
   };
-  const [filteredCourseList, setFilteredCourseList] = useState<Course[] | []>(
-    []
-  );
+  const [filteredCourseList, setFilteredCourseList] = useState<Course[] | []>([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState<string>("");
   useEffect(() => {
+    setIsStudentOpen(false);
     const filteredList = courses.filter((course) => {
       const coursenameMatch = course.coursename
         ?.toLowerCase()
@@ -99,10 +99,16 @@ const TutorDashboard: React.FC = () => {
       const discriptionMatch = course.description
         ?.toLowerCase()
         .includes(searchQuery.toLowerCase());
-      return coursenameMatch || discriptionMatch;
+      if (selectedOption === "option3") {
+        return (coursenameMatch || discriptionMatch) && course.status === false;
+      } else if (selectedOption === "option2") {
+        return (coursenameMatch || discriptionMatch) && course.status === true;
+      } else {
+        return coursenameMatch || discriptionMatch;
+      }
     });
     setFilteredCourseList(filteredList);
-  }, [searchQuery, courses]);
+  }, [searchQuery, courses, selectedOption]);
   const options = {
     plugins: {
       legend: {
@@ -233,7 +239,20 @@ const TutorDashboard: React.FC = () => {
         </div>
       )}
       <div className="w-full h-full flex flex-col  ">
-        <div className="flex w-full h-fit justify-end items-center p-5 ">
+        <div className="flex w-full h-fit justify-between items-center p-5 ">
+          <div className="flex w-fit h-fit bg-white ">
+            <select
+              className="appearance-none bg-white border border-gray-300 rounded py-2 px-4  text-gray-700 leading-tight focus:outline-none focus:border-primary"
+              name="userStatus"
+              id="userStatus"
+              value={selectedOption}
+              onChange={(e) => setSelectedOption(e.target.value)}
+            >
+              <option value="option1">All Courses</option>
+              <option value="option2">Listed</option>
+              <option value="option3">Unlisted</option>
+            </select>
+          </div>
           <div className="flex w-fit h-fit bg-white ">
             <input
               type="text"

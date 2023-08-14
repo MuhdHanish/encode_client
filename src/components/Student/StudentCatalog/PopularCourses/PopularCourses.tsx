@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import { Course } from '../../../../dtos/Course';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedCourse } from '../../../../redux/userSlice/userSlice';
 import Pagination from '../../../Common/Pagination/Pagination';
+import { RootState } from '../../../../redux/store';
 
 
 interface PopularCoursesProps {
@@ -52,6 +53,7 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses, selectedLangua
   const lastPostIndex = currentPage * postPerPage;
   const firstPostIndex = lastPostIndex - postPerPage;
   const [currentPosts, setCurrentPosts] = useState<Course[] | []>([]);
+  const user = useSelector((state: RootState) => state.userReducer.user);
   useEffect(() => {
     setCurrentPosts(filteredCourseList.slice(firstPostIndex, lastPostIndex));
   }, [filteredCourseList, firstPostIndex, lastPostIndex]);
@@ -116,8 +118,23 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses, selectedLangua
                 className="w-full md:w-[271px]  border-black cursor-pointer bg-white hover:translate-x-1.5 hover:-translate-y-1.5 transition duration-300 border rounded "
               >
                 <div className="flex  flex-col justify-between h-full p-3 gap-2">
-                  <div className="text-[12px] bg-purple-300 rounded-sm p-1">
-                    {course.isPaid ? "Paid Course" : "Free Course"}
+                  <div
+                    className={`text-[12px]  rounded-sm p-1 ${
+                      course.students?.includes(user?._id as string)
+                        ? "bg-green-200"
+                        : "bg-purple-200"
+                    }`}
+                  >
+                    {course.students?.includes(user?._id as string) ? (
+                        <span className="flex items-center justify-between">
+                          <span>{course.isPaid ? "Paid course" : "Free course"}</span>
+                          <span>In progress . . .</span>
+                        </span> 
+                    ) : (
+                      <span className="flex items-center justify-between">
+                        {course.isPaid ? "Paid Course" : "Free Course"}
+                      </span>
+                    )}
                   </div>
                   <div className="text-[15px] font-semibold p-1">
                     {course.coursename}

@@ -34,7 +34,7 @@ const SideBar: React.FC<SideBarProps> = ({isMedium,closeSideBar,languages,setSel
           Languages
         </div>
         {selectedLanguage && (
-          <div className="w-full h-fit flex items-center justify-end p-2">
+          <div className="w-full h-fit flex items-center justify-start z-10 p-2">
             <div className="bg-[#c9c9c8]  w-fit h-fit rounded-md">
               <div className="flex p-1 text-[12px] gap-2  border border-gray-400 bg-white transition duration-500
                hover:translate-x-0 hover:-translate-y-0  translate-x-1 -translate-y-1 shadow-xl rounded-md cursor-pointer">

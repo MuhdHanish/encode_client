@@ -111,14 +111,14 @@ const LanguageList: React.FC = () => {
         </div>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full  p-5 ">
-        {currentPosts?.map((language, idx) => (
+         {currentPosts.length > 0 ? currentPosts?.map((language, idx) => (
           <LanguageCard
             key={idx}
             language={language}
             list={listLanguage}
             unList={unListLanguage}
           />
-        ))}
+        )) : (<span>No language found !</span>)}
       </div>
       {filteredLangugeList.length > postPerPage && (<div className="flex w-full h-full p-5 justify-center items-end ">
         <Pagination

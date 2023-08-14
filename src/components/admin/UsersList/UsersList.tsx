@@ -116,14 +116,14 @@ const UsersList: React.FC = () => {
         </div>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full  p-5 ">
-        {currentPosts.map((user, idx) => (
+        { currentPosts.length > 0 ?  currentPosts.map((user, idx) => (
           <UsersCard
             key={idx}
             user={user}
             blockUser={blockUser}
             unBlockUser={unBlockUser}
           />
-        ))}
+        )) : (<span>No users found !</span>) }
       </div>
       {filteredUserList.length > postPerPage && (
         <div className="flex w-full h-full p-5 justify-center items-end ">

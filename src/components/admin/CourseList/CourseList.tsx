@@ -72,9 +72,9 @@ const CourseList: React.FC = () => {
         </div>
       </div>
       <div className="grid grid-cols-1  lg:grid-cols-4 gap-4 w-full  p-5 ">
-        {currentPosts.map((course, idx) => (
+         {currentPosts.length > 0 ? currentPosts.map((course, idx) => (
           <CourseCard key={idx} course={course} />
-        ))}
+        )) : (<span>No course found !</span>)}
       </div>
       {filteredCourseList.length > postPerPage && (
         <div className="flex w-full h-full p-5 justify-center items-end ">

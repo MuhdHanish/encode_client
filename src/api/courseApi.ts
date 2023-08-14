@@ -31,6 +31,18 @@ const getCourseStudents = async (courseId: string): Promise<User[] | Error> => {
   }
 }
 
+const getStudentCourses = async (): Promise<Course[] | Error> => {
+  try {
+    const response = await axiosAuthorized.get(
+      `/get/student/courses`
+    );
+    const responseData = response.data as ResponseData;
+    return responseData.courses as Course[];
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
 const getCourseDetailsAdmin = async (): Promise<{ _id: string, total: number }[] | []> => {
   try {
     const response = await axiosAuthorized.get("/admin/get/course/data/dashboard");
@@ -149,5 +161,5 @@ const listCourse = async (courseId:string): Promise<Course | Error> => {
 export {
   postCourse, getPopularCourses, getCourseById, getTutorCourses,
   upadteCourse, setStudentToCourse, getCourses, listCourse, unListCourse,
-  getCourseDetailsAdmin,getCourseDetailsTutor,getTutorPopularCourses, getCourseStudents
+  getCourseDetailsAdmin,getCourseDetailsTutor,getTutorPopularCourses, getCourseStudents,getStudentCourses
 };

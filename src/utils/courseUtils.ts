@@ -3,7 +3,8 @@ import {
   getCourseById, getPopularCourses, getTutorCourses, 
   postCourse, unListCourse, upadteCourse, getCourses, listCourse,
   getCourseDetailsAdmin, getCourseDetailsTutor, getTutorPopularCourses, setStudentToCourse,
-  getCourseStudents
+  getCourseStudents,
+  getStudentCourses
 } from "../api/courseApi";
 import { Course } from "../dtos/Course";
 import { User } from "../dtos/User";
@@ -30,6 +31,15 @@ export const getStudentsFromCourse = async (courseId:string): Promise<User[] | E
   try {
     const students = (await getCourseStudents(courseId)) as User[];
     return students;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+export const getCourseOfStudents = async (): Promise<Course[] | null> => {
+  try {
+    const courses = (await getStudentCourses()) as Course[];
+    return courses;
   } catch (error) {
     return Promise.reject(error);
   }

@@ -76,14 +76,16 @@ const CourseList: React.FC = () => {
           <CourseCard key={idx} course={course} />
         ))}
       </div>
-      <div className="flex w-full h-full p-5 justify-center items-end ">
-        <Pagination
-          postsPerPage={postPerPage}
-          totalPosts={filteredCourseList?.length}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
-      </div>
+      {filteredCourseList.length > postPerPage && (
+        <div className="flex w-full h-full p-5 justify-center items-end ">
+          <Pagination
+            postsPerPage={postPerPage}
+            totalPosts={filteredCourseList?.length}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </div>
+      )}
     </div>
   );
 };

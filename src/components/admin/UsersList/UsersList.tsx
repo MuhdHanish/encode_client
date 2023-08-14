@@ -125,14 +125,16 @@ const UsersList: React.FC = () => {
           />
         ))}
       </div>
-      <div className="flex w-full h-full p-5 justify-center items-end ">
-        <Pagination
-          postsPerPage={postPerPage}
-          totalPosts={filteredUserList?.length}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
-      </div>
+      {filteredUserList.length > postPerPage && (
+        <div className="flex w-full h-full p-5 justify-center items-end ">
+          <Pagination
+            postsPerPage={postPerPage}
+            totalPosts={filteredUserList?.length}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </div>
+      )}
     </div>
   );
 }

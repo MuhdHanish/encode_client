@@ -7,7 +7,7 @@ import { AdminPage, LoginPage, SignupPage, StudentPage,  TutorPage  } from "./pa
 import AuthProtected from "./components/Common/ProtectedRoute/AuthProtected";
 import ProtectedRoute from "./components/Common/ProtectedRoute/ProtectedRoute";
 import Loader from "./components/Common/Loader/Loader";
-import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCourseGate } from "./components/Student";
+import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCourseGate,StudentSelectedLanguage } from "./components/Student";
 import { TutorDashboard, TutorHome, TutorSelectedCourse, TutorSessionGate } from "./components/Tutor";
 import { CourseProtectedCaseOne, CourseProtectedCaseTwo } from "./components/Common/ProtectedCourseRoute/ProtetedCourseRoute";
 import { AdminHome, CourseList, LanguageList, UsersList } from "./components/admin";
@@ -37,14 +37,15 @@ return loading ? (
     <Route path="/" element={<ProtectedRoute element={ <Suspense fallback={<Loader/>}><StudentPage /></Suspense>} allowedRoles={["student"]} />} >
       <Route index={true} element={<StudentHome />} />
       <Route path="catalog" element={<StudentCatalog />} />
-      <Route path="course/:selectedCourseId" element={<CourseProtectedCaseOne element={<StudentSelectedCourseGate />} />}  />
-      <Route path="selected/course/:selectedCourseId" element={<CourseProtectedCaseTwo element={<StudentSelectedCourse />} />} />
+      <Route path="selected/language/:selectedLanguage" element={<StudentSelectedLanguage />} />
+      <Route path="course/:selectedCourse" element={<CourseProtectedCaseOne element={<StudentSelectedCourseGate />} />}  />
+      <Route path="selected/course/:selectedCourse" element={<CourseProtectedCaseTwo element={<StudentSelectedCourse />} />} />
     </Route>
     <Route path="/tutor" element={<ProtectedRoute element={<TutorPage />} allowedRoles={["tutor"]} />}>
       <Route index={true} element={<TutorHome />} />
       <Route path="section" element={<TutorSessionGate />} />
       <Route path="dashboard" element={<TutorDashboard />} />
-      <Route path="selected/course/:selectedCourseId" element={<TutorSelectedCourse/>} />
+      <Route path="selected/course/:selectedCourse" element={<TutorSelectedCourse/>} />
     </Route>
     <Route path="/admin" element={<ProtectedRoute element={<AdminPage />} allowedRoles={["admin"]} />}>
       <Route index={true} element={<AdminHome/>} />

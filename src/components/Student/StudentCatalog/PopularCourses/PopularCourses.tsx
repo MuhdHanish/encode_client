@@ -112,7 +112,7 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                   dispatch(setSelectedCourse(course)),
                     navigate(`/course/${course._id as string}`);
                 }}
-                className="w-full md:w-[271px]  border-black bg-white hover:translate-x-1.5 hover:-translate-y-1.5 transition duration-300 border rounded "
+                className="w-full md:w-[271px]  border-black cursor-pointer bg-white hover:translate-x-1.5 hover:-translate-y-1.5 transition duration-300 border rounded "
               >
                 <div className="flex  flex-col justify-between h-full p-3 gap-2">
                   <div className="text-[12px] bg-purple-300 rounded-sm p-1">
@@ -149,7 +149,7 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
         ) : (
           <span>No course found !</span>
         )}
-        { filteredCourseList.length > postPerPage && (
+        {filteredCourseList.length > postPerPage && (
           <div className="flex w-full p-5 justify-center items-end ">
             <Pagination
               postsPerPage={postPerPage}

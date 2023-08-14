@@ -31,9 +31,12 @@ const userSlice = createSlice({
    },
     setSelectedCourse: (state,action: PayloadAction<Course|null>) => {
      state.selectedCourse = action.payload;
+   },
+    setSelectedLanguage: (state, action: PayloadAction<Language| null >) => {
+     state.selectedLanguage = action.payload;
    }
   },
 });
 
 export default userSlice.reducer;
-export const { saveUser, logout, setSelectedCourse } = userSlice.actions;
+export const { saveUser, logout, setSelectedCourse, setSelectedLanguage } = userSlice.actions;

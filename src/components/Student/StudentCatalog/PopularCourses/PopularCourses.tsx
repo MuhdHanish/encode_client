@@ -8,8 +8,9 @@ import Pagination from '../../../Common/Pagination/Pagination';
 
 interface PopularCoursesProps {
   courses: Course[];
+  selectedLanguage: string | null;
 }
-const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
+const PopularCourses: React.FC<PopularCoursesProps> = ({ courses, selectedLanguage }) => {
   const [selectedOption, setSelectedOption] = useState<string>("option1");
   const [selectedLevel, setSelectedLevel] = useState<string>("option1");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -25,7 +26,7 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
     const languageMatch = course?.language
       ?.toLowerCase()
       .includes(searchQuery.toLowerCase());
-
+    const selectedLanguageMatch = selectedLanguage ? course?.language?.toLowerCase() === selectedLanguage?.toLowerCase() : true;
     const courseTypeMatch =
       selectedOption ===  "option1" ||
       (selectedOption === "option2" && !course.isPaid) ||
@@ -40,12 +41,12 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
     return (
       (coursenameMatch || descriptionMatch || languageMatch) &&
       courseTypeMatch &&
+      selectedLanguageMatch &&
       levelMatch
     );
   });
-
   setFilteredCourseList(filteredList);
-  }, [searchQuery, courses, selectedOption, selectedLevel]);
+  }, [searchQuery, courses, selectedOption, selectedLevel, selectedLanguage]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const postPerPage = 8;
   const lastPostIndex = currentPage * postPerPage;

@@ -10,6 +10,7 @@ import { Language } from "../../../dtos/Language";
 const StudentCatalog: React.FC = () => {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [popularCourses, setPopularCourses] = useState<Course[]>([]);
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>("");
   const [isMedium,setIsMedium] = useState<boolean>(false)
   const handleResize = () => {
     setIsMedium(window.innerWidth >= 2000  ? true : false);
@@ -39,8 +40,10 @@ const StudentCatalog: React.FC = () => {
     <div className="w-full h-full flex justify-center items-center bg-white relative overflow-hidden">
       <SideBar
         languages={languages}
+        selectedLanguage={selectedLanguage}
         closeSideBar={() => setIsMedium(false)}
         isMedium={isMedium}
+        setSelectedLanguage={setSelectedLanguage}
       />
       <div className="w-full lg:w-4/5 h-full flex flex-col justify-start  bg-white gap-10  py-5 px-5 sm:px-12 md:px-16 overflow-y-auto">
         <MainHead
@@ -48,7 +51,10 @@ const StudentCatalog: React.FC = () => {
           setIsMedium={() => setIsMedium(!isMedium)}
           languages={languages}
         />
-        <PopularCourses courses={popularCourses} />
+        <PopularCourses
+          courses={popularCourses}
+          selectedLanguage={selectedLanguage}
+        />
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ interface ResponseData {
  user?: User;
  users?: User[];
  accessToken?: string, 
+ message?:string,
  refreshToken?: string
 }
 
@@ -122,8 +123,46 @@ const unBlockUser = async (userId:string): Promise<User | Error> => {
   }
 };
 
+const requestForgotPassword = async (credential: string): Promise<string | Error> => {
+  try {
+    const response = await axiosInstance.post(`/forgot/password`, { identifier: credential });
+    const { uId } = response.data as ResponseData;
+    return Promise.resolve(uId as string);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const confirmOtpToResetPassword = async (enteredOtp: string, uId: string): Promise<string | Error> => {
+  try {
+    const response = await axiosInstance.post(`/verify/password/request/${uId}`, { enteredOtp });
+    const { message } = response.data as ResponseData;
+    return Promise.resolve(message as string);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+const resetPassword = async (credential: string, password: string): Promise<User | Error> => {
+  try {
+    const response = await axiosInstance.patch(`/reset/password`, { identifier: credential, password });
+    const {user} = response.data as ResponseData;
+    return Promise.resolve(user as User);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
 export {
-  registerStepOne, registerStepTwo,
-  login, googleLogin, googleSignup,
-  getUsers, blockUser, unBlockUser
+  registerStepOne,
+  registerStepTwo,
+  login,
+  googleLogin,
+  googleSignup,
+  getUsers,
+  blockUser,
+  unBlockUser,
+  requestForgotPassword,
+  confirmOtpToResetPassword,
+  resetPassword
 };

@@ -106,11 +106,11 @@ const Signup: React.FC<SingupProps> = ({isOtpSended,role,setIsOtpSended,setResEr
             </div>
           )}
           {signupError && <AtuhenticationError passedError={signupError} />}
-          <div className="flex flex-col items-center">
+          <div className="flex  flex-col items-center">
             {loading && <div className="loaderBar"></div>}
             {
               <button
-                className="btn-class flex justify-center items-center gap-2"
+                className="btn-class w-full flex justify-center items-center gap-2"
                 type="submit"
               >
                 Sign up

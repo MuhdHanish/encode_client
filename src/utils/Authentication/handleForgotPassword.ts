@@ -40,7 +40,6 @@ export const handleConfirmOtp = async ({ UserenteredOtp, uId, setError }: ResetP
     const message = await confirmOtpToResetPassword(enteredOtp as string, uId as string);
     return Promise.resolve(message as string);
   } catch (error) {
-    console.log(error);
     const err = error as AxiosError;
     return Promise.reject(err.response?.data);
   }

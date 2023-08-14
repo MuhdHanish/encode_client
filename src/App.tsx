@@ -11,6 +11,7 @@ import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCour
 import { TutorDashboard, TutorHome, TutorSelectedCourse, TutorSessionGate } from "./components/Tutor";
 import { CourseProtectedCaseOne, CourseProtectedCaseTwo } from "./components/Common/ProtectedCourseRoute/ProtetedCourseRoute";
 import { AdminHome, CourseList, LanguageList, UsersList } from "./components/admin";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 function App() {
   
@@ -56,6 +57,7 @@ return loading ? (
     </Route>
     <Route path="/login" element={<AuthProtected element={<LoginPage />} />} />
     <Route path="/register" element={<AuthProtected element={<SignupPage />} />} />
+    <Route path="*" element={<PageNotFound/>}/>
   </Routes>
 </>
 

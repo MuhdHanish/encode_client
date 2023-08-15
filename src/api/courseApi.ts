@@ -157,9 +157,19 @@ const listCourse = async (courseId:string): Promise<Course | Error> => {
   }
 };
 
+const removeStudentCoruse = async(courseId:string): Promise<Course|Error> =>{
+  try {
+    const response = await axiosAuthorized.patch(`/remove/student/course/${courseId}`);
+    const { course } = response.data as ResponseData;
+    return Promise.resolve(course as Course);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
 
 export {
   postCourse, getPopularCourses, getCourseById, getTutorCourses,
-  upadteCourse, setStudentToCourse, getCourses, listCourse, unListCourse,
+  upadteCourse, setStudentToCourse, getCourses, listCourse, unListCourse,removeStudentCoruse,
   getCourseDetailsAdmin,getCourseDetailsTutor,getTutorPopularCourses, getCourseStudents,getStudentCourses
 };

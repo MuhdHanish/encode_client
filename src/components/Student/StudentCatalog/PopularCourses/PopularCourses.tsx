@@ -113,7 +113,7 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses, selectedLangua
               <div
                 onClick={() => {
                   dispatch(setSelectedCourse(course)),
-                    navigate(`/course/${course._id as string}`);
+                  navigate(`/course/${course._id as string}`);
                 }}
                 className="w-full md:w-[271px]  border-black cursor-pointer bg-white hover:translate-x-1.5 hover:-translate-y-1.5 transition duration-300 border rounded "
               >

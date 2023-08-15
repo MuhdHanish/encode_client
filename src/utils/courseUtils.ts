@@ -4,7 +4,8 @@ import {
   postCourse, unListCourse, upadteCourse, getCourses, listCourse,
   getCourseDetailsAdmin, getCourseDetailsTutor, getTutorPopularCourses, setStudentToCourse,
   getCourseStudents,
-  getStudentCourses
+  getStudentCourses,
+  removeStudentCoruse
 } from "../api/courseApi";
 import { Course } from "../dtos/Course";
 import { User } from "../dtos/User";
@@ -130,6 +131,15 @@ export const listTheCourse = async (courseId: string): Promise<Course | null> =>
 export const unListTheCourse = async (courseId: string): Promise<Course | null> => {
   try {
     const course = (await unListCourse(courseId)) as Course;
+    return course;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+export const removeStudent = async (courseId: string): Promise<Course | null> => {
+  try {
+    const course = (await removeStudentCoruse(courseId)) as Course;
     return course;
   } catch (error) {
     return Promise.reject(error);

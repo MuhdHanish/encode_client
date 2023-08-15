@@ -2,9 +2,10 @@ import React, { useCallback, useState, useEffect } from 'react'
 import { PiRocketLaunchLight } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 import { Course } from '../../../dtos/Course';
-import { getCourseOfStudents } from '../../../utils/courseUtils';
-import { BsArrowRightShort } from 'react-icons/bs';
+import { getCourseOfStudents, removeStudent } from '../../../utils/courseUtils';
 import Pagination from '../../Common/Pagination/Pagination';
+import SideCard from './SideCard/SideCard';
+import HeadCard from './HeadCard/HeadCard';
 
 const StudentProgress: React.FC = () => {
   const navigate = useNavigate();
@@ -21,6 +22,9 @@ const StudentProgress: React.FC = () => {
   const lastPostIndex = currentPage * postPerPage;
   const firstPostIndex = lastPostIndex - postPerPage;
   const [currentPosts, setCurrentPosts] = useState<Course[] | []>([]);
+
+  const handleRemoveStudent = (courseId: string) => { removeStudent(courseId).then((res) => { if (res) { fetchDatas() } }).catch(err => console.error(err)) };
+
   useEffect(() => {
     setCurrentPosts(courses.slice(firstPostIndex, lastPostIndex));
   }, [courses, firstPostIndex, lastPostIndex]);
@@ -46,56 +50,13 @@ const StudentProgress: React.FC = () => {
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 ">
         {courses?.slice(0, 4)?.map((course, idx) => (
-          <div
-            key={idx}
-            className="flex flex-col h-fit  min-w-[250px] border hover:border-primary cursor-pointer hover:bg-primary hover:text-white transition duration-300 bg-slate-200"
-          >
-            <div className="flex flex-col p-3 w-full h-fit bg-white text-black gap-3">
-              <div className="flex  h-fit font-medium text-[14px]">
-                {course.coursename}
-              </div>
-              <div className="flex  h-fit font-medium text-[11px]">
-                {(course.description?.slice(0, 100) as string) + "..."}
-              </div>
-              <div className="flex w-full h-fit font-medium text-[11px] gap-2">
-                <span>{course.language}</span> |
-                <span> {course.chapters?.length} chapters</span>
-              </div>
-            </div>
-            <div className="flex  h-fit p-2  text-[13px]  items-center gap-5 justify-between bg-transparent text-shadow-black">
-              <span>Remove</span>
-              <span>
-                <BsArrowRightShort style={{ fontSize: "20px" }} />
-              </span>
-            </div>
-          </div>
+         <HeadCard course={course} key={idx} handleRemoveStudent={handleRemoveStudent}/>
         ))}
       </div>
       <div className="flex w-full h-fit md:flex-row flex-col gap-5">
         <div className="flex flex-col md:w-1/2 p-5 gap-5  justify-start items-center">
           {currentPosts?.map((course, idx) => (
-            <div
-              key={idx}
-              className="flex justify-between w-full h-fit items-center border p-3 gap-3 hover:border-primary cursor-pointer"
-            >
-              <div className="flex w-fit h-fit flex-col ">
-                <div className="flex w-fit h-fit text-[14px] font-medium">
-                  {course.coursename}
-                </div>
-                <div className="flex w-fit h-fit text-[12px]">
-                  <span>{course.chapters?.length} chapters</span>
-                  {course.rating ? <span>| {course.rating}</span> : ""}
-                </div>
-                <div className="flex w-fit h-fit text-[11px]">
-                  {(course.description?.slice(0, 80) as string) + ". . ."}
-                </div>
-              </div>
-              <div className="flex w-fit h-fit justify-center items-center">
-                <span className="cursor-pointer">
-                  <BsArrowRightShort style={{ fontSize: "20px" }} />
-                </span>
-              </div>
-            </div>
+              <SideCard course={course} key={idx} handleRemoveStudent={handleRemoveStudent}/>
           ))}
           {courses.length > postPerPage && (
             <div className="flex w-full p-5 justify-end items-end ">

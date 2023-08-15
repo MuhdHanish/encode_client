@@ -40,14 +40,14 @@ return loading ? (
       <Route path="catalog" element={<StudentCatalog />} />
       <Route path="progress" element={<StudentProgress />} />
       <Route path="selected/language/:selectedLanguage" element={<StudentSelectedLanguage />} />
-      <Route path="course/:selectedCourse" element={<CourseProtectedCaseOne element={<StudentSelectedCourseGate />} />}  />
-      <Route path="selected/course/:selectedCourse" element={<CourseProtectedCaseTwo element={<StudentSelectedCourse />} />} />
+      <Route path="course/:selectedCourseId" element={<CourseProtectedCaseOne element={<StudentSelectedCourseGate />} />}  />
+      <Route path="selected/course/:selectedCourseId" element={<CourseProtectedCaseTwo element={<StudentSelectedCourse />} />} />
     </Route>
     <Route path="/tutor" element={<ProtectedRoute element={<TutorPage />} allowedRoles={["tutor"]} />}>
       <Route index={true} element={<TutorHome />} />
       <Route path="section" element={<TutorSessionGate />} />
       <Route path="dashboard" element={<TutorDashboard />} />
-      <Route path="selected/course/:selectedCourse" element={<TutorSelectedCourse/>} />
+      <Route path="selected/course/:selectedCourseId" element={<TutorSelectedCourse/>} />
     </Route>
     <Route path="/admin" element={<ProtectedRoute element={<AdminPage />} allowedRoles={["admin"]} />}>
       <Route index={true} element={<AdminHome/>} />

@@ -8,6 +8,7 @@ import {
 import { LanguageCard } from "../../Common/CardCompnent/CardCompoent";
 import Pagination from "../../Common/Pagination/Pagination";
 import { Language } from "../../../dtos/Language";
+import { BsPlusCircle } from "react-icons/bs";
 
 const LanguageList: React.FC = () => {
   const [languages, setLanguages] = useState<Language[] | []>([]);
@@ -87,7 +88,7 @@ const LanguageList: React.FC = () => {
   return (
     <div className="w-full h-full flex flex-col  overflow-x-hidden">
       <div className="flex w-full h-fit justify-between items-center p-5 ">
-        <div className="flex w-fit h-fit bg-white ">
+        <div className="flex w-fit h-fit bg-white gap-2">
           <select
             className="appearance-none bg-white border border-gray-300 rounded py-2 px-4  text-gray-700 leading-tight focus:outline-none focus:border-primary"
             name="userStatus"
@@ -99,6 +100,9 @@ const LanguageList: React.FC = () => {
             <option value="option2">UnListed</option>
             <option value="option3">Listed</option>
           </select>
+          <div className="appearance-none bg-white border border-gray-300 rounded py-2 px-4 cursor-pointer  text-gray-700 leading-tight focus:outline-none focus:border-primary">
+            <BsPlusCircle style={{ fontSize: "18px", color:"gray" }} />
+          </div>
         </div>
         <div className="flex w-fit h-fit bg-white">
           <input
@@ -111,23 +115,29 @@ const LanguageList: React.FC = () => {
         </div>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full  p-5 ">
-         {currentPosts.length > 0 ? currentPosts?.map((language, idx) => (
-          <LanguageCard
-            key={idx}
-            language={language}
-            list={listLanguage}
-            unList={unListLanguage}
-          />
-        )) : (<span>No language found !</span>)}
+        {currentPosts.length > 0 ? (
+          currentPosts?.map((language, idx) => (
+            <LanguageCard
+              key={idx}
+              language={language}
+              list={listLanguage}
+              unList={unListLanguage}
+            />
+          ))
+        ) : (
+          <span>No language found !</span>
+        )}
       </div>
-      {filteredLangugeList.length > postPerPage && (<div className="flex w-full h-full p-5 justify-center items-end ">
-        <Pagination
-          postsPerPage={postPerPage}
-          totalPosts={filteredLangugeList?.length}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
-      </div>)}
+      {filteredLangugeList.length > postPerPage && (
+        <div className="flex w-full h-full p-5 justify-center items-end ">
+          <Pagination
+            postsPerPage={postPerPage}
+            totalPosts={filteredLangugeList?.length}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </div>
+      )}
     </div>
   );
 };

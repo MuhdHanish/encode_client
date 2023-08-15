@@ -112,9 +112,9 @@ const getCourseById = async (id: string): Promise<Course | Error> => {
   }
 };
 
-const setStudentToCourse = async ( courseId: string,userId: string,): Promise<Course|null> => {
+const setStudentToCourse = async ( courseId: string ): Promise<Course|null> => {
   try {
-    const response = await axiosAuthorized.patch(`/set/selected/course`,{courseId,userId});
+    const response = await axiosAuthorized.patch(`/set/selected/course/${courseId}`);
     const responseData = response.data as ResponseData;
     const course =  responseData.course as Course;
     if (course) {

@@ -5,8 +5,6 @@ import StarRating from "../../../Common/StarRating/StarRating";
 import { User } from "../../../../dtos/User";
 import { useNavigate } from 'react-router-dom';
 import PayPal from '../../../PayPal/PayPal';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../redux/store';
 import { setCourse } from '../../../../utils/courseUtils';
 
 interface CourseDetailsProps {
@@ -14,14 +12,13 @@ interface CourseDetailsProps {
 }
 
 const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
-  const user = useSelector((state: RootState) => state.userReducer.user);
   const [tutor, setTutor] = useState<User | null>(null);
   const navigate = useNavigate();
   useEffect(() => {
     setTutor(course?.tutor as User);
   }, [course]);
   const handleCourseAdd = async () => {
-    const courseDetails = await setCourse(course?._id as string, user?._id as string);
+    const courseDetails = await setCourse(course?._id as string);
     if (courseDetails) {
       navigate(`/selected/course/${course?._id as string}`, {
         replace: true,

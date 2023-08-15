@@ -76,7 +76,7 @@ const StudentProgress: React.FC = () => {
           {currentPosts?.map((course, idx) => (
             <div
               key={idx}
-              className="flex justify-between w-full h-fit items-center border p-3 gap-3 hover:border-primary"
+              className="flex justify-between w-full h-fit items-center border p-3 gap-3 hover:border-primary cursor-pointer"
             >
               <div className="flex w-fit h-fit flex-col ">
                 <div className="flex w-fit h-fit text-[14px] font-medium">

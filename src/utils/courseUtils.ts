@@ -109,9 +109,9 @@ export const getSelectedCourse = async(id: string): Promise<Course|null> => {
   }
 }
 
-export const setCourse = async (courseId: string, userId: string,): Promise<Course | null> => {
+export const setCourse = async (courseId: string): Promise<Course | null> => {
   try {
-    const course = (await setStudentToCourse(courseId, userId)) as Course;
+    const course = (await setStudentToCourse(courseId)) as Course;
     return course;
   } catch (error) {
   return Promise.reject(error);

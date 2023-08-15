@@ -8,10 +8,8 @@ interface TutorCourseCardProps {
   courses: Course[];
   fetchDatas: () => void;
   heading: string;
-  setIsStudentOpen: (value: boolean) => void;
-  setStudentsList: (value: string) => void;
 }
-const TutorCourseCard: React.FC<TutorCourseCardProps> = ({ courses, fetchDatas, heading, setIsStudentOpen, setStudentsList }) => {
+const TutorCourseCard: React.FC<TutorCourseCardProps> = ({ courses, fetchDatas, heading }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const unlistCourse = (id: string) => { unListTheCourse(id).then(()=>{fetchDatas()}).catch(err => console.log(err));}
   const listCourse = (id: string) =>{listTheCourse(id).then(()=>{fetchDatas()}).catch((err) => console.log(err));}
@@ -21,24 +19,24 @@ const TutorCourseCard: React.FC<TutorCourseCardProps> = ({ courses, fetchDatas, 
         <div className="flex w-full h-fit items-center justify-start text-[14px] font-medium">
           {heading}
         </div>
-        {courses.map((course, idx) => (
+        {courses.slice(0,1).map((course, idx) => (
           <div
             key={idx}
-            className="flex  rounded-xl bg-primary hover:bg-white transition duration-300 "
+            className="flex   bg-primary hover:bg-white transition duration-300 "
           >
             <div
               className="flex w-full translate-x-1 -translate-y-1 h-full hover:translate-x-0 hover:translate-y-0 
-           transition duration-300 bg-white border rounded-xl p-3 flex-col items-start justify-center gap-2 relative"
+           transition duration-300 bg-white border shadow-lg p-3 flex-col items-start justify-center gap-2 relative"
               onMouseLeave={() => setIsOpen(false)}
             >
               <div
-                className="flex absolute top-1 right-1 cursor-pointer bg-primary rounded-full p-0.5"
+                className="flex absolute top-1.5 right-0.5 cursor-pointer  "
                 onClick={() => {
-                  setIsOpen(!isOpen); setStudentsList(course._id as string)
+                  setIsOpen(!isOpen); 
                 }}
               >
                 <PiDotsThreeVerticalBold
-                  style={{ fontSize: "16px", color: "white" }}
+                  style={{ fontSize: "16px", color: "black" }}
                 />
               </div>
               {isOpen && (
@@ -46,7 +44,6 @@ const TutorCourseCard: React.FC<TutorCourseCardProps> = ({ courses, fetchDatas, 
                   course={course}
                   listCourse={listCourse}
                   unListCourse={unlistCourse}
-                  setIsStudentOpen={setIsStudentOpen}
                 />
               )}
               <div className="flex w-full h-fit flex-wrap text-[14px]">

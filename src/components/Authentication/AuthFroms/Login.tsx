@@ -78,7 +78,9 @@ const Login: React.FC<LoginProps> = ({ loginError, setResError, setIsForgot }) =
             />
             {loginError && <AtuhenticationError passedError={loginError} />}
           </div>
-          <div className="flex w-full h-fit justify-end items-center text-primary text-[13px] cursor-pointer" onClick={()=>setIsForgot(true)}>Forgot password ?</div>
+          <div className="flex w-full h-fit justify-end items-center text-primary text-[13px] ">
+            <span onClick={()=>setIsForgot(true)} className="w-fit h-fit cursor-pointer">Forgot password ?</span>
+          </div>
           <div className="flex flex-col items-center ">
             {loading && (<div className="loaderBar"></div>)}
             {

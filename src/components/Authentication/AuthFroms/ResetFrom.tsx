@@ -110,7 +110,7 @@ const Reset: React.FC<ResetProps> = ({ loginError, setResError, setIsForgot }) =
       >
         <div className="flex flex-col justify-center gap-3 px-5 py-2">
           <div className="flex flex-col gap-2">
-             { isOtpSended && (
+            {isOtpSended && (
               <OtpField
                 enteredOtp={enteredOtp}
                 setEnteredOtp={setOtp}
@@ -120,14 +120,14 @@ const Reset: React.FC<ResetProps> = ({ loginError, setResError, setIsForgot }) =
                 setErrors={setErrors}
               />
             )}
-            {!isVerified && !isOtpSended &&
-              (<CredentialField
-               setLoginState={setLoginState}
+            {!isVerified && !isOtpSended && (
+              <CredentialField
+                setLoginState={setLoginState}
                 errors={errors}
                 loginState={loginState}
                 setErrors={setErrors}
-              />)
-            } 
+              />
+            )}
             {isVerified && (
               <PasswordField
                 setPassedState={setLoginState}
@@ -149,11 +149,15 @@ const Reset: React.FC<ResetProps> = ({ loginError, setResError, setIsForgot }) =
               </button>
             }
           </div>
-          <div
-            className="flex w-full h-fit justify-start items-center  text-[13px] text-primary cursor-pointer"
-            onClick={() => setIsForgot(false)}
-          >
-            <span><BsArrowLeftShort style={{fontSize:"18px"}} /></span>Back
+          <div className="flex w-full h-fit justify-start items-center  text-[13px] text-primary ">
+            <span
+              className="cursor-pointer w-fit h-fit flex"
+              onClick={() => setIsForgot(false)}
+            >
+              {" "}
+              <BsArrowLeftShort style={{ fontSize: "20px" }} />{" "}
+              <span>Back</span>
+            </span>
           </div>
         </div>
       </form>

@@ -72,28 +72,30 @@ export const UsersCard:React.FC<UserCardProps> = ({user,blockUser,unBlockUser}) 
  );
 };
 
-export const LanguageCard: React.FC<LangaugeCardProps> = ({ language, list, unList }) => {
+export const LanguageCard: React.FC<LangaugeCardProps> = ({ language, list, unList}) => {
   const [drop, setDrop] = useState<boolean>(false);
   return (
     <div className="flex bg-[#C5C5C5] ">
       <div className=" relative col-span-1 h-[180px]   overflow-hidden border -translate-y-1 translate-x-1 hover:translate-x-0 hover:translate-y-0   hover:shadow-lg hover:border-gray-300 transition duration-300 bg-[#f2f8f9] hover:bg-white ">
         {drop && (
-          <div className="absolute left-0 top-0 w-fit h-fit text-[13px] px-2  border-l-transparent border-t-transparent">
-            {language.status ? (
-              <button
-                onClick={() => unList(language?._id as string)}
-                className="text-danger shadow-sm"
-              >
-                Unlist
-              </button>
-            ) : (
-              <button
-                onClick={() => list(language?._id as string)}
-                className="text-green-400 shadow-sm "
-              >
-                List
-              </button>
-            )}
+          <div className="absolute left-0 top-0 w-fit h-fit text-[13px] px-2  border-l-transparent border-t-transparent flex gap-3">
+            <div>
+              {language.status ? (
+                <button
+                  onClick={() => unList(language?._id as string)}
+                  className="text-danger shadow-sm"
+                >
+                  Unlist
+                </button>
+              ) : (
+                <button
+                  onClick={() => list(language?._id as string)}
+                  className="text-green-400 shadow-sm "
+                >
+                  List
+                </button>
+              )}
+            </div>
           </div>
         )}
         <div
@@ -119,7 +121,7 @@ export const LanguageCard: React.FC<LangaugeCardProps> = ({ language, list, unLi
             {(language?.description?.slice(0, 100) as string) + "..."}
           </div>
           <div className=" flex-col w-full     line-clamp-1 text-[13px] flex md:hidden">
-            {(language?.description?.slice(0, 110) as string) + "..."}
+            {(language?.description?.slice(0, 80) as string) + "..."}
           </div>
         </div>
       </div>

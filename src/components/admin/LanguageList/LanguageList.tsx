@@ -1,16 +1,24 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import {
+  addLanguage,
   getAdLanguages,
   listTheLanguage,
-  unlistTheLanguage,
+  unlistTheLanguage
 } from "../../../utils/LanguageUtils";
 import { LanguageCard } from "../../Common/CardCompnent/CardCompoent";
 import Pagination from "../../Common/Pagination/Pagination";
 import { Language } from "../../../dtos/Language";
-import { BsPlusCircle } from "react-icons/bs";
+import {  BsPlusCircle } from "react-icons/bs";
+import HandleForm from "../../../utils/handleFormState";
+import PostLanguage from "./PostLanguage/PostLanguage";
 
 const LanguageList: React.FC = () => {
+  const [langaugeState, setLanguageState, clearLangaugeState] = HandleForm({
+    langName: "",
+    langDescription: ""
+  });
+  const [err, setErr] = useState<string | null>(null);
   const [languages, setLanguages] = useState<Language[] | []>([]);
   const [filteredLangugeList, setFilteredLanguageList] = useState<Language[] | []>([]);
   const [selectedOption, setSelectedOption] = useState<string>("option1");
@@ -85,8 +93,55 @@ const LanguageList: React.FC = () => {
     });
     setFilteredLanguageList(filteredList);
   }, [searchQuery, languages, selectedOption]);
+  const [isPost, setIsPost] = useState<boolean>(false);
+  const handlePost = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!langaugeState.langName || langaugeState.langDescription) { return setErr("Fill credentials") }
+    else {
+      addLanguage({
+        languagename: langaugeState?.langName,
+        description: langaugeState?.langDescription,
+      })
+        .then((res) => {
+          if (res) {
+            clearLangaugeState();
+            setErr(null);
+            toast.success("Language added successfully!", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            fetchLanguages();
+          }
+        })
+        .catch((err) =>
+          toast.error(err as string, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+        );
+    }
+  }
   return (
-    <div className="w-full h-full flex flex-col  overflow-x-hidden">
+    <div className="w-full h-full flex flex-col  overflow-x-hidden relative">
+      {isPost && (
+        <PostLanguage
+          handlePost={handlePost}
+          languageState={langaugeState}
+          setIsPost={setIsPost}
+          setLanguageState={setLanguageState}
+          err={err}
+        />
+      )}
       <div className="flex w-full h-fit justify-between items-center p-5 ">
         <div className="flex w-fit h-fit bg-white gap-2">
           <select
@@ -100,8 +155,14 @@ const LanguageList: React.FC = () => {
             <option value="option2">UnListed</option>
             <option value="option3">Listed</option>
           </select>
-          <div className="appearance-none bg-white border border-gray-300 rounded py-2 px-4 cursor-pointer  text-gray-700 leading-tight focus:outline-none focus:border-primary">
-            <BsPlusCircle style={{ fontSize: "18px", color:"gray" }} />
+          <div
+            className="appearance-none bg-white border border-gray-300 rounded py-2 px-4 cursor-pointer 
+           text-gray-700 leading-tight focus:outline-none focus:border-primary"
+            onClick={() => {
+              setIsPost(true);
+            }}
+          >
+            <BsPlusCircle style={{ fontSize: "18px", color: "gray" }} />
           </div>
         </div>
         <div className="flex w-fit h-fit bg-white">

@@ -14,7 +14,8 @@ const HandleForm = (initialState: FormValues) => {
     }));
   };
   const clearForm = () => setState(initialState);
-  return [state, handleInput, clearForm] as const;
+  const setValues = (values: FormValues) => setState(values);
+  return [state, handleInput, clearForm, setValues] as const;
 };
 
 export default HandleForm;

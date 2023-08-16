@@ -1,4 +1,5 @@
-import { Language } from "aws-sdk/clients/translate";
+
+import { Language } from "../dtos/Language";
 import { axiosAuthorized } from "./config";
 import { AxiosError } from "axios";
 
@@ -21,6 +22,26 @@ const getLanguages = async (): Promise<Language[] | Error> => {
     return Promise.reject(error);
   }
 };
+
+const postLanguage = async (language:Language): Promise<Language | Error> => {
+  try {
+    const response = await axiosAuthorized.post("/admin/post/language", language);
+    const responseData = response.data as ResponseData;
+    return Promise.resolve(responseData.language as Language);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+const editLanguage = async (language:Language,id:string): Promise<Language | Error> => {
+  try {
+    const response = await axiosAuthorized.put(`/admin/edit/language/${id}`, language);
+    const responseData = response.data as ResponseData;
+    return Promise.resolve(responseData.language as Language);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
 
 const getAdminLanguages = async (): Promise<Language[] | Error> => {
   try {
@@ -69,4 +90,11 @@ const listLangauge = async (id: string): Promise<Language | Error> => {
   }
 };
 
-export { getLanguages , getAdminLanguages, unListLangauge, listLangauge};
+export {
+  getLanguages,
+  getAdminLanguages,
+  unListLangauge,
+  listLangauge,
+  postLanguage,
+  editLanguage,
+};

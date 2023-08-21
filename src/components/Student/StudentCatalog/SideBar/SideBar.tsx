@@ -17,9 +17,9 @@ const SideBar: React.FC<SideBarProps> = ({isMedium,closeSideBar,languages,setSel
       <div
         className={`${
           isMedium
-            ? " w-1/2 flex absolute left-0 duration-300  gap-2 p-2 shadow-2xl bg-white"
+            ? " w-1/2 flex absolute left-0 duration-300  gap-2 p-2 shadow-2xl bg-white z-10"
             : "w-0  lg:w-1/5 shadow-2xl"
-        } flex flex-col   h-full  lg:p-2 lg:gap-2`}
+        } flex flex-col   h-full  lg:p-2 lg:gap-2 `}
       >
         {isMedium ? (
           <div className="w-full flex h-fit justify-end ">

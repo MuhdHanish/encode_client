@@ -108,7 +108,7 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses, selectedLangua
           currentPosts?.map((course) => (
             <div
               key={course._id}
-              className="flex w-full md:w-[271px]  hover:bg-black delay-100 border rounded hover:border-black"
+              className="flex w-full md:w-[271px] hover:bg-black delay-100 border rounded hover:border-black"
             >
               <div
                 onClick={() => {

@@ -18,7 +18,7 @@ const StudentProgress: React.FC = () => {
   }, [fetchDatas])
 
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const postPerPage = 4;
+  const postPerPage = 3;
   const lastPostIndex = currentPage * postPerPage;
   const firstPostIndex = lastPostIndex - postPerPage;
   const [currentPosts, setCurrentPosts] = useState<Course[] | []>([]);
@@ -30,7 +30,7 @@ const StudentProgress: React.FC = () => {
   }, [courses, firstPostIndex, lastPostIndex]);
   
   return (
-    <div className="bg-white flex flex-col w-full h-full p-5 gap-10 overflow-x-hidden ">
+    <div className="bg-white flex flex-col w-full h-full p-5 gap-8 overflow-x-hidden ">
       <div className="flex w-full h-fit justify-between items-center ">
         <div className="flex flex-col justify-start items-start">
           <span className="font-bold text-2xl">Learn New Skills</span>
@@ -53,23 +53,25 @@ const StudentProgress: React.FC = () => {
          <HeadCard course={course} key={idx} handleRemoveStudent={handleRemoveStudent}/>
         ))}
       </div>
-      <div className="flex w-full h-fit md:flex-row flex-col gap-5">
-        <div className="flex flex-col md:w-1/2 p-5 gap-5  justify-start items-center">
+      <div className="flex w-full h-fit   justify-center">
+        <div className="  p-5 gap-5 grid sm:grid-cols-3">
           {currentPosts?.map((course, idx) => (
-              <SideCard course={course} key={idx} handleRemoveStudent={handleRemoveStudent}/>
+            <>
+              <SideCard course={course} key={idx} handleRemoveStudent={handleRemoveStudent} />
+            </>
           ))}
+        </div>
+      </div>
           {courses.length > postPerPage && (
-            <div className="flex w-full p-5 justify-end items-end ">
+            <div className="flex w-full  justify-end items-end ">
               <Pagination
                 postsPerPage={postPerPage}
                 totalPosts={courses?.length}
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}
-              />
-            </div>
-          )}
-        </div>
-      </div>
+                />
+          </div>
+            )}
     </div>
   );
 }

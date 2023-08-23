@@ -8,10 +8,13 @@ import CourseDetails from "./CourseDetails/CourseDetails";
 import { toast } from 'react-toastify';
 import { GoLock, GoUnlock } from "react-icons/go";
 import Duration from "./Duration/Duration";
+import Reviews from "./Reviews/Reviews";
+import { Review } from "../../../dtos/Review";
 
 const StudentSelectedCourseGate: React.FC = () => {
   const dispatch = useDispatch();
   const [course, setSelectedCourse] = useState<Course | null>(null);
+  const [reviews, setReviews] = useState<Review[]|null>(null);
   const courseDetails = useSelector(
     (state: RootState) => state.userReducer.selectedCourse
   );
@@ -40,8 +43,9 @@ const StudentSelectedCourseGate: React.FC = () => {
     <div className="bg-white w-full h-full flex justify-center items-center overflow-hidden">
       <div className="flex w-full h-full flex-col overflow-y-scroll">
         <div className="flex flex-col justify-center items-center w-full h-fit">
-          <div className="flex w-full  justify-center items-center px-10 p-5 h-fit">
+          <div className="flex w-full flex-col md:flex-row  justify-center items-center px-10 gap-5 p-5 h-fit">
             <CourseDetails course={course as Course} />
+            <Reviews/>
           </div>
           <div className="flex w-full  justify-center items-center px-10  h-fit">
             <FirstBox course={course as Course} />

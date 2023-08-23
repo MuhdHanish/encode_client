@@ -27,15 +27,15 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
   }
   return (
     <>
-      <div className="flex flex-col border w-full h-fit p-10 gap-3 ">
+      <div className="flex flex-col border w-full md:w-2/3 h-fit p-10 gap-3 ">
         <div className="flex w-full h-fit justify-start items-center ">
           <span className="flex gap-2 text-[13px]">
             {course?.isPaid ? (
-              <span className="bg-primary rounded-full text-white text-shadow-black px-2">
+              <span className="bg-primary rounded-md text-white text-shadow-black px-2">
                 Paid
               </span>
             ) : (
-              <span className="bg-primary rounded-full text-white text-shadow-black px-2">
+              <span className="bg-primary rounded-md text-white text-shadow-black px-2">
                 Free
               </span>
             )}
@@ -50,7 +50,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
         </div>
 
         <div className="flex w-full  h-fit justify-start items-center ">
-          <div className="flex flex-wrap w-full sm:w-1/2 h-fit text-md font-normal text-[14px]">
+          <div className="flex flex-wrap w-full  h-fit text-md font-normal text-[14px]">
             {course?.description}
           </div>
         </div>

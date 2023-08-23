@@ -10,6 +10,8 @@ import { GoLock, GoUnlock } from "react-icons/go";
 import Duration from "./Duration/Duration";
 import Reviews from "./Reviews/Reviews";
 import { Review } from "../../../dtos/Review";
+import { getFullReviews } from "../../../utils/reviewUtils";
+import { TbMessage2Star } from "react-icons/tb";
 
 const StudentSelectedCourseGate: React.FC = () => {
   const dispatch = useDispatch();
@@ -34,18 +36,36 @@ const StudentSelectedCourseGate: React.FC = () => {
           progress: undefined,
         });
       });
+      getFullReviews(courseDetails?._id as string).then((res) => setReviews(res as Review[])).catch((err) => console.log(err));
   }, [courseDetails?._id]);
   useEffect(() => {
     setCourseDetails();
   }, [setCourseDetails, dispatch]);
-
   return (
     <div className="bg-white w-full h-full flex justify-center items-center overflow-hidden">
       <div className="flex w-full h-full flex-col overflow-y-scroll">
         <div className="flex flex-col justify-center items-center w-full h-fit">
           <div className="flex w-full flex-col md:flex-row  justify-center items-center px-10 gap-5 p-5 h-fit">
             <CourseDetails course={course as Course} />
-            <Reviews/>
+            <div className="flex flex-col h-full border w-full md:w-1/3 items-center justify-start overflow-hidden p-3 gap-3 ">
+              <div className="flex w-full h-fit items-center justify-start gap-3 px-5">
+                <span>Reviews</span>
+                <span>
+                  <TbMessage2Star
+                    style={{ color: "#9C4DF4", fontSize: "18px" }}
+                  />
+                </span>
+              </div>
+              {
+                !reviews && <span className="my-auto text-shadow-black">No reviews posted yet <span className="text-primary">!</span></span>
+              }
+              {reviews &&
+                <div className="flex w-full flex-col h-[320px] overflow-y-auto gap-2">
+                { reviews?.map((review, idx) => (
+                  <Reviews key={idx} review={review}/>
+                ))}
+              </div>}
+            </div>
           </div>
           <div className="flex w-full  justify-center items-center px-10  h-fit">
             <FirstBox course={course as Course} />

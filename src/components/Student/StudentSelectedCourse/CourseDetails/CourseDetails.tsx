@@ -61,7 +61,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
               <img
                 src={tutor?.profile}
                 alt="tutor-profile"
-                className="w-7 h-7 rounded-md"
+                className="w-7 h-7 rounded-sm"
               />
             </div>
             <div className="flex">
@@ -73,7 +73,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ course }) => {
           <div className="w-full">
             {(course?.rating as number) > 0 && (
               <div className="flex gap-2 p-2 items-center w-full">
-                <span className="text-[12px`]">{course?.rating}</span>
+                <span className="text-[14px]">{course?.rating}</span>
                 <StarRating rating={course?.rating as number} />
               </div>
             )}

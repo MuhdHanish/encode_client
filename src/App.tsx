@@ -7,7 +7,7 @@ import { AdminPage, LoginPage, SignupPage, StudentPage,  TutorPage  } from "./pa
 import AuthProtected from "./components/Common/ProtectedRoute/AuthProtected";
 import ProtectedRoute from "./components/Common/ProtectedRoute/ProtectedRoute";
 import Loader from "./components/Common/Loader/Loader";
-import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCourseGate,StudentSelectedLanguage,StudentProgress } from "./components/Student";
+import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCourseGate,StudentProgress } from "./components/Student";
 import { TutorDashboard, TutorHome, TutorSelectedCourse, TutorSessionGate } from "./components/Tutor";
 import { CourseProtectedCaseOne, CourseProtectedCaseTwo } from "./components/Common/ProtectedCourseRoute/ProtetedCourseRoute";
 import { AdminHome, CourseList, LanguageList, UsersList } from "./components/admin";
@@ -39,7 +39,6 @@ return loading ? (
       <Route index={true} element={<StudentHome />} />
       <Route path="catalog" element={<StudentCatalog />} />
       <Route path="progress" element={<StudentProgress />} />
-      <Route path="selected/language/:selectedLanguage" element={<StudentSelectedLanguage />} />
       <Route path="course/:selectedCourseId" element={<CourseProtectedCaseOne element={<StudentSelectedCourseGate />} />}  />
       <Route path="selected/course/:selectedCourseId" element={<CourseProtectedCaseTwo element={<StudentSelectedCourse />} />} />
     </Route>

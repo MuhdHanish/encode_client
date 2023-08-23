@@ -6,6 +6,8 @@ import { getCourseOfStudents, removeStudent } from '../../../utils/courseUtils';
 import Pagination from '../../Common/Pagination/Pagination';
 import SideCard from './SideCard/SideCard';
 import HeadCard from './HeadCard/HeadCard';
+import CourseFilterByPrice from '../../Common/CourseFilterByPrice/CourseFilterByPrice';
+import CourseFilterByLevel from '../../Common/CourseFilterByLevel/CourseFilterByLevel';
 
 const StudentProgress: React.FC = () => {
   
@@ -93,32 +95,9 @@ const StudentProgress: React.FC = () => {
       </div>
       <div className="flex w-full font-medium text-[15px] items-center  gap-3 flex-col md:flex-row ">
         <div className="flex w-full h-fit gap-3">
-          <div className="flex w-full h-fit bg-white ">
-            <select
-              className="appearance-none w-full bg-white border text-[14px] border-gray-300 rounded py-2 px-4  text-gray-700 leading-tight focus:outline-none focus:border-primary"
-              name="userStatus"
-              id="userStatus"
-              value={selectedOption}
-              onChange={(e) => setSelectedOption(e.target.value)}
-            >
-              <option value="option1">Free + Paid Courses</option>
-              <option value="option2">Free Courses</option>
-              <option value="option3">Paid Courses</option>
-            </select>
-          </div>
-          <div className="flex w-full h-fit bg-white ">
-            <select
-              className="appearance-none w-full bg-white border text-[14px] border-gray-300 rounded py-2 px-4  text-gray-700 leading-tight focus:outline-none focus:border-primary"
-              name="userStatus"
-              id="userStatus"
-              value={selectedLevel}
-              onChange={(e) => setSelectedLevel(e.target.value)}
-            >
-              <option value="option1">Selected Level</option>
-              <option value="option2">Beginner</option>
-              <option value="option3">Intermediate</option>
-              <option value="option4">Expert</option>
-            </select>
+          <div className="flex w-full h-fit gap-3">
+            <CourseFilterByPrice setSelectedOption={setSelectedOption} selectedOption={selectedOption} />
+            <CourseFilterByLevel setSelectedLevel={setSelectedLevel} selectedLevel={selectedLevel} />
           </div>
         </div>
         <div className="flex w-full h-fit bg-white ">

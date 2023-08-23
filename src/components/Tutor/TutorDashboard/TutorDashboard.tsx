@@ -18,6 +18,8 @@ import { useNavigate } from "react-router-dom";
 import { setSelectedCourse } from "../../../redux/userSlice/userSlice";
 import TutorGraph from "./TutorGraph/TutorGraph";
 import ConfirmationComponent from "../../Common/Confirmation/Confirmation";
+import SearchInput from "../../Common/SearchInput/SearchInput";
+import CourseFilterByStatus from "./TuturoCourseCard/CourseFilterByStatus/CourseFilterByStatus";
 
 const TutorDashboard: React.FC = () => {
   const [courses, setCourses] = useState<Course[] | []>([]);
@@ -125,28 +127,8 @@ const TutorDashboard: React.FC = () => {
       </div>
       <div className="w-full h-full flex flex-col  ">
         <div className="flex w-full h-fit justify-between items-center p-5 ">
-          <div className="flex w-fit h-fit bg-white ">
-            <select
-              className="appearance-none bg-white border border-gray-300 rounded py-2 px-4  text-gray-700 leading-tight focus:outline-none focus:border-primary"
-              name="userStatus"
-              id="userStatus"
-              value={selectedOption}
-              onChange={(e) => setSelectedOption(e.target.value)}
-            >
-              <option value="option1">All Courses</option>
-              <option value="option2">Listed</option>
-              <option value="option3">Unlisted</option>
-            </select>
-          </div>
-          <div className="flex w-fit h-fit bg-white ">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="search"
-              className="appearance-none bg-white border border-gray-300 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-primary"
-            />
-          </div>
+          <CourseFilterByStatus selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+          <SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         </div>
         <div className="grid grid-cols-1  lg:grid-cols-4 gap-4 w-full  p-5 ">
           {currentPosts.length > 0 ? (

@@ -12,6 +12,8 @@ import { Language } from "../../../dtos/Language";
 import {  BsPlusCircle } from "react-icons/bs";
 import HandleForm from "../../../utils/handleFormState";
 import PostLanguage from "./PostLanguage/PostLanguage";
+import SearchInput from "../../Common/SearchInput/SearchInput";
+import LanguageFilter from "./LanguageFilter/LanguageFilter";
 
 const LanguageList: React.FC = () => {
   const [langaugeState, setLanguageState, clearLangaugeState] = HandleForm({
@@ -144,17 +146,7 @@ const LanguageList: React.FC = () => {
       )}
       <div className="flex w-full h-fit justify-between items-center p-5 ">
         <div className="flex w-fit h-fit bg-white gap-2">
-          <select
-            className="appearance-none bg-white border border-gray-300 rounded py-2 px-4  text-gray-700 leading-tight focus:outline-none focus:border-primary"
-            name="userStatus"
-            id="userStatus"
-            value={selectedOption}
-            onChange={(e) => setSelectedOption(e.target.value)}
-          >
-            <option value="option1">All Languages</option>
-            <option value="option2">UnListed</option>
-            <option value="option3">Listed</option>
-          </select>
+          <LanguageFilter selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
           <div
             className="appearance-none bg-white border border-gray-300 rounded py-2 px-4 cursor-pointer 
            text-gray-700 leading-tight focus:outline-none focus:border-primary"
@@ -165,15 +157,7 @@ const LanguageList: React.FC = () => {
             <BsPlusCircle style={{ fontSize: "18px", color: "gray" }} />
           </div>
         </div>
-        <div className="flex w-fit h-fit bg-white">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="search"
-            className="appearance-none bg-white border border-gray-300 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-primary"
-          />
-        </div>
+        <SearchInput setSearchQuery={setSearchQuery} searchQuery={searchQuery} />
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full  p-5 ">
         {currentPosts.length > 0 ? (

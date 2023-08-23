@@ -4,6 +4,8 @@ import { blockTheUser, getFullUsers, unBlockTheUser } from '../../../utils/userU
 import { UsersCard } from '../../Common/CardCompnent/CardCompoent';
 import { toast } from "react-toastify";
 import Pagination from '../../Common/Pagination/Pagination';
+import SearchInput from '../../Common/SearchInput/SearchInput';
+import UserFilter from './UserFilter/UserFilter';
 
 const UsersList: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>("option1");
@@ -92,28 +94,8 @@ const UsersList: React.FC = () => {
   return (
     <div className="w-full h-full flex flex-col  overflow-x-hidden">
       <div className="flex w-full h-fit justify-between items-center p-5 ">
-        <div className="flex w-fit h-fit bg-white ">
-          <select
-            className="appearance-none bg-white border border-gray-300 rounded py-2 px-4  text-gray-700 leading-tight focus:outline-none focus:border-primary"
-            name="userStatus"
-            id="userStatus"
-            value={selectedOption}
-            onChange={(e) => setSelectedOption(e.target.value)}
-          >
-            <option value="option1">All Users</option>
-            <option value="option2">Blocked</option>
-            <option value="option3">Unblocked</option>
-          </select>
-        </div>
-        <div className="flex w-fit h-fit bg-white ">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="search"
-            className="appearance-none bg-white border border-gray-300 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-primary"
-          />
-        </div>
+        <UserFilter selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+        <SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full  p-5 ">
         { currentPosts.length > 0 ?  currentPosts.map((user, idx) => (

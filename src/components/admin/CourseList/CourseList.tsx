@@ -6,6 +6,7 @@ import { Course } from "../../../dtos/Course";
 import { toast } from "react-toastify";
 import { CourseCard } from "../../Common/CardCompnent/CardCompoent";
 import Pagination from "../../Common/Pagination/Pagination";
+import SearchInput from "../../Common/SearchInput/SearchInput";
 
 const CourseList: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -61,15 +62,7 @@ const CourseList: React.FC = () => {
   return (
     <div className="w-full h-full flex flex-col  overflow-x-hidden">
       <div className="flex w-full h-fit justify-end items-center p-5 ">
-        <div className="flex w-fit h-fit bg-white ">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="search"
-            className="appearance-none bg-white border border-gray-300 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-primary"
-          />
-        </div>
+        <SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </div>
       <div className="grid grid-cols-1  lg:grid-cols-4 gap-4 w-full  p-5 ">
          {currentPosts.length > 0 ? currentPosts.map((course, idx) => (

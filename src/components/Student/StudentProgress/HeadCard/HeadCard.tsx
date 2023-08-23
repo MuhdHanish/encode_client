@@ -4,6 +4,7 @@ import { BsArrowRightShort } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setSelectedCourse } from '../../../../redux/userSlice/userSlice';
+import ConfirmationAlert from "../../../Common/Confirmation/Confirmation";
 
 interface HeadCardProps {
   course: Course;
@@ -46,9 +47,11 @@ const HeadCard: React.FC<HeadCardProps> = ({ course , handleRemoveStudent}) => {
           </div>
           <div
             className="flex  p-1 text-[13px] justify-start items-center  h-fit cursor-pointer hover:bg-red-100 text-black transition duration-300 w-full"
-            onClick={() => handleRemoveStudent(course?._id as string)}
+            
           >
-            remove
+            <ConfirmationAlert id={course?._id as string}  message="Remove" onConfirm={handleRemoveStudent}>
+              remove
+            </ConfirmationAlert>
           </div>
         </div>
       )}

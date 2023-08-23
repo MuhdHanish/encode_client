@@ -3,6 +3,7 @@ import { User } from "../../../dtos/User";
 import { Course } from "../../../dtos/Course";
 import { BsArrowRightShort } from "react-icons/bs";
 import { Language } from "../../../dtos/Language";
+import ConfirmationAlert from "../Confirmation/Confirmation";
 
 interface UserCardProps {
   user: User,
@@ -29,10 +30,12 @@ export const UsersCard:React.FC<UserCardProps> = ({user,blockUser,unBlockUser}) 
        <div className="absolute left-0 top-0 w-fit h-fit text-[13px]   px-2   border-l-transparent border-t-transparent">
          {user.status ? (
            <button
-             onClick={() => blockUser(user._id)}
+            //  onClick={() => blockUser(user._id)}
              className="text-danger shadow-sm "
            >
-             Block
+           <ConfirmationAlert id={user._id}  message="Block user" onConfirm={blockUser}>
+               Block
+            </ConfirmationAlert>
            </button>
          ) : (
            <button

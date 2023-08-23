@@ -17,6 +17,7 @@ import Pagination from "../../Common/Pagination/Pagination";
 import { useNavigate } from "react-router-dom";
 import { setSelectedCourse } from "../../../redux/userSlice/userSlice";
 import TutorGraph from "./TutorGraph/TutorGraph";
+import ConfirmationComponent from "../../Common/Confirmation/Confirmation";
 
 const TutorDashboard: React.FC = () => {
   const [courses, setCourses] = useState<Course[] | []>([]);
@@ -180,16 +181,18 @@ const TutorDashboard: React.FC = () => {
                     {course.status ? (
                       <div
                         className="flex w-full h-fit text-danger  justify-start items-center hover:bg-red-100 transition duration-300  px-2 py-1"
-                        onClick={() => unlistCourse(course?._id as string)}
                       >
-                        unlist
+                        <ConfirmationComponent id={course._id as string} message={"Unlist"} onConfirm={unlistCourse}>
+                          unlist
+                        </ConfirmationComponent>
                       </div>
                     ) : (
                       <div
                         className="flex w-full h-fit text-green-400 justify-start items-center hover:bg-green-100 transition duration-300  px-2 py-1"
-                        onClick={() => listCourse(course?._id as string)}
-                      >
-                        list
+                        >
+                        <ConfirmationComponent id={course._id as string} message={"List"} onConfirm={listCourse}>
+                          list
+                        </ConfirmationComponent>
                       </div>
                     )}
                   </div>

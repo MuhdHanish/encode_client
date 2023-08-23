@@ -70,9 +70,8 @@ const EditCourse: React.FC = () => {
                 {course.description}
               </div>
               <div className="flex  w-full h-fit   justify-end text-[13px]">
-                <div className="flex bg-[#c9c9c8] rounded-md">
                   <button
-                    className="flex gap-3 border p-2 translate-x-1 -translate-y-1 hover:translate-x-0 hover:-translate-y-0 shadow-2xl border-slate-200 bg-white rounded-md   transition duration-500 "
+                    className="flex gap-3 border p-2  shadow-2xl border-slate-200 bg-white "
                     onClick={() => {
                       dispatch(setSelectedCourse(course)), setIsOpen(true);
                     }}
@@ -82,7 +81,6 @@ const EditCourse: React.FC = () => {
                       <TbEdit style={{ fontSize: "16px " }} />
                     </span>
                   </button>
-                </div>
               </div>
             </div>
           ))}

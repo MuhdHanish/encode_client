@@ -23,26 +23,25 @@ interface LangaugeCardProps {
 
 export const UsersCard:React.FC<UserCardProps> = ({user,blockUser,unBlockUser}) => {
   const [drop, setDrop] = useState<boolean>(false);
-
  return (
    <div className=" relative col-span-1 h-fit  border hover:-translate-y-0.5 hover:shadow-l rounded-tr-xl hover:border-gray-300 transition duration-300 bg-[#f2f8f9] hover:bg-white p-2">
      {drop && (
        <div className="absolute left-0 top-0 w-fit h-fit text-[13px]   px-2   border-l-transparent border-t-transparent">
          {user.status ? (
            <button
-            //  onClick={() => blockUser(user._id)}
              className="text-danger shadow-sm "
            >
-           <ConfirmationAlert id={user._id}  message="Block user" onConfirm={blockUser}>
+           <ConfirmationAlert id={user._id}  message="Block" onConfirm={blockUser}>
                Block
             </ConfirmationAlert>
            </button>
          ) : (
            <button
-             onClick={() => unBlockUser(user._id)}
              className="text-green-400 shadow-sm "
-           >
+             >
+            <ConfirmationAlert id={user._id}  message="Unblock" onConfirm={unBlockUser}>
              Unblock
+            </ConfirmationAlert>
            </button>
          )}
        </div>
@@ -85,17 +84,19 @@ export const LanguageCard: React.FC<LangaugeCardProps> = ({ language, list, unLi
             <div>
               {language.status ? (
                 <button
-                  onClick={() => unList(language?._id as string)}
                   className="text-danger shadow-sm"
                 >
-                  Unlist
+                  <ConfirmationAlert id={language?._id as string}  message="Unlist" onConfirm={unList}>
+                    Unlist
+                    </ConfirmationAlert>
                 </button>
               ) : (
                 <button
-                  onClick={() => list(language?._id as string)}
                   className="text-green-400 shadow-sm "
                 >
-                  List
+                  <ConfirmationAlert id={language?._id as string}  message="List" onConfirm={list}>
+                      List
+                  </ConfirmationAlert>
                 </button>
               )}
             </div>

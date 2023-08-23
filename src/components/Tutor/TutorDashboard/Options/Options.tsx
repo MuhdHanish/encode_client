@@ -3,6 +3,7 @@ import { Course } from '../../../../dtos/Course';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setSelectedCourse } from '../../../../redux/userSlice/userSlice';
+import ConfirmationComponent from '../../../Common/Confirmation/Confirmation';
 
 interface OptionsProps {
   course: Course;
@@ -21,12 +22,16 @@ const Options: React.FC<OptionsProps> = ({ course, listCourse, unListCourse }) =
         view course
       </div>
       {course.status ? (
-        <div className="flex w-full h-fit text-danger  justify-start items-center hover:bg-red-100 transition duration-300  px-2 py-1" onClick={()=>unListCourse(course?._id as string)}>
-          unlist
+        <div className="flex w-full h-fit text-danger  justify-start items-center hover:bg-red-100 transition duration-300  px-2 py-1" >
+          <ConfirmationComponent id={course._id as string} message={"Unlist"} onConfirm={unListCourse}>
+            unlist
+          </ConfirmationComponent>
         </div>
       ) : (
-        <div className="flex w-full h-fit text-green-400 justify-start items-center hover:bg-green-100 transition duration-300  px-2 py-1"  onClick={()=>listCourse(course?._id as string)}>
-          list
+        <div className="flex w-full h-fit text-green-400 justify-start items-center hover:bg-green-100 transition duration-300  px-2 py-1" >
+          <ConfirmationComponent id={course._id as string} message={"List"} onConfirm={listCourse}>
+              list
+          </ConfirmationComponent>
         </div>
       )}
     </div>

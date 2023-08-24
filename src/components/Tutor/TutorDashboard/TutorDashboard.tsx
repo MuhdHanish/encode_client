@@ -12,7 +12,7 @@ import {
 } from "../../../utils/courseUtils";
 import TutorCourseCard from "./TuturoCourseCard/TutorCourseCard";
 import { CourseCard } from "../../Common/CardCompnent/CardCompoent";
-import { PiDotsThreeVerticalBold } from "react-icons/pi";
+import { PiDotsThreeVerticalBold, PiShootingStarLight } from "react-icons/pi";
 import Pagination from "../../Common/Pagination/Pagination";
 import { useNavigate } from "react-router-dom";
 import { setSelectedCourse } from "../../../redux/userSlice/userSlice";
@@ -20,6 +20,7 @@ import TutorGraph from "./TutorGraph/TutorGraph";
 import ConfirmationComponent from "../../Common/Confirmation/Confirmation";
 import SearchInput from "../../Common/SearchInput/SearchInput";
 import CourseFilterByStatus from "./TuturoCourseCard/CourseFilterByStatus/CourseFilterByStatus";
+import noProgressImage from "../../../assets/progressPage/progressPage.png";
 
 const TutorDashboard: React.FC = () => {
   const [courses, setCourses] = useState<Course[] | []>([]);
@@ -108,95 +109,123 @@ const TutorDashboard: React.FC = () => {
           <RiRotateLockLine style={{ fontSize: "20px" }} />
         </span>
       </div>
-      <div className=" grid md:grid-cols-3 gap-5">
-        <div className="col-span-1 flex flex-col gap-10">
-          <TutorCourseCard
-            courses={courses}
-            fetchDatas={fetchDatas}
-            heading="newly added"
-          />
-          <TutorCourseCard
-            courses={popularCourses}
-            fetchDatas={fetchDatas}
-            heading="popular course"
-          />
-        </div>
-        <div className="col-span-1 sm:col-span-2">
-          <TutorGraph chartData={chartData}/>
-        </div>
-      </div>
-      <div className="w-full h-full flex flex-col  ">
-        <div className="flex w-full h-fit justify-between items-center p-5 ">
-          <CourseFilterByStatus selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
-          <SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        </div>
-        <div className="grid grid-cols-1  lg:grid-cols-4 gap-4 w-full  p-5 ">
-          {currentPosts.length > 0 ? (
-            currentPosts.map((course, idx) => (
-              <div key={idx} className="flex flex-col relative">
-                <div
-                  className="flex absolute z-10 w-fit right-0 p-0.5  top-1  cursor-pointer "
-                  onClick={() => {
-                    setIsOpen(!isOpen);
-                  }}
-                >
-                  <PiDotsThreeVerticalBold
-                    style={{ fontSize: "16px", color: "black" }}
-                  />
-                </div>
-                {isOpen && (
-                  <div
-                    className="flex absolute z-10  top-5 right-7  h-fit border bg-white shadow-xl rounded-lg overflow-hidden flex-col text-[13px] cursor-pointer"
-                    onMouseLeave={() => setIsOpen(false)}
-                  >
+      { courses.length &&
+        <>
+          <div className=" grid md:grid-cols-3 gap-5">
+            <div className="col-span-1 flex flex-col gap-10">
+              <TutorCourseCard
+                courses={courses}
+                fetchDatas={fetchDatas}
+                heading="newly added"
+              />
+              <TutorCourseCard
+                courses={popularCourses}
+                fetchDatas={fetchDatas}
+                heading="popular course"
+              />
+            </div>
+            <div className="col-span-1 sm:col-span-2">
+              <TutorGraph chartData={chartData} />
+            </div>
+          </div>
+          <div className="w-full h-full flex flex-col  ">
+            <div className="flex w-full h-fit justify-between items-center p-5 ">
+              <CourseFilterByStatus
+                selectedOption={selectedOption}
+                setSelectedOption={setSelectedOption}
+              />
+              <SearchInput
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+              />
+            </div>
+            <div className="grid grid-cols-1  lg:grid-cols-4 gap-4 w-full  p-5 ">
+              {currentPosts.length > 0 ? (
+                currentPosts.map((course, idx) => (
+                  <div key={idx} className="flex flex-col relative">
                     <div
-                      className="flex w-full h-fit justify-start items-center border-b hover:bg-green-100 transition duration-300 px-2 py-1"
+                      className="flex absolute z-10 w-fit right-0 p-0.5  top-1  cursor-pointer "
                       onClick={() => {
-                        dispatch(setSelectedCourse(course));
-                        navigate(
-                          `/tutor/selected/course/${course?._id as string}`
-                        );
+                        setIsOpen(!isOpen);
                       }}
                     >
-                      view course
+                      <PiDotsThreeVerticalBold
+                        style={{ fontSize: "16px", color: "black" }}
+                      />
                     </div>
-                    {course.status ? (
+                    {isOpen && (
                       <div
-                        className="flex w-full h-fit text-danger  justify-start items-center hover:bg-red-100 transition duration-300  px-2 py-1"
+                        className="flex absolute z-10  top-5 right-7  h-fit border bg-white shadow-xl rounded-lg overflow-hidden flex-col text-[13px] cursor-pointer"
+                        onMouseLeave={() => setIsOpen(false)}
                       >
-                        <ConfirmationComponent id={course._id as string} message={"Unlist"} onConfirm={unlistCourse}>
-                          unlist
-                        </ConfirmationComponent>
-                      </div>
-                    ) : (
-                      <div
-                        className="flex w-full h-fit text-green-400 justify-start items-center hover:bg-green-100 transition duration-300  px-2 py-1"
+                        <div
+                          className="flex w-full h-fit justify-start items-center border-b hover:bg-green-100 transition duration-300 px-2 py-1"
+                          onClick={() => {
+                            dispatch(setSelectedCourse(course));
+                            navigate(
+                              `/tutor/selected/course/${course?._id as string}`
+                            );
+                          }}
                         >
-                        <ConfirmationComponent id={course._id as string} message={"List"} onConfirm={listCourse}>
-                          list
-                        </ConfirmationComponent>
+                          view course
+                        </div>
+                        {course.status ? (
+                          <div className="flex w-full h-fit text-danger  justify-start items-center hover:bg-red-100 transition duration-300  px-2 py-1">
+                            <ConfirmationComponent
+                              id={course._id as string}
+                              message={"Unlist"}
+                              onConfirm={unlistCourse}
+                            >
+                              unlist
+                            </ConfirmationComponent>
+                          </div>
+                        ) : (
+                          <div className="flex w-full h-fit text-green-400 justify-start items-center hover:bg-green-100 transition duration-300  px-2 py-1">
+                            <ConfirmationComponent
+                              id={course._id as string}
+                              message={"List"}
+                              onConfirm={listCourse}
+                            >
+                              list
+                            </ConfirmationComponent>
+                          </div>
+                        )}
                       </div>
                     )}
+                    <CourseCard key={idx} course={course} />
                   </div>
-                )}
-                <CourseCard key={idx} course={course} />
+                ))
+              ) : (
+                <span>No course found !</span>
+              )}
+            </div>
+            {filteredCourseList.length > postPerPage && (
+              <div className="flex w-full p-5 justify-center items-end ">
+                <Pagination
+                  postsPerPage={postPerPage}
+                  totalPosts={filteredCourseList?.length}
+                  setCurrentPage={setCurrentPage}
+                  currentPage={currentPage}
+                />
               </div>
-            ))
-          ) : (
-            <span>No course found !</span>
-          )}
-        </div>
-        {filteredCourseList.length > postPerPage && (
-          <div className="flex w-full p-5 justify-center items-end ">
-            <Pagination
-              postsPerPage={postPerPage}
-              totalPosts={filteredCourseList?.length}
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
-            />
+            )}
           </div>
-        )}
-      </div>
+        </>
+      }
+      {
+        !courses.length && 
+        <>
+        <div className="flex w-full flex-col md:flex-row h-screen justify-center items-center  p-5 overflow-hidden">
+            <div className="flex w-full h-full justify-center items-center flex-col">
+              <span className='flex w-fit h-fit font-bold text-3xl'>No Course Found !</span>
+              <span className='text-gray-500 font-normal text-sm flex gap-1 items-center '>start course, start grow <span className="text-primary"><PiShootingStarLight/></span></span>
+           </div>
+            <div className="flex w-full  h-full justify-center items-center">
+              <img src={noProgressImage} className='' alt="" />
+           </div>
+        </div>
+        </>
+      }
     </div>
   );
 };

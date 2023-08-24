@@ -1,5 +1,15 @@
 import { User } from "../dtos/User";
-import { blockUser, getUsers, unBlockUser } from "../api/userAuthApi";
+import { blockUser, getUsers, unBlockUser, updateProfileImage } from "../api/userAuthApi";
+import AWS from "aws-sdk";
+import { v4 } from "uuid";
+import { s3Config } from "./classUpload/s3Config";
+
+
+const s3 = new AWS.S3({
+  accessKeyId: s3Config.accessKeyId,
+  secretAccessKey: s3Config.secretAccessKey,
+  region: s3Config.region,
+});
 
 export const getFullUsers = async (): Promise<User[] | null> => {
   try {
@@ -25,4 +35,21 @@ export const unBlockTheUser = async (userId: string): Promise<User | null> => {
   } catch (error) {
     return Promise.reject(error);
   }
+}
+
+export const changeProfile = async (file: File): Promise<User|Error> => {
+  try {
+      const srcId = v4();
+      const profileParam = {
+        Body: file,
+        Bucket: s3Config.bucketName,
+        Key: `profiles/${srcId}`,
+      };
+      const [profileResponse] = await Promise.all([s3.upload(profileParam).promise(),]);
+      const profileLocation = `${import.meta.env.VITE_BUCKET_BASE_URL as string}/${profileResponse.Key}`;
+      const user = await updateProfileImage(profileLocation);
+      return Promise.resolve(user as User);
+    } catch (error) {
+      return Promise.reject(error);
+    }
 }

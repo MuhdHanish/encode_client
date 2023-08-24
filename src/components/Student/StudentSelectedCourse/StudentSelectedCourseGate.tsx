@@ -56,15 +56,18 @@ const StudentSelectedCourseGate: React.FC = () => {
                   />
                 </span>
               </div>
-              {
-                !reviews && <span className="my-auto text-shadow-black">No reviews posted yet <span className="text-primary">!</span></span>
-              }
-              {reviews &&
+              {!reviews && (
+                <span className="my-auto text-shadow-black">
+                  No reviews posted yet <span className="text-primary">!</span>
+                </span>
+              )}
+              {reviews && (
                 <div className="flex w-full flex-col h-[320px] overflow-y-auto gap-2">
-                { reviews?.map((review, idx) => (
-                  <Reviews key={idx} review={review}/>
-                ))}
-              </div>}
+                  {reviews?.map((review, idx) => (
+                    <Reviews review={review} key={idx} />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <div className="flex w-full  justify-center items-center px-10  h-fit">

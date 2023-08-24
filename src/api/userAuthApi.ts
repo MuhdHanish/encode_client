@@ -146,8 +146,20 @@ const confirmOtpToResetPassword = async (enteredOtp: string, uId: string): Promi
 const resetPassword = async (credential: string, password: string): Promise<User | Error> => {
   try {
     const response = await axiosInstance.patch(`/reset/password`, { identifier: credential, password });
-    const {user} = response.data as ResponseData;
+    const { user } = response.data as ResponseData;
     return Promise.resolve(user as User);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const updateProfileImage = async (profile: string): Promise<User | Error> => {
+  try {
+    const response = await axiosAuthorized.patch(`/edit/profile/image`, { profile });
+    const { user } = response.data as ResponseData;
+    localStorage.setItem("user", JSON.stringify(user));
+    store.dispatch(saveUser(user as User));
+     return Promise.resolve(user as User);
   } catch (error) {
     return Promise.reject(error);
   }
@@ -156,6 +168,7 @@ const resetPassword = async (credential: string, password: string): Promise<User
 export {
   registerStepOne,
   registerStepTwo,
+  updateProfileImage,
   login,
   googleLogin,
   googleSignup,

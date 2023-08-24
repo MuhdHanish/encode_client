@@ -88,7 +88,7 @@ const PlayList: React.FC<Props> = ({ course, selectedChapter, setSelectedChapter
           ))}
         </div>
       )}
-      {!userHasPostedReview && (
+      {!userHasPostedReview && user?.role!== 'tutor' && (
         <span className="my-0.5 text-shadow-black w-full h-fit">
           <ReviewForm
             setReviewAgain={setReviewAgain}

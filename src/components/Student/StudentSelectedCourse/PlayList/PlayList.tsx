@@ -1,14 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Course } from '../../../../dtos/Course';
 import Duration from '../Duration/Duration';
+import { Review } from '../../../../dtos/Review';
+import Reviews from '../Reviews/Reviews';
+import { TbMessage2Star } from 'react-icons/tb';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
+import ReviewForm from '../../ReviewForm/ReviewForm';
+import { isEqual } from "lodash/fp";
+
 
 interface Props {
-  course: Course,
-  selectedChapter: number,
+  course: Course;
+  selectedChapter: number;
   setSelectedChapter: (idx: number) => void;
+  reviews: Review[] | null;
+  setReviewAgain: (id: string) => void;
 }
 
-const PlayList:React.FC<Props> = ({course,selectedChapter, setSelectedChapter}) => {
+const PlayList: React.FC<Props> = ({ course, selectedChapter, setSelectedChapter, reviews, setReviewAgain }) => {
+  const user = useSelector((state: RootState) => state.userReducer.user);
+  const userHasPostedReview = reviews?.some(review => isEqual(review.user, user));
+  const [edit,setEdit] = useState<Review|null>(null)
   return (
     <div className="flex flex-col justify-start items-center w-full lg:w-1/3  h-fit  gap-3 text-medium ">
       <div className="flex gap-3 w-full h-fit py-2 px-3 justify-start items-center border text-[13px]">
@@ -46,6 +59,53 @@ const PlayList:React.FC<Props> = ({course,selectedChapter, setSelectedChapter}) 
           </div>
         ))}
       </div>
+      {!reviews && (
+        <span className="my-0.5 text-shadow-black">
+          No reviews posted yet <span className="text-primary">!</span>
+        </span>
+      )}
+      {reviews && (
+        <div className="flex w-full flex-col h-[290px] overflow-y-auto gap-2 ">
+          <div className="flex w-full h-fit items-center justify-start gap-3 px-5 py-2 border">
+            <span>Reviews</span>
+            <span>
+              <TbMessage2Star style={{ color: "#9C4DF4", fontSize: "18px" }} />
+            </span>
+          </div>
+          {userHasPostedReview && (
+            <span className="my-0.5  w-full h-fit flex justify-center gap-2 font-light text-[12px] text-green-500 items-center">
+              <span>Your review has been recorded !</span>
+            </span>
+          )}
+          {reviews?.map((review, idx) => (
+            <Reviews
+              key={idx}
+              review={review}
+              setEdit={setEdit}
+              setReviewAgain={setReviewAgain}
+              courseId={course?._id as string}
+            />
+          ))}
+        </div>
+      )}
+      {!userHasPostedReview && (
+        <span className="my-0.5 text-shadow-black w-full h-fit">
+          <ReviewForm
+            setReviewAgain={setReviewAgain}
+            courseId={course?._id as string}
+          />
+        </span>
+      )}
+      {edit && (
+        <span className="my-0.5 text-shadow-black w-full h-fit">
+          <ReviewForm
+            setReviewAgain={setReviewAgain}
+            courseId={course?._id as string}
+            edit={edit}
+            setEdit={setEdit}
+          />
+        </span>
+      )}
     </div>
   );
 }

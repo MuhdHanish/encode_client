@@ -35,7 +35,7 @@ const updateReview = async (reviewId: string, review:string, rating:number, cour
   try {
     const response = await axiosAuthorized.put(`/update/review/${reviewId}`,{course,review,rating});
     const responseData = response.data as ResponseData;
-    return Promise.resolve(responseData.newReview);
+    return Promise.resolve(responseData.updatedReview);
   } catch (error) {
     return Promise.reject(error);
   }
@@ -45,7 +45,7 @@ const deleteReview = async (reviewId: string, course:string) => {
   try {
     const response = await axiosAuthorized.patch(`/delete/review/${reviewId}`,{course});
     const responseData = response.data as ResponseData;
-    return Promise.resolve(responseData.newReview);
+    return Promise.resolve(responseData.deletedReview);
   } catch (error) {
     return Promise.reject(error);
   }

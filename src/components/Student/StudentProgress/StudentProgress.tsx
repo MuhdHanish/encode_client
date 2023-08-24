@@ -114,13 +114,11 @@ const StudentProgress: React.FC = () => {
         <div className=" p-5 gap-5 grid sm:grid-cols-3">
           {currentPosts.length > 0 ? (
             currentPosts?.map((course, idx) => (
-              <>
                 <SideCard
                   course={course}
                   key={idx}
                   handleRemoveStudent={handleRemoveStudent}
                 />
-              </>
             ))
           ) : (<span>No course found !</span>)}
         </div>

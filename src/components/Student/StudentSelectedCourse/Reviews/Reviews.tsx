@@ -1,17 +1,59 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { AiOutlineStar } from 'react-icons/ai';
 import { Review } from '../../../../dtos/Review';
 import { User } from '../../../../dtos/User';
+import { RootState } from '../../../../redux/store';
+import { useSelector } from 'react-redux';
+import { isEqual } from "lodash/fp";
+import { PiDotsThreeVerticalBold } from 'react-icons/pi';
+import { deleteTheReview } from '../../../../utils/reviewUtils';
+import { toast } from "react-toastify";
+import ConfirmationComponent from '../../../Common/Confirmation/Confirmation';
 
 
 interface ReivewsProps {
-  review: Review
+  review: Review,
+  setEdit: (review: Review) => void;
+  setReviewAgain: (id: string) => void;
+  courseId :string
 }
 
-const Reviews: React.FC<ReivewsProps> = ({ review }) => {
+const Reviews: React.FC<ReivewsProps> = ({ review, setEdit, setReviewAgain, courseId }) => {
+  const rootUser = useSelector((state: RootState) => state.userReducer.user);
   const user = review.user as User;
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const deleteReview = (id:string) => {
+    deleteTheReview(id,courseId).then((res) => {
+      if (res) {
+        setReviewAgain(courseId);
+        toast.success("Review deleted successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    }).catch((err) => { console.log(err) });
+  }
   return (
-    <div className="flex w-full h-fit p-3 items-center justify-start gap-5 text-[13px] border rounded-sm">
+    <div className="flex w-full h-fit p-3 items-center justify-start gap-5 text-[13px] border rounded-sm relative">
+      {
+        isEqual(user === rootUser) && <div className="flex absolute top-1 right-0.5 cursor-pointer" onClick={()=>setIsOpen(!isOpen)}><PiDotsThreeVerticalBold style={{ fontSize:"15px"}} /></div>
+      }
+      {
+        isOpen && 
+        <div className='absolute bg-white w-fit h-fit flex flex-col border rounded-md shadow-md top-1.5 right-5 cursor-pointer' onMouseLeave={()=>setIsOpen(false)}>
+            <div className="flex border-b p-1 hover:bg-slate-100" onClick={()=>setEdit(review)}>edit</div>
+            <div className="flex  p-1 hover:bg-red-100">
+              <ConfirmationComponent id={review._id as string} message='Delete' onConfirm={deleteReview}>
+              delete
+              </ConfirmationComponent>
+            </div>
+        </div>
+      }
       <div className="flex flex-col w-full h-full gap-1">
         <div className="flex w-full h-fit justify-between items-center">
           <div className="flex gap-3 justify-start items-center">
@@ -29,7 +71,7 @@ const Reviews: React.FC<ReivewsProps> = ({ review }) => {
               }`}
             >
               <span className="text-[13px]">{review.rating}</span>
-              <span>
+              <span className='mb-0.5'>
                 <AiOutlineStar style={{ fontSize: "15px" }} />
               </span>
             </div>

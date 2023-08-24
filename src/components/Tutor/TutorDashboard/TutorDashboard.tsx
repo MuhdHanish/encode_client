@@ -109,7 +109,7 @@ const TutorDashboard: React.FC = () => {
           <RiRotateLockLine style={{ fontSize: "20px" }} />
         </span>
       </div>
-      { courses.length &&
+      {courses.length  > 0 ?
         <>
           <div className=" grid md:grid-cols-3 gap-5">
             <div className="col-span-1 flex flex-col gap-10">
@@ -211,19 +211,17 @@ const TutorDashboard: React.FC = () => {
             )}
           </div>
         </>
-      }
-      {
-        !courses.length && 
+        :
         <>
-        <div className="flex w-full flex-col md:flex-row h-screen justify-center items-center  p-5 overflow-hidden">
+          <div className="flex w-full flex-col md:flex-row h-screen justify-center items-center  p-5 overflow-hidden">
             <div className="flex w-full h-full justify-center items-center flex-col">
               <span className='flex w-fit h-fit font-bold text-3xl'>No Course Found !</span>
-              <span className='text-gray-500 font-normal text-sm flex gap-1 items-center '>start course, start grow <span className="text-primary"><PiShootingStarLight/></span></span>
-           </div>
+              <span className='text-gray-500 font-normal text-sm flex gap-1 items-center '>start course, start grow <span className="text-primary"><PiShootingStarLight /></span></span>
+            </div>
             <div className="flex w-full  h-full justify-center items-center">
               <img src={noProgressImage} className='' alt="" />
-           </div>
-        </div>
+            </div>
+          </div>
         </>
       }
     </div>

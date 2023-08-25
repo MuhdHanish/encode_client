@@ -7,11 +7,16 @@ import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { RootState } from "../../../redux/store";
 import { changeProfile } from "../../../utils/userUtils";
+import { SmallUser } from "../../../dtos/User";
+import { RiUserFollowLine } from "react-icons/ri";
 
 interface User {
   profile: string;
   username: string;
-  email:string
+  role: string;
+  email: string;
+  followers: SmallUser[];
+  following: SmallUser[];
 }
 
 export const NavBarDropDown = () => {
@@ -28,7 +33,7 @@ export const NavBarDropDown = () => {
     "flex","flex-row",
     "gap-1.5","items-center"
   );
-
+  const [showList, setShowList] = useState<boolean>(false);
   useEffect(() => {
     void changeProfile(image as File).then().catch();
   },[image])
@@ -115,9 +120,29 @@ export const NavBarDropDown = () => {
               </div>
             </div>
             <ul className={"w-full flex flex-col cursor-pointer"}>
-              <li className={dropDownItemsClasses} onClick={()=>{fileInputRef.current?.click()}}>
+              <li
+                className={dropDownItemsClasses}
+                onClick={() => {
+                  fileInputRef.current?.click();
+                }}
+              >
                 <RxAvatar /> Update Profile
               </li>
+              {currentUser?.role === "tutor" ? (
+                <li
+                  className={dropDownItemsClasses}
+                  onClick={() => setShowList(!showList)}
+                >
+                  <RiUserFollowLine /> followers
+                </li>
+              ) : (
+                <li
+                  className={dropDownItemsClasses}
+                  onClick={() => setShowList(!showList)}
+                >
+                  <RiUserFollowLine /> following
+                </li>
+              )}
               <li
                 className={dropDownItemsClasses + " text-danger"}
                 onClick={handleLogout}

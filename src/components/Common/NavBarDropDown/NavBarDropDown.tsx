@@ -8,7 +8,6 @@ import classNames from "classnames";
 import { RootState } from "../../../redux/store";
 import { changeProfile } from "../../../utils/userUtils";
 import { SmallUser } from "../../../dtos/User";
-import { RiUserFollowLine } from "react-icons/ri";
 
 interface User {
   profile: string;
@@ -33,7 +32,6 @@ export const NavBarDropDown = () => {
     "flex","flex-row",
     "gap-1.5","items-center"
   );
-  const [showList, setShowList] = useState<boolean>(false);
   useEffect(() => {
     void changeProfile(image as File).then().catch();
   },[image])
@@ -128,21 +126,6 @@ export const NavBarDropDown = () => {
               >
                 <RxAvatar /> Update Profile
               </li>
-              {currentUser?.role === "tutor" ? (
-                <li
-                  className={dropDownItemsClasses}
-                  onClick={() => setShowList(!showList)}
-                >
-                  <RiUserFollowLine /> followers
-                </li>
-              ) : (
-                <li
-                  className={dropDownItemsClasses}
-                  onClick={() => setShowList(!showList)}
-                >
-                  <RiUserFollowLine /> following
-                </li>
-              )}
               <li
                 className={dropDownItemsClasses + " text-danger"}
                 onClick={handleLogout}

@@ -165,29 +165,42 @@ const updateProfileImage = async (profile: string): Promise<User | Error> => {
   }
 }
 
-const followUser = async(id: string):Promise<User | Error> => {
+const followUser = async (id: string): Promise<User | Error> => {
   try {
     const response = await axiosAuthorized.patch(`/follow/user/${id}`);
     const { user } = response.data as ResponseData;
     localStorage.setItem("user", JSON.stringify(user));
     store.dispatch(saveUser(user as User));
-     return Promise.resolve(user as User);
+    return Promise.resolve(user as User);
   } catch (error) {
     return Promise.reject(error);
   }
-}
+};
 
-const unfollowUser = async(id: string):Promise<User | Error> => {
+const unfollowUser = async (id: string): Promise<User | Error> => {
   try {
     const response = await axiosAuthorized.patch(`/unfollow/user/${id}`);
     const { user } = response.data as ResponseData;
     localStorage.setItem("user", JSON.stringify(user));
     store.dispatch(saveUser(user as User));
-     return Promise.resolve(user as User);
+    return Promise.resolve(user as User);
   } catch (error) {
     return Promise.reject(error);
   }
+};
+
+const removeUser = async (id: string): Promise<User | Error> => {
+   try {
+     const response = await axiosAuthorized.patch(`/remove/user/${id}`);
+     const { user } = response.data as ResponseData;
+     localStorage.setItem("user", JSON.stringify(user));
+     store.dispatch(saveUser(user as User));
+     return Promise.resolve(user as User);
+   } catch (error) {
+     return Promise.reject(error);
+   }
 }
+
 
 export {
   registerStepOne,
@@ -203,5 +216,6 @@ export {
   confirmOtpToResetPassword,
   resetPassword,
   followUser,
-  unfollowUser
+  unfollowUser,
+  removeUser,
 };

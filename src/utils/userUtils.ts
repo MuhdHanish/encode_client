@@ -1,5 +1,5 @@
 import { User } from "../dtos/User";
-import { blockUser, followUser, getUsers, unBlockUser, unfollowUser, updateProfileImage } from "../api/userAuthApi";
+import { blockUser, followUser, getUsers, removeUser, unBlockUser, unfollowUser, updateProfileImage } from "../api/userAuthApi";
 import AWS from "aws-sdk";
 import { v4 } from "uuid";
 import { s3Config } from "./classUpload/s3Config";
@@ -65,6 +65,14 @@ export const follow = async(id:string): Promise<User|Error> => {
 export const unfollow = async(id:string): Promise<User|Error> => {
   try {
     const user = await unfollowUser(id);
+     return Promise.resolve(user as User); 
+    } catch (error) {
+      return Promise.reject(error);
+    }
+}
+export const remove = async(id:string): Promise<User|Error> => {
+  try {
+    const user = await removeUser(id);
      return Promise.resolve(user as User); 
     } catch (error) {
       return Promise.reject(error);

@@ -5,9 +5,9 @@ import { Review } from '../../../../dtos/Review';
 import Reviews from '../Reviews/Reviews';
 import { TbMessage2Star } from 'react-icons/tb';
 import { useSelector } from 'react-redux';
+import { User } from '../../../../dtos/User';
 import { RootState } from '../../../../redux/store';
 import ReviewForm from '../../ReviewForm/ReviewForm';
-import { isEqual } from "lodash/fp";
 
 
 interface Props {
@@ -20,8 +20,8 @@ interface Props {
 
 const PlayList: React.FC<Props> = ({ course, selectedChapter, setSelectedChapter, reviews, setReviewAgain }) => {
   const user = useSelector((state: RootState) => state.userReducer.user);
-  const userHasPostedReview = reviews?.some(review => isEqual(review.user, user));
-  const [edit,setEdit] = useState<Review|null>(null)
+  const userHasPostedReview = reviews?.some(review => (review.user as User)?._id === user?._id);
+  const [edit, setEdit] = useState<Review | null>(null);
   return (
     <div className="flex flex-col justify-start items-center w-full lg:w-1/3  h-fit  gap-3 text-medium ">
       <div className="flex gap-3 w-full h-fit py-2 px-3 justify-start items-center border text-[13px]">
@@ -88,7 +88,7 @@ const PlayList: React.FC<Props> = ({ course, selectedChapter, setSelectedChapter
           ))}
         </div>
       )}
-      {!userHasPostedReview && user?.role!== 'tutor' && (
+      {!userHasPostedReview && user?.role !== 'tutor' && (
         <span className="my-0.5 text-shadow-black w-full h-fit">
           <ReviewForm
             setReviewAgain={setReviewAgain}

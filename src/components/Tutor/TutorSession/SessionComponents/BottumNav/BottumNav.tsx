@@ -1,7 +1,6 @@
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { LuImagePlus } from "react-icons/lu";
-import { BsHeadset } from "react-icons/bs";
 
 interface BottumNavProps {
   sessionMode: number;
@@ -18,8 +17,6 @@ const BottumNav: React.FC<BottumNavProps> = ({
         return <AiOutlinePlus style={{ fontSize: "26px" }} />;
       case 1:
         return <LuImagePlus style={{ fontSize: "26px"}} />;
-      case 2:
-        return <BsHeadset style={{ fontSize: "26px"}} />;
       default:
         return null;
     }
@@ -39,7 +36,7 @@ const BottumNav: React.FC<BottumNavProps> = ({
               }  flex items-center duration-700  text-primary border rounded-md 
                     justify-center  transition-all hover:translate-x-0 bg-white hover:-translate-y-0  w-12 h-12  cursor-pointer relative`}
               title={
-                index === 0 ? "Add Course" : index === 1 ? "Manage" : "On Live"
+                index === 0 ? "Add Course" :  "Manage" 
               }
             >
               {getMenuIcon(index)}

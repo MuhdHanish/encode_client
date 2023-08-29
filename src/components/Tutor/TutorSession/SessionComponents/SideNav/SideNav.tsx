@@ -1,7 +1,6 @@
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { LuImagePlus } from "react-icons/lu";
-import { BsHeadset } from "react-icons/bs";
 
 interface SideNavProps {
   setSessionMode: (number: number) => void;
@@ -15,8 +14,6 @@ const SideNav: React.FC<SideNavProps> = ({ setSessionMode, sessionMode }) => {
         return <AiOutlinePlus style={{ fontSize: "26px"}} />;
       case 1:
         return <LuImagePlus style={{ fontSize: "26px" }} />;
-      case 2:
-        return <BsHeadset style={{ fontSize: "26px"}} />;
       default:
         return null;
     }
@@ -39,9 +36,7 @@ const SideNav: React.FC<SideNavProps> = ({ setSessionMode, sessionMode }) => {
                 title={
                   index === 0
                     ? "Add Course"
-                    : index === 1
-                    ? "Manage"
-                    : "On Live"
+                    : "Manage"
                 }
               >
                 {getMenuIcon(index)}

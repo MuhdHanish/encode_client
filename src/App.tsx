@@ -13,13 +13,15 @@ import { CourseProtectedCaseOne, CourseProtectedCaseTwo } from "./components/Com
 import { AdminHome, CourseList, LanguageList, UsersList } from "./components/admin";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
+
 function App() {
   
   const dispatch = useDispatch();
   const saveUserFromLocalStorage = useCallback(() => {
     const user = localStorage.getItem("user");
     if (user) {
-      dispatch(saveUser(JSON.parse(user) as User));
+      const currentUser = JSON.parse(user) as User;
+      dispatch(saveUser(currentUser));
     }
   }, [dispatch]);
   useEffect(() => {

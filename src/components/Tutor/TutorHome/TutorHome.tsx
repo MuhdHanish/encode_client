@@ -4,6 +4,7 @@ import sideImg from "../../../assets/home-page-images/tutor-home.png";
 import MainImageFrame from "../../Common/MainImageFrame/MainImageFrame";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import io from "socket.io-client"; 
 
 interface User {
   profile: string;
@@ -16,7 +17,9 @@ const TutorHome: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
  useEffect(() => {
    if (user) {
+     const socket = io(import.meta.env.VITE_SERVER_URL as string);
      setCurrentUser(user);
+     socket.emit("create-room", user);
    }
  }, [user]);
   return (

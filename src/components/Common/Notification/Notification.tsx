@@ -54,10 +54,10 @@ export const Notification = () => {
         {drop && (
           <div
             className={`navbar-dropdown z-50 fixed md:absolute top-24 right-14 md:top-14 md:right-0 bg-white shadow-md rounded 
-          flex flex-col w-fit min-w-[383px]`}
+          flex flex-col w-fit min-w-[300px]`}
             id={"second-component"}
           >
-            <div className="flex w-full h-full justify-around items-center text-[13px] p-3">
+            <div className="flex w-full h-fit justify-around items-center text-[13px] p-3">
               {currentUser?.role === "tutor" ? (
                 <div
                   className={` border-transparent border ${
@@ -77,8 +77,21 @@ export const Notification = () => {
                   Following
                 </div>
               )}
+              <div
+                className={`border border-transparent ${
+                  tab === 1 ? "border-b-primary" : ""
+                } p-3`}
+                onClick={() => setTab(1)}
+              >
+                Notifications
+              </div>
             </div>
+            {tab === 0 && (
               <TabOne currentUser={currentUser as User}/>
+            )}
+            {tab === 1 && (
+              <div className="flex w-full h-fit justify-around items-center text-[13px] p-3"></div>
+            )}
           </div>
         )}
       </div>

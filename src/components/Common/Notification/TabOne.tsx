@@ -38,7 +38,7 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
                   {user?.username}
                 </div>
               </div>
-              <div className="flex items-center text-[11px] gap-2">
+              <div className="flex items-center text-[11px] ">
                 <button
                   className="p-1 border rounded-md text-danger"
                   onClick={() => {
@@ -48,10 +48,6 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
                   }}
                 >
                   Remove
-                </button>
-                <button
-                  className="p-1 border rounded-md ">
-                  Message
                 </button>
               </div>
             </div>
@@ -84,10 +80,6 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
                       .catch((err) => console.log(err));
                   }}>
                   Unfollow
-                </button>
-                <button
-                  className="p-1 border rounded-md ">
-                  Message
                 </button>
               </div>
             </div>

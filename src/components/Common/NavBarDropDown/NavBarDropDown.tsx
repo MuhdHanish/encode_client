@@ -53,7 +53,7 @@ export const NavBarDropDown = () => {
 
    const handleLogout = () => {
     dispatch(logout());
-     dispatch(removeNotifications());
+    dispatch(removeNotifications());
     navigate("/login");
   };
 

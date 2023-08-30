@@ -21,6 +21,7 @@ export const Notification = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [tab, setTab] = useState<number>(0);
   const { user } = useSelector((state: RootState) => state.userReducer);
+  const notifications = useSelector((state: RootState) => state.notificationReducer.notifications);
   useEffect(() => {
     if (user) {
       setCurrentUser(user);
@@ -39,7 +40,6 @@ export const Notification = () => {
       window.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-
   return (
     <>
       <div
@@ -93,7 +93,7 @@ export const Notification = () => {
               <TabOne currentUser={currentUser as User}/>
             )}
             {tab === 1 && currentUser?.role === "tutor" && (<OnLive currentUser={currentUser}/>) }
-            {tab === 1 && currentUser?.role === "student" && (<LiveReminder/>) }
+            {tab === 1 && currentUser?.role === "student" && (<LiveReminder notifications={notifications} />) }
           </div>
         )}
       </div>

@@ -25,7 +25,7 @@ const OnLive: React.FC<Props> = ({currentUser}) => {
     <div className="flex w-full  p-3 h-fit justify-center items-center">
       <div className="flex  p-3  items-center gap-5 justify-between border rounded-md">
         <div className="flex w-fit h-fit items-center text-[13px]">On Live</div>
-        <div className="flex text-primary hover:text-white hover:bg-primary transition duration-300 p-1 border rounded-md" onClick={()=>{socket?.emit("tutor-on-live", currentUser);}}>
+        <div className="flex text-primary hover:text-white hover:bg-primary transition duration-300 p-1 border rounded-md" onClick={()=>{socket?.emit("tutor-on-live", { user: currentUser });}}>
           <TbUsersPlus style={{ fontSize: "19px" }} />
         </div>
       </div>

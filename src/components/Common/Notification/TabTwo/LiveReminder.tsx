@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../redux/store';
 import { Notification } from '../../../../redux/notificationSlice/notificationSlice';
 
+interface Props {
+  notifications: Notification[];
+}
 
-const LiveReminder: React.FC = () => {
-  const notifications = useSelector((state: RootState) => state.notificationReducer.notifications);
+const LiveReminder: React.FC<Props> = ({notifications}) => {
   const [reminders,setRemiders] = useState<Notification[]|[]>([])
   useEffect(() => {
     if(!notifications) return;
     setRemiders(notifications);
   }, [notifications]);
+  console.log(reminders)
   return (
     <div className="flex w-full h-full justify-center items-center text-[13px] p-3  overflow-hidden">
       <div className="flex overflow-y-auto  w-full max-h-[200px] flex-col gap-3 px-5 ">
@@ -20,7 +21,7 @@ const LiveReminder: React.FC = () => {
               className="w-full h-fit flex  p-3 items-center justify-center gap-5  "
               key={idx}
             >
-              <div className="flex w-full h-fit gap-3 items-center">
+              <div className="flex w-full h-fit gap-2.5 items-center">
                 <div className="flex w-7 h-7">
                   <img
                     className="rounded-sm"

@@ -3,6 +3,7 @@ import { SmallUser } from '../../../dtos/User';
 import { remove, unfollow } from '../../../utils/userUtils';
 
 interface User {
+  _id: string;
   profile: string;
   username: string;
   role: string;
@@ -30,7 +31,7 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
                 <div className="flex w-7 h-7">
                   <img
                     className="rounded-sm"
-                    src={user.profile}
+                    src={user?.profile}
                     alt="user.profile"
                   />
                 </div>
@@ -59,11 +60,11 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
               className="w-full h-fit flex  p-3 items-center justify-center gap-16 md:gap-5"
               key={idx}
             >
-              <div className="flex w-fit h-fit gap-3 items-center">
+              <div className="flex w-full h-fit gap-3 items-center">
                 <div className="flex w-7 h-7">
                   <img
                     className="rounded-sm"
-                    src={user.profile}
+                    src={user?.profile}
                     alt="user.profile"
                   />
                 </div>

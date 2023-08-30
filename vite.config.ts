@@ -7,5 +7,4 @@ export default defineConfig({
   define: {
     global: {},
   },
-  optimizeDeps: {},
 });

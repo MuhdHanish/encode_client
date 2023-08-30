@@ -4,8 +4,11 @@ import { RootState } from "../../../redux/store";
 import { SmallUser } from "../../../dtos/User";
 import { TfiBell } from "react-icons/tfi";
 import TabOne from "./TabOne";
+import OnLive from "./TabTwo/OnLive";
+import LiveReminder from "./TabTwo/LiveReminder";
 
 interface User {
+  _id: string;
   profile: string;
   username: string;
   role: string;
@@ -83,15 +86,14 @@ export const Notification = () => {
                 } p-3`}
                 onClick={() => setTab(1)}
               >
-                Notifications
+                {currentUser?.role === "tutor" ? "On Live" : "Notifications"}
               </div>
             </div>
             {tab === 0 && (
               <TabOne currentUser={currentUser as User}/>
             )}
-            {tab === 1 && (
-              <div className="flex w-full h-fit justify-around items-center text-[13px] p-3"></div>
-            )}
+            {tab === 1 && currentUser?.role === "tutor" && (<OnLive currentUser={currentUser}/>) }
+            {tab === 1 && currentUser?.role === "student" && (<LiveReminder/>) }
           </div>
         )}
       </div>

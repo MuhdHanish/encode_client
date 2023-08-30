@@ -33,7 +33,7 @@ export const NavBarDropDown = () => {
     "gap-1.5","items-center"
   );
   useEffect(() => {
-    void changeProfile(image as File).then().catch();
+     changeProfile(image as File).then().catch(err=>console.log(err));
   },[image])
   const { user } = useSelector((state: RootState) => state.userReducer);
   useEffect(() => {

@@ -1,27 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MainImageFrame from "../../Common/MainImageFrame/MainImageFrame";
 import sideImg from "../../../assets/home-page-images/student-home.png";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import io from "socket.io-client"
-
-interface User {
-  profile: string;
-  username: string;
-}
 
 const StudentHome: React.FC = () => {
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const { user } = useSelector((state: RootState) => state.userReducer);
-  useEffect(() => {
-    if (user) {
-     const socket = io(import.meta.env.VITE_SERVER_URL as string);
-     setCurrentUser(user);
-     socket.emit("join-following-rooms", user);
-   }
-  }, [user]);
   return (
     <>
       <div className="w-full h-full flex justify-center  items-center py-7 px-5  overflow-auto">
@@ -37,7 +23,7 @@ const StudentHome: React.FC = () => {
             </div>
             <div className="w-full  flex flex-col gap-5 sm:px-10 lg:px-0  items-center">
               <span className="text-md font-medium text-black">
-                Hi {currentUser?.username} !
+                Hi {user?.username} !
               </span>
               <span className="text-[14px] text-gray-600">
                 In the digital age, online learning has revolutionized

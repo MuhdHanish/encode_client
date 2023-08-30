@@ -8,6 +8,7 @@ import classNames from "classnames";
 import { RootState } from "../../../redux/store";
 import { changeProfile } from "../../../utils/userUtils";
 import { SmallUser } from "../../../dtos/User";
+import { removeNotifications } from "../../../redux/notificationSlice/notificationSlice";
 
 interface User {
   profile: string;
@@ -33,7 +34,11 @@ export const NavBarDropDown = () => {
     "gap-1.5","items-center"
   );
   useEffect(() => {
-     changeProfile(image as File).then().catch(err=>console.log(err));
+    if(image instanceof File){
+      changeProfile(image).then().catch(err=>console.log(err));
+    } else {
+      return;
+    }
   },[image])
   const { user } = useSelector((state: RootState) => state.userReducer);
   useEffect(() => {
@@ -48,6 +53,7 @@ export const NavBarDropDown = () => {
 
    const handleLogout = () => {
     dispatch(logout());
+     dispatch(removeNotifications());
     navigate("/login");
   };
 

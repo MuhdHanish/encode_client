@@ -8,15 +8,16 @@ const LiveReminder: React.FC = () => {
   const notifications = useSelector((state: RootState) => state.notificationReducer.notifications);
   const [reminders,setRemiders] = useState<Notification[]|[]>([])
   useEffect(() => {
+    if(!notifications) return;
     setRemiders(notifications);
-  },[notifications])
+  }, [notifications]);
   return (
     <div className="flex w-full h-full justify-center items-center text-[13px] p-3  overflow-hidden">
       <div className="flex overflow-y-auto  w-full max-h-[200px] flex-col gap-3 px-5 ">
-        {reminders.length > 0 ? (
-          reminders.map((reminder, idx) => (
+        {reminders?.length > 0 ? (
+          reminders?.map((reminder, idx) => (
             <div
-              className="w-full h-fit flex  p-3 items-center justify-center gap-5 bg-black text-white "
+              className="w-full h-fit flex  p-3 items-center justify-center gap-5  "
               key={idx}
             >
               <div className="flex w-full h-fit gap-3 items-center">
@@ -27,16 +28,15 @@ const LiveReminder: React.FC = () => {
                     alt="user.profile"
                   />
                 </div>
-                <div className="flex items-center w-fit h-fit gap-1">
-                  {reminder.tutor?.username} is live now{" "}
-                  <span className="text-primary">!</span>
+                <div className="flex items-center w-fit h-fit gap-3">
+                  <span className='flex font-medium'>{reminder.tutor?.username.slice(0,10)+"..."}</span><span className='flex gap-2'>is live<span className='text-primary font-bold'>!</span></span>  
                 </div>
               </div>
             </div>
           ))
         ) : (
           <div className="flex w-full gap-1 h-fit justify-center items-center p-5 text-[13px] ">
-            No new notifications <span className="text-primary">!</span>
+            No new notifications <span className="text-primary font-bold">!</span>
           </div>
         )}
       </div>

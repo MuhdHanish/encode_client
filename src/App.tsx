@@ -11,7 +11,6 @@ import { StudentCatalog, StudentHome, StudentSelectedCourse, StudentSelectedCour
 import { TutorDashboard, TutorHome, TutorSelectedCourse, TutorSessionGate } from "./components/Tutor";
 import { CourseProtectedCaseOne, CourseProtectedCaseTwo } from "./components/Common/ProtectedCourseRoute/ProtetedCourseRoute";
 import { AdminHome, CourseList, LanguageList, UsersList } from "./components/admin";
-import LiveStream from "./components/LiveStream/LiveStream"
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 
@@ -49,7 +48,6 @@ return loading ? (
       <Route index={true} element={<TutorHome />} />
       <Route path="section" element={<TutorSessionGate />} />
       <Route path="dashboard" element={<TutorDashboard />} />
-      <Route path="on-live" element={<LiveStream/>}/>
       <Route path="selected/course/:selectedCourseId" element={<TutorSelectedCourse/>} />
     </Route>
     <Route path="/admin" element={<ProtectedRoute element={<AdminPage />} allowedRoles={["admin"]} />}>

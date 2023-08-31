@@ -4,14 +4,11 @@ import { RootState } from "../../../redux/store";
 import { User } from "../../../dtos/User";
 import { TfiBell } from "react-icons/tfi";
 import TabOne from "./TabOne";
-import OnLive from "./TabTwo/OnLive";
-import LiveReminder from "./TabTwo/LiveReminder";
 
 export const Notification = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [tab, setTab] = useState<number>(0);
   const { user } = useSelector((state: RootState) => state.userReducer);
-  const notifications = useSelector((state: RootState) => state.notificationReducer.notifications);
   useEffect(() => {
     if (user) {
       setCurrentUser(user);
@@ -82,8 +79,6 @@ export const Notification = () => {
             {tab === 0 && (
               <TabOne currentUser={currentUser as User}/>
             )}
-            {tab === 1 && currentUser?.role === "tutor" && (<OnLive currentUser={currentUser}/>) }
-            {tab === 1 && currentUser?.role === "student" && (<LiveReminder notifications={notifications} />) }
           </div>
         )}
       </div>

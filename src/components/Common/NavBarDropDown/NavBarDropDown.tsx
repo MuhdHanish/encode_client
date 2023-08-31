@@ -7,17 +7,8 @@ import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { RootState } from "../../../redux/store";
 import { changeProfile } from "../../../utils/userUtils";
-import { SmallUser } from "../../../dtos/User";
+import { User } from "../../../dtos/User";
 import { removeNotifications } from "../../../redux/notificationSlice/notificationSlice";
-
-interface User {
-  profile: string;
-  username: string;
-  role: string;
-  email: string;
-  followers: SmallUser[];
-  following: SmallUser[];
-}
 
 export const NavBarDropDown = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);

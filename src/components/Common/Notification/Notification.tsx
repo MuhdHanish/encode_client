@@ -1,21 +1,11 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { RootState } from "../../../redux/store";
-import { SmallUser } from "../../../dtos/User";
+import { User } from "../../../dtos/User";
 import { TfiBell } from "react-icons/tfi";
 import TabOne from "./TabOne";
 import OnLive from "./TabTwo/OnLive";
 import LiveReminder from "./TabTwo/LiveReminder";
-
-interface User {
-  _id: string;
-  profile: string;
-  username: string;
-  role: string;
-  email: string;
-  followers: SmallUser[];
-  following: SmallUser[];
-}
 
 export const Notification = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);

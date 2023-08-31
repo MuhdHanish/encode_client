@@ -2,17 +2,7 @@ import React from 'react';
 import {  TbUsersPlus } from 'react-icons/tb';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
-import { SmallUser } from '../../../../dtos/User';
-
-interface User {
-  _id: string;
-  profile: string;
-  username: string;
-  role: string;
-  email: string;
-  followers: SmallUser[];
-  following: SmallUser[];
-}
+import { User } from '../../../../dtos/User';
 
 interface Props {
   currentUser: User;

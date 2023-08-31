@@ -24,7 +24,7 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
           currentUser.followers.length > 0 &&
           currentUser?.followers.map((user, idx) => (
             <div
-              className="w-full h-fit flex  p-3 items-center justify-center gap-5"
+              className="w-full h-fit flex  p-3 items-center justify-center gap-16 md:gap-5 border rounded-md"
               key={idx}
             >
               <div className="flex w-full h-fit gap-3 items-center">
@@ -41,7 +41,7 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
               </div>
               <div className="flex items-center text-[11px] ">
                 <button
-                  className="p-1 border rounded-md text-danger"
+                  className="p-1  text-danger"
                   onClick={() => {
                     remove(user?._id)
                       .then()
@@ -57,7 +57,7 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
           currentUser?.following.length > 0 &&
           currentUser?.following.map((user, idx) => (
             <div
-              className="w-full h-fit flex  p-3 items-center justify-center gap-16 md:gap-5"
+              className="w-full h-fit flex  p-3 items-center justify-center gap-16 md:gap-5 border rounded-md"
               key={idx}
             >
               <div className="flex w-full h-fit gap-3 items-center">
@@ -74,12 +74,13 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
               </div>
               <div className="flex items-center text-[11px] gap-2">
                 <button
-                  className="p-1 border rounded-md text-danger"
+                  className="p-1  text-danger"
                   onClick={() => {
                     unfollow(user?._id)
                       .then()
                       .catch((err) => console.log(err));
-                  }}>
+                  }}
+                >
                   Unfollow
                 </button>
               </div>

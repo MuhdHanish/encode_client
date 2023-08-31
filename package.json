@@ -16,6 +16,7 @@
     "@videosdk.live/react-sdk": "^0.1.75",
     "aws-sdk": "^2.1420.0",
     "axios": "^1.4.0",
+    "hls.js": "^1.4.10",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",

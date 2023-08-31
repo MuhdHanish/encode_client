@@ -8,7 +8,6 @@ import classNames from "classnames";
 import { RootState } from "../../../redux/store";
 import { changeProfile } from "../../../utils/userUtils";
 import { User } from "../../../dtos/User";
-import { removeNotifications } from "../../../redux/notificationSlice/notificationSlice";
 
 export const NavBarDropDown = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -44,7 +43,6 @@ export const NavBarDropDown = () => {
 
    const handleLogout = () => {
     dispatch(logout());
-    dispatch(removeNotifications());
     navigate("/login");
   };
 

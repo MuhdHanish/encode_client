@@ -24,7 +24,7 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
           currentUser.followers.length > 0 &&
           currentUser?.followers.map((user, idx) => (
             <div
-              className="w-full h-fit flex  p-3 items-center justify-center gap-16 md:gap-5 border rounded-md"
+              className="w-full h-fit flex  p-3 items-center justify-center gap-5 border rounded-md"
               key={idx}
             >
               <div className="flex w-full h-fit gap-3 items-center">
@@ -39,9 +39,9 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
                   {user?.username}
                 </div>
               </div>
-              <div className="flex items-center text-[11px] ">
+              <div className="flex items-center text-[10px] gap-1 ">
                 <button
-                  className="p-1  text-danger"
+                  className="p-1  text-danger border rounded-md"
                   onClick={() => {
                     remove(user?._id)
                       .then()
@@ -50,6 +50,7 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
                 >
                   Remove
                 </button>
+                <button className="p-1 border rounded-md ">Message</button>
               </div>
             </div>
           ))}
@@ -57,7 +58,7 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
           currentUser?.following.length > 0 &&
           currentUser?.following.map((user, idx) => (
             <div
-              className="w-full h-fit flex  p-3 items-center justify-center gap-16 md:gap-5 border rounded-md"
+              className="w-full h-fit flex  p-3 items-center justify-center gap-5 border rounded-md"
               key={idx}
             >
               <div className="flex w-full h-fit gap-3 items-center">
@@ -72,9 +73,9 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
                   {user.username}
                 </div>
               </div>
-              <div className="flex items-center text-[11px] gap-2">
+              <div className="flex items-center text-[10px] gap-2">
                 <button
-                  className="p-1  text-danger"
+                  className="p-1  text-danger border rounded-md"
                   onClick={() => {
                     unfollow(user?._id)
                       .then()
@@ -83,6 +84,7 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
                 >
                   Unfollow
                 </button>
+                <button className="p-1 border rounded-md">Message</button>
               </div>
             </div>
           ))}

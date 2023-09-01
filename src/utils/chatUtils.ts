@@ -1,6 +1,11 @@
 import { fetchChats, accessChat, fetchMessages, sendMessage } from "../api/chatApi";
 import { Message } from "../dtos/Message";
 import { Chat } from "../dtos/Chat";
+import { User } from "../dtos/User";
+
+export const getChatUser = (currentUser:User, users:User[]) => {
+  return users[0]?._id === currentUser?._id ? users[1] : users[0];
+}; 
 
 export const getChats = async (): Promise<Chat[] | Error> => {
   try {

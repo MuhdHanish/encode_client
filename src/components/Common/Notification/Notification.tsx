@@ -74,7 +74,7 @@ export const Notification = () => {
                 } p-3`}
                 onClick={() => setTab(1)}
               >
-                Messages
+                Chats
               </div>
             </div>
             {tab === 0 && (

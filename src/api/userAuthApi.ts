@@ -23,7 +23,7 @@ interface ResponseData {
  refreshToken?: string
 }
 
-const login = async ({ credential, password }:UserCredentials): Promise<User|Error> => {
+const login = async ({ credential, password }: UserCredentials): Promise<User | Error> => {
   try {
     const response = await axiosInstance.post(`/login`, { identifier: credential, password });
     const { user, accessToken, refreshToken } = response.data as ResponseData;
@@ -35,7 +35,7 @@ const login = async ({ credential, password }:UserCredentials): Promise<User|Err
   } catch (error) {
     return Promise.reject(error);
   }
-}
+};
 
 const registerStepOne = async ({ email, username, role }: UserCredentials): Promise<string | Error> => {
   try {
@@ -43,14 +43,13 @@ const registerStepOne = async ({ email, username, role }: UserCredentials): Prom
     const { uId } = response.data as ResponseData;
     return Promise.resolve(uId as string);
   } catch (error) {
-  return Promise.reject(error);
+    return Promise.reject(error);
   }
-}
+};
 
-
-const registerStepTwo = async ({ email,username,password,role,uId ,enteredOtp }:UserCredentials): Promise<User|Error> => {
+const registerStepTwo = async ({ email, username, password, role, uId, enteredOtp }: UserCredentials): Promise<User | Error> => {
   try {
-    const response = await axiosInstance.post(`/register/steptwo/${uId as string}`, { username,email,password,role,enteredOtp });
+    const response = await axiosInstance.post(`/register/steptwo/${uId as string}`, { username, email, password, role, enteredOtp });
     const { user, accessToken, refreshToken } = response.data as ResponseData;
     localStorage.setItem("accessToken", accessToken as string);
     localStorage.setItem("refreshToken", refreshToken as string);
@@ -60,9 +59,9 @@ const registerStepTwo = async ({ email,username,password,role,uId ,enteredOtp }:
   } catch (error) {
     return Promise.reject(error);
   }
-}
+};
 
-const googleLogin = async (credentialResponse: GoogleCredentialResponse):Promise<User|Error> => {
+const googleLogin = async (credentialResponse: GoogleCredentialResponse): Promise<User | Error> => {
   try {
     const response = await axiosInstance.post('/google/login', credentialResponse);
     const { user, accessToken, refreshToken } = response.data as ResponseData;
@@ -75,12 +74,12 @@ const googleLogin = async (credentialResponse: GoogleCredentialResponse):Promise
     return Promise.reject(error);
 
   }
-}
+};
 
-const googleSignup = async (credentialResponse: GoogleCredentialResponse,role:string): Promise<User | Error> => {
+const googleSignup = async (credentialResponse: GoogleCredentialResponse, role: string): Promise<User | Error> => {
   try {
     const credential = credentialResponse;
-    const response = await axiosInstance.post('/google/register', {credential,role});
+    const response = await axiosInstance.post('/google/register', { credential, role });
     const { user, accessToken, refreshToken } = response.data as ResponseData;
     localStorage.setItem("accessToken", accessToken as string);
     localStorage.setItem("refreshToken", refreshToken as string);
@@ -90,9 +89,9 @@ const googleSignup = async (credentialResponse: GoogleCredentialResponse,role:st
   } catch (error) {
     return Promise.reject(error);
   }
-}
+};
 
-const getUsers = async (): Promise<User[]| Error> => {
+const getUsers = async (): Promise<User[] | Error> => {
   try {
     const response = await axiosAuthorized.get("/admin/get/users");
     const { users } = response.data as ResponseData;
@@ -100,8 +99,7 @@ const getUsers = async (): Promise<User[]| Error> => {
   } catch (error) {
     return Promise.reject(error);
   }
-}
-
+};
 
 const blockUser = async (userId:string): Promise<User | Error> => {
   try {
@@ -141,7 +139,7 @@ const confirmOtpToResetPassword = async (enteredOtp: string, uId: string): Promi
   } catch (error) {
     return Promise.reject(error);
   }
-}
+};
 
 const resetPassword = async (credential: string, password: string): Promise<User | Error> => {
   try {
@@ -159,11 +157,11 @@ const updateProfileImage = async (profile: string): Promise<User | Error> => {
     const { user } = response.data as ResponseData;
     localStorage.setItem("user", JSON.stringify(user));
     store.dispatch(saveUser(user as User));
-     return Promise.resolve(user as User);
+    return Promise.resolve(user as User);
   } catch (error) {
     return Promise.reject(error);
   }
-}
+};
 
 const followUser = async (id: string): Promise<User | Error> => {
   try {
@@ -199,7 +197,9 @@ const removeUser = async (id: string): Promise<User | Error> => {
    } catch (error) {
      return Promise.reject(error);
    }
-}
+};
+
+
 
 
 export {

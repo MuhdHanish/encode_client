@@ -5,14 +5,18 @@ import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { setSocket } from "../../redux/socketSlice/socketSlice";
+import { getChats } from "../../utils/chatUtils";
 
 const TutorPage: React.FC = () => {
-  const  user  = useSelector((state: RootState) => state.userReducer.user);
+  const user = useSelector((state: RootState) => state.userReducer.user);
   const dispatch = useDispatch();
    useEffect(() => {
     const socket = io(import.meta.env.VITE_SERVER_URL as string);
      dispatch(setSocket(() => socket));
-     if (user) {socket.emit("connect-to-online", user?._id);}
+     if (user) {
+       socket.emit("connect-to-online", user?._id);
+       getChats().then().catch(err => console.log(err));
+     }
      return (() => { socket.disconnect(); })
   },[user, dispatch]);
   return (

@@ -1,6 +1,6 @@
 import { axiosAuthorized } from "./config";
 import { store } from "../redux/store";
-import { setChats } from "../redux/chatSlice/chatSlice";
+import { setChats, addNewChat } from "../redux/chatSlice/chatSlice";
 import { Chat } from "../dtos/Chat";
 import { Message } from "../dtos/Message";
 
@@ -24,11 +24,9 @@ export const fetchChats = async (): Promise<Chat[] | Error> => {
 
 export const accessChat = async (id: string): Promise<Chat | Error> => {
   try {
-    let response = await axiosAuthorized.post(`/access/chat/${id}`);
+    const response = await axiosAuthorized.post(`/access/chat/${id}`);
     const { chat } = response.data as ResponseData;
-    response = await axiosAuthorized.get(`/get/chats`);
-    const { chats } = response.data as ResponseData;
-    store.dispatch(setChats(chats as Chat[]));
+    store.dispatch(addNewChat(chat as Chat));
     return chat as Chat;
   } catch (error) {
     return Promise.reject(error);

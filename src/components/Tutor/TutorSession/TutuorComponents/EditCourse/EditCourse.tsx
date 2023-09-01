@@ -10,9 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import { setSelectedCourse } from '../../../../../redux/userSlice/userSlice';
 import noProgressImage from "../../../../../assets/progressPage/progressPage.png";
 import { PiShootingStarLight } from 'react-icons/pi';
+import Loader from '../../../../Common/Loader/Loader';
 
 const EditCourse: React.FC = () => {
-  const [courses, setCourses] = useState<Course[] | null>(null);
+  const [courses, setCourses] = useState<Course[] | []>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const user: User | null = useSelector((state: RootState) => state.userReducer.user);
   const dispatch = useDispatch();
@@ -29,11 +30,16 @@ const EditCourse: React.FC = () => {
     useEffect(() => {
       fetchCourses();
     }, [fetchCourses]);
+    const [loading, setLoading] = useState<boolean>(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 60);
   const navigate = useNavigate();
   return (
     <div className="bg-white w-full  h-full flex justify-center items-center overflow-hidden relative ">
-      { courses?.length as number > 0 ?
-        (<>
+      {loading && <Loader />}
+      {!loading && courses?.length > 0 && (
+        <>
           <div className="w-full  h-full p-5 overflow-hidden  overflow-y-scroll">
             <div className="w-full h-fit  grid grid-cols-1 lg:grid-cols-2 justify-start items-start gap-3">
               {courses?.length &&
@@ -65,7 +71,7 @@ const EditCourse: React.FC = () => {
                       <span>{course.language}</span>|<span>{course.level}</span>
                       |
                       {course.chapters?.length &&
-                      course.chapters.length === 1 ? (
+                        course.chapters.length === 1 ? (
                         <span>{course.chapters?.length} chapter</span>
                       ) : (
                         <span>{course.chapters?.length} chapters</span>
@@ -99,27 +105,27 @@ const EditCourse: React.FC = () => {
                 ))}
             </div>
           </div>
-        </>)
-        :
-     ( <>
-        <div className="flex w-full flex-col md:flex-row h-screen justify-center items-center  p-5 overflow-hidden">
-          <div className="flex w-full h-full justify-center items-center flex-col">
-            <span className="flex w-fit h-fit font-bold text-3xl">
-              No Course Found !
-            </span>
-            <span className="text-gray-500 font-normal text-sm flex gap-1 items-center ">
-              start course, start grow{" "}
-              <span className="text-primary">
-                <PiShootingStarLight />
+        </>
+      )}{ !loading && courses?.length < 0 && (
+        <>
+          <div className="flex w-full flex-col md:flex-row h-screen justify-center items-center  p-5 overflow-hidden">
+            <div className="flex w-full h-full justify-center items-center flex-col">
+              <span className="flex w-fit h-fit font-bold text-3xl">
+                No Course Found !
               </span>
-            </span>
+              <span className="text-gray-500 font-normal text-sm flex gap-1 items-center ">
+                start course, start grow{" "}
+                <span className="text-primary">
+                  <PiShootingStarLight />
+                </span>
+              </span>
+            </div>
+            <div className="flex w-full  h-full justify-center items-center">
+              <img src={noProgressImage} className="" alt="" />
+            </div>
           </div>
-          <div className="flex w-full  h-full justify-center items-center">
-            <img src={noProgressImage} className="" alt="" />
-          </div>
-        </div>
-      </>)
-      }
+        </>
+      )}
       {isOpen && <EditCourseModal setIsOpen={setIsOpen} />}
     </div>
   );

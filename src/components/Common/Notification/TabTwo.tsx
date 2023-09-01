@@ -38,7 +38,7 @@ const TabTwo: React.FC = () => {
                   <div className="text-[11px] w-fit">
                     {((chat.latestMessage as Message)?.content?.slice(
                       0,
-                      20
+                      11
                     ) as string) + "..."}
                   </div>
                 </div>

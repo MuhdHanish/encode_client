@@ -21,6 +21,7 @@ import ConfirmationComponent from "../../Common/Confirmation/Confirmation";
 import SearchInput from "../../Common/SearchInput/SearchInput";
 import CourseFilterByStatus from "./TuturoCourseCard/CourseFilterByStatus/CourseFilterByStatus";
 import noProgressImage from "../../../assets/progressPage/progressPage.png";
+import Loader from "../../Common/Loader/Loader";
 
 const TutorDashboard: React.FC = () => {
   const [courses, setCourses] = useState<Course[] | []>([]);
@@ -100,7 +101,10 @@ const TutorDashboard: React.FC = () => {
   useEffect(() => {
     fetchDatas();
   }, [fetchDatas]);
-
+    const [loading, setLoading] = useState<boolean>(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 60);
   return (
     <div className="bg-white flex flex-col w-full h-full p-5 gap-10 overflow-x-hidden ">
       <div className="flex w-full h-fit justify-start items-center text-2xl font-bold gap-2">
@@ -109,7 +113,8 @@ const TutorDashboard: React.FC = () => {
           <RiRotateLockLine style={{ fontSize: "20px" }} />
         </span>
       </div>
-      {courses.length  > 0 ?
+      {loading && <Loader />}
+      {!loading && courses?.length > 0 && (
         <>
           <div className=" grid md:grid-cols-3 gap-5">
             <div className="col-span-1 flex flex-col gap-10">
@@ -211,19 +216,27 @@ const TutorDashboard: React.FC = () => {
             )}
           </div>
         </>
-        :
+      )}{
+        !loading&& courses?.length < 0 &&(
         <>
           <div className="flex w-full flex-col md:flex-row h-screen justify-center items-center  p-5 overflow-hidden">
             <div className="flex w-full h-full justify-center items-center flex-col">
-              <span className='flex w-fit h-fit font-bold text-3xl'>No Course Found !</span>
-              <span className='text-gray-500 font-normal text-sm flex gap-1 items-center '>start course, start grow <span className="text-primary"><PiShootingStarLight /></span></span>
+              <span className="flex w-fit h-fit font-bold text-3xl">
+                No Course Found !
+              </span>
+              <span className="text-gray-500 font-normal text-sm flex gap-1 items-center ">
+                start course, start grow{" "}
+                <span className="text-primary">
+                  <PiShootingStarLight />
+                </span>
+              </span>
             </div>
             <div className="flex w-full  h-full justify-center items-center">
-              <img src={noProgressImage} className='' alt="" />
+              <img src={noProgressImage} className="" alt="" />
             </div>
           </div>
         </>
-      }
+      )}
     </div>
   );
 };

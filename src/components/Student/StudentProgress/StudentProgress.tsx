@@ -9,6 +9,7 @@ import HeadCard from './HeadCard/HeadCard';
 import CourseFilterByPrice from '../../Common/CourseFilterByPrice/CourseFilterByPrice';
 import CourseFilterByLevel from '../../Common/CourseFilterByLevel/CourseFilterByLevel';
 import noProgressImage from "../../../assets/progressPage/progressPage.png"
+import Loader from '../../Common/Loader/Loader';
 
 const StudentProgress: React.FC = () => {
   
@@ -27,7 +28,7 @@ const StudentProgress: React.FC = () => {
     []
   );
   useEffect(() => {
-    const filteredList = courses.filter((course) => {
+    const filteredList = courses?.filter((course) => {
       const coursenameMatch = course?.coursename
         ?.toLowerCase()
         .includes(searchQuery.toLowerCase());
@@ -63,9 +64,12 @@ const StudentProgress: React.FC = () => {
   const [currentPosts, setCurrentPosts] = useState<Course[] | []>([]);
   const handleRemoveStudent = (courseId: string) => { removeStudent(courseId).then((res) => { if (res) { fetchDatas() } }).catch(err => console.error(err)) };
   useEffect(() => {
-    setCurrentPosts(filteredCourseList.slice(firstPostIndex, lastPostIndex));
+    setCurrentPosts(filteredCourseList?.slice(firstPostIndex, lastPostIndex));
   }, [filteredCourseList, firstPostIndex, lastPostIndex]);
-  
+  const [loading, setLoading] = useState<boolean>(true);
+  setTimeout(() => {
+    setLoading(false);
+  }, 60);
   return (
     <div className="bg-white flex flex-col w-full h-full p-5 gap-8 overflow-x-hidden  ">
       <div className="flex w-full h-fit justify-between items-center ">
@@ -85,7 +89,7 @@ const StudentProgress: React.FC = () => {
           </span>
         </div>
       </div>
-      {courses.length > 0 ? (
+      {!loading && courses?.length > 0 && (
         <>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 ">
             {courses?.slice(0, 4)?.map((course, idx) => (
@@ -135,9 +139,8 @@ const StudentProgress: React.FC = () => {
             </div>
           </div>
         </>
-      ) : (
+      )} { !loading && !courses?.length  &&  (
         <>
-          {" "}
           <div className="flex w-full flex-col md:flex-row h-screen justify-center items-center  p-5 overflow-hidden">
             <div className="flex w-full h-full justify-center items-center flex-col">
               <span className="flex w-fit h-fit font-bold text-3xl">
@@ -156,7 +159,10 @@ const StudentProgress: React.FC = () => {
           </div>
         </>
       )}
-      {filteredCourseList.length > postPerPage && (
+      {
+        loading && <Loader/>
+      }
+      {filteredCourseList?.length > postPerPage && (
         <div className="flex w-full  justify-end items-end ">
           <Pagination
             postsPerPage={postPerPage}

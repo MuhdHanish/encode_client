@@ -1,7 +1,20 @@
 import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
 import NavBar from "../../components/Common/NavBar/NavBar";
+import { RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { io } from "socket.io-client";
+import { setSocket } from "../../redux/socketSlice/socketSlice";
 
 const TutorPage: React.FC = () => {
+  const  user  = useSelector((state: RootState) => state.userReducer.user);
+  const dispatch = useDispatch();
+   useEffect(() => {
+    const socket = io(import.meta.env.VITE_SERVER_URL as string);
+     dispatch(setSocket(() => socket));
+     if (user) {socket.emit("connect-to-online", user?._id);}
+     return (() => { socket.disconnect(); })
+  },[user, dispatch]);
   return (
     <>
       <div className="bg-user-background bg-cover flex justify-between items-center w-screen h-screen ">

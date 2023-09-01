@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { User } from '../../dtos/User';
 import { RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ import SendMessage from './SendMessage';
 
 const Chat:React.FC = () => {
   const { chats, selectedChat } = useSelector((state: RootState) => state.chatReducer);
+   const containerRef = useRef<HTMLDivElement|null>(null);
   const [messages, setMessages] = useState<Message[] | []>([]);
   const  currentUser  = useSelector((state: RootState) => state.userReducer.user);
   const user = getChatUser(currentUser as User, selectedChat?.users as User[]);
@@ -31,9 +32,9 @@ const Chat:React.FC = () => {
         <div className="w-full lg:w-4/5 h-full flex flex-col justify-center items-center  bg-white overflow-hidden p-3 gap-2">
           <div className="flex w-full h-full flex-col border overflow-hidden">
             <ChatProfile user={user} />
-            <Messages messages={messages} user={user} setMessages={setMessages} socket={socket} />
+            <Messages messages={messages} user={user} setMessages={setMessages} socket={socket} containerRef={containerRef} />
           </div>
-          <SendMessage selectedChat={selectedChat} setMessages={setMessages} messages={messages} socket={socket}/>
+          <SendMessage selectedChat={selectedChat} setMessages={setMessages} messages={messages} socket={socket} containerRef={containerRef}/>
         </div>
       </div>
     </>

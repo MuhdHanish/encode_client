@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import { RiSendPlaneFill } from 'react-icons/ri';
 import { sendNewMessage } from '../../utils/chatUtils';
 import { Message } from '../../dtos/Message';
@@ -11,9 +11,10 @@ interface SendMessageProps {
   messages: Message[] | [];
   setMessages: (value: Message[]) => void;
   socket: Socket | null;
+  containerRef: React.RefObject<HTMLDivElement>;
 }
 
-const SendMessage: React.FC<SendMessageProps> = ({selectedChat,setMessages,messages, socket}) => {
+const SendMessage: React.FC<SendMessageProps> = ({selectedChat,setMessages,messages, socket,containerRef}) => {
   const [content, setContent] = useState<string>("");
   const sendMessage = (content: string) => {
     if (!content.length) { return }
@@ -21,9 +22,12 @@ const SendMessage: React.FC<SendMessageProps> = ({selectedChat,setMessages,messa
       setContent("");
       if (res) {
         socket?.emit("new-message", res);
-        setMessages([...messages as Message[],res as Message]);
+        setMessages([...messages as Message[], res as Message]);
+        if (containerRef?.current) {
+          containerRef.current.scrollTop = containerRef.current.scrollHeight;
+        }
        }
- }).catch(err => console.log(err));
+   }).catch(err => console.log(err));
   };
   return (
     <div className="flex w-full h-fit   rounded-sm gap-1">

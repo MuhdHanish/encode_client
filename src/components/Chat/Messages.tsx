@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { Message } from '../../dtos/Message';
 import { User } from '../../dtos/User';
 import { isEqual } from 'lodash/fp';
@@ -10,10 +10,11 @@ interface MessageProps {
   messages: Message[] | [];
   user?: User;
   setMessages: (value: Message[]) => void;
-  socket: Socket | null
+  socket: Socket | null;
+  containerRef: React.RefObject<HTMLDivElement>;
 }
 
-const Messages:React.FC<MessageProps> = ({messages, user, socket,setMessages}) => {
+const Messages: React.FC<MessageProps> = ({ messages, user, socket, setMessages, containerRef}) => {
     const formatTimestamp = (timestamp: Date) => {
       const date = new Date(timestamp);
       const options: Intl.DateTimeFormatOptions = {
@@ -28,12 +29,15 @@ const Messages:React.FC<MessageProps> = ({messages, user, socket,setMessages}) =
       setLoading(false);
     }, 60);
     useEffect(() => {
-      socket?.on("message-recieved",(newMessage:Message)=>{setMessages([...messages, newMessage]);});
-    },[messages, setMessages, socket]);
+      socket?.on("message-recieved", (newMessage: Message) => { setMessages([...messages, newMessage]); });
+      if (containerRef?.current) {
+        containerRef.current.scrollTop = containerRef.current.scrollHeight;
+      }
+    },[containerRef, messages, setMessages, socket]);
   return (
     <>
       { !loading && messages?.length > 0 && (
-        <div className="flex w-full h-[404px]  overflow-y-scroll flex-col py-4 px-2   gap-2 text-gray-500">
+        <div ref={containerRef} className="flex w-full h-[404px]  overflow-y-scroll flex-col py-4 px-2   gap-2 text-gray-500">
           {messages?.map((message, idx: number) => {
             const isUserSender = isEqual(message?.sender, user);
             const isExpanded = expandedMessages?.includes(idx);
@@ -53,18 +57,14 @@ const Messages:React.FC<MessageProps> = ({messages, user, socket,setMessages}) =
                 key={idx}
               >
                 <div
-                  className={`flex max-w-lg h-fit flex-col justify-${
-                    isUserSender ? "start" : "end"
-                  } items-${
-                    isUserSender ? "start" : "end"
-                  } p-1 px-4 border rounded-xl shadow-sm text-[14px] rounded-${
-                    isUserSender ? "bl" : "br"
-                  }-none bg-teal-50`}
+                  className={`flex max-w-lg h-fit flex-col
+                   ${isUserSender ? "justify-start items-start rounded-bl-none" : "justify-end items-end rounded-br-none"}
+                   p-1 px-4 border rounded-xl shadow-sm text-[14px]  bg-teal-50`}
                 >
                   <div className="flex w-fit h-fit">
                     <div
                       style={{
-                        wordWrap: "break-word",
+                        wordWrap: "break-word",      
                         whiteSpace: "pre-wrap",
                         maxHeight: isExpanded ? "none" : "100px",
                         overflow: isExpanded ? "auto" : "hidden",
@@ -75,7 +75,7 @@ const Messages:React.FC<MessageProps> = ({messages, user, socket,setMessages}) =
                   </div>
                   {(message?.content?.length as number) > 50 && (
                     <div
-                      className="cursor-pointer text-primary text-[10px]"
+                      className="cursor-pointer text-primary text-[11px] mt-2"
                       onClick={toggleExpand}
                     >
                       {isExpanded ? " " : "Read more"}

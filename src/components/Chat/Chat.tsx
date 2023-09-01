@@ -20,10 +20,13 @@ const Chat:React.FC = () => {
   const getSocket = useSelector((state:RootState) => state.socketReducer.getSocket);
   const socket = getSocket(); 
   useEffect(() => { 
-    socket?.emit("join-to-chat", user?._id);
-    getMessages(selectedChat?._id as string)
-      .then(res => { if (res) { setMessages(res as Message[]) } })
-      .catch(err => console.log(err));
+    if (selectedChat) {
+      setMessages([]);
+      socket?.emit("join-to-chat", user?._id);
+      getMessages(selectedChat?._id as string)
+        .then(res => { if (res) { setMessages(res as Message[]) } })
+        .catch(err => console.log(err));
+    }
   }, [dispatch ,selectedChat ,socket ,user]);
   return (
     <>

@@ -82,7 +82,7 @@ const Messages: React.FC<MessageProps> = ({ messages, user, socket, setMessages,
                     </div>
                   )}
                   <div className="flex w-fit h-full text-[10px] text-gray-400">
-                    {formatTimestamp(message?.updatedAt as Date)}
+                    {formatTimestamp(message?.createdAt as Date)}
                   </div>
                 </div>
               </div>

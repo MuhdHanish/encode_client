@@ -1,22 +1,46 @@
 import React from 'react'
-import { SmallUser } from '../../../dtos/User';
+import { User } from '../../../dtos/User';
 import { remove, unfollow } from '../../../utils/userUtils';
-
-interface User {
-  _id: string;
-  profile: string;
-  username: string;
-  role: string;
-  email: string;
-  followers: SmallUser[];
-  following: SmallUser[];
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
+import { Chat } from '../../../dtos/Chat';
+import { setSelectedChat } from '../../../redux/chatSlice/chatSlice';
+import { useNavigate } from 'react-router-dom';
+import { createChat } from '../../../utils/chatUtils';
 
 interface Props {
   currentUser: User
 }
 
-const TabOne:React.FC<Props> = ({currentUser}) => {
+const TabOne: React.FC<Props> = ({ currentUser }) => {
+  const chats = useSelector((state: RootState) => state.chatReducer.chats);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const goToChat = (userId: string) => {
+   const isUserInChat = chats?.some((chat: Chat) =>
+     [userId, currentUser._id]?.every((id:string) =>
+       (chat?.users as User[])?.some((user: User) => user?._id.toString() === id)
+     )
+    );
+    if (isUserInChat) {
+      const chatToSet = chats?.find((chat: Chat) =>
+        [userId, currentUser._id]?.every((id: string) =>
+          (chat?.users as User[])?.some(
+            (user: User) => user?._id.toString() === id
+          )
+        )
+      );
+      dispatch(setSelectedChat(chatToSet as Chat));
+    } else {
+      createChat(userId).then((res) => { if (res) (dispatch(setSelectedChat(res as Chat))) }).catch(err => console.log(err));
+    }
+    if (currentUser.role === "student") {
+      return navigate(`/chat`);
+    } else {
+      return navigate(`/tutor/chat`);
+    }
+  };  
+
   return (
     <div className="flex w-full h-full justify-center items-center text-[13px] p-3  overflow-hidden">
       <div className="flex overflow-y-auto  w-full max-h-[200px] flex-col gap-3 px-5">
@@ -50,7 +74,7 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
                 >
                   Remove
                 </button>
-                <button className="p-1 border rounded-md ">Message</button>
+                <button className="p-1 border rounded-md " onClick={()=>{goToChat(user._id)}}>Message</button>
               </div>
             </div>
           ))}
@@ -84,7 +108,7 @@ const TabOne:React.FC<Props> = ({currentUser}) => {
                 >
                   Unfollow
                 </button>
-                <button className="p-1 border rounded-md">Message</button>
+                <button className="p-1 border rounded-md" onClick={()=>{goToChat(user._id)}}>Message</button>
               </div>
             </div>
           ))}

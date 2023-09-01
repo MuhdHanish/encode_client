@@ -32,7 +32,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({ chats, currentUser }) => {
   }, [searchQuery, chats, currentUser]);
   const setChat = (chat: Chat) => {
     dispatch(setSelectedChat(chat));
-  }
+  };
   return (
     <div
       className={` hidden  lg:w-1/5 shadow-2xl lg:flex flex-col   h-full  p-3 gap-2  border-r`}
@@ -70,12 +70,15 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({ chats, currentUser }) => {
                         ?.username
                     }
                   </div>
-                  <div className="text-[11px] w-fit">
-                    {((chat?.latestMessage as Message)?.content?.slice(
+                  { chat?.latestMessage && <div className="text-[11px] w-fit">
+                    { ((chat?.latestMessage as Message)?.content?.slice(
                       0,
                       11
                     ) as string) + "..."}
-                  </div>
+                  </div>}
+                  { !chat?.latestMessage && <div className="text-[11px] w-fit text-gray-400 ">
+                    chat is empty !
+                  </div>}
                 </div>
               </div>
             </div>

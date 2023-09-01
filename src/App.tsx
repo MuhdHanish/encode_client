@@ -12,6 +12,8 @@ import { TutorDashboard, TutorHome, TutorSelectedCourse, TutorSessionGate } from
 import { CourseProtectedCaseOne, CourseProtectedCaseTwo } from "./components/Common/ProtectedCourseRoute/ProtetedCourseRoute";
 import { AdminHome, CourseList, LanguageList, UsersList } from "./components/admin";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import Chat from "./components/Chat/Chat";
+import ChatProtected from "./components/Common/ProtectedRoute/ChatProtected";
 
 
 function App() {
@@ -41,6 +43,7 @@ return loading ? (
       <Route index={true} element={<StudentHome />} />
       <Route path="catalog" element={<StudentCatalog />} />
       <Route path="progress" element={<StudentProgress />} />
+      <Route path="chat" element={<ChatProtected element={<Chat/>} />}/>
       <Route path="course/:selectedCourseId" element={<CourseProtectedCaseOne element={<StudentSelectedCourseGate />} />}  />
       <Route path="selected/course/:selectedCourseId" element={<CourseProtectedCaseTwo element={<StudentSelectedCourse />} />} />
     </Route>
@@ -48,6 +51,7 @@ return loading ? (
       <Route index={true} element={<TutorHome />} />
       <Route path="section" element={<TutorSessionGate />} />
       <Route path="dashboard" element={<TutorDashboard />} />
+      <Route path="chat" element={<ChatProtected element={<Chat/>} />}/>
       <Route path="selected/course/:selectedCourseId" element={<TutorSelectedCourse/>} />
     </Route>
     <Route path="/admin" element={<ProtectedRoute element={<AdminPage />} allowedRoles={["admin"]} />}>

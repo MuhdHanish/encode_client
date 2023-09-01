@@ -11,8 +11,8 @@ const TabTwo: React.FC = () => {
   return (
     <div className="flex w-full h-full justify-center items-center text-[13px] p-3  overflow-hidden">
       <div className="flex overflow-y-auto  w-full max-h-[200px] flex-col gap-3 px-5">
-        {chats.length > 0 ? (
-          chats.map((chat, idx) => (
+        {chats?.length > 0 ? (
+          chats?.map((chat, idx) => (
             <div
               className="w-full h-fit flex  p-3 items-center justify-center gap-5 border rounded-md"
               key={idx}

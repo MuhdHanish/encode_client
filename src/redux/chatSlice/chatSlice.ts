@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Chat } from "../../dtos/Chat";
 
 interface ChatState {
+  selectedChat: Chat | null
   chats: Chat[];
 }
 
 const initialState: ChatState = {
   chats: [],
+  selectedChat: null
 };
 
 const chatSlice = createSlice({
@@ -19,9 +21,12 @@ const chatSlice = createSlice({
     addNewChat: (state, action: PayloadAction<Chat>) => {
       state.chats.push(action.payload);
     },
-  },
+    setSelectedChat: (state, action: PayloadAction<Chat|null>) => {
+      state.selectedChat = action.payload
+    },
+  }
 });
 
-export const { setChats,addNewChat } = chatSlice.actions;
+export const { setChats,addNewChat,setSelectedChat } = chatSlice.actions;
 
 export default chatSlice.reducer;

@@ -46,7 +46,7 @@ export const fetchMessages = async (id: string): Promise<Message[] | Error> => {
 
 export const sendMessage = async (id: string, content: string): Promise<Message | Error> => {
   try {
-    const response = await axiosAuthorized.post(`/send/message/${id}`,{content});
+    const response = await axiosAuthorized.post(`/send/message/${id}`, { content });
     const { newMessage } = response.data as ResponseData;
     return newMessage as Message;
   } catch (error) {

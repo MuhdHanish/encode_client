@@ -8,6 +8,7 @@ import classNames from "classnames";
 import { RootState } from "../../../redux/store";
 import { changeProfile } from "../../../utils/userUtils";
 import { User } from "../../../dtos/User";
+import { setSelectedChat } from "../../../redux/chatSlice/chatSlice";
 
 export const NavBarDropDown = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -43,6 +44,7 @@ export const NavBarDropDown = () => {
 
    const handleLogout = () => {
     dispatch(logout());
+    dispatch(setSelectedChat(null));
     navigate("/login");
   };
 

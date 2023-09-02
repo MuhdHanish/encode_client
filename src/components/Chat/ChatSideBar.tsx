@@ -71,10 +71,13 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({ chats, currentUser }) => {
                     }
                   </div>
                   { chat?.latestMessage && <div className="text-[11px] w-fit">
-                    { ((chat?.latestMessage as Message)?.content?.slice(
-                      0,
-                      11
-                    ) as string) + "..."}
+                    {(chat?.latestMessage as Message)?.content?.length as number > 11 &&
+                        ((chat?.latestMessage as Message)?.content?.slice(
+                        0,
+                        11
+                      ) as string) + "..."}
+                      {(chat?.latestMessage as Message)?.content?.length as number < 11 &&
+                        ((chat?.latestMessage as Message)?.content)}  
                   </div>}
                   { !chat?.latestMessage && <div className="text-[11px] w-fit text-gray-400 ">
                     chat is empty !

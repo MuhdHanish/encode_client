@@ -37,7 +37,7 @@ const Messages: React.FC<MessageProps> = ({ messages, user, socket, setMessages,
   return (
     <>
       { !loading && messages?.length > 0 && (
-        <div ref={containerRef} className="flex w-full h-[404px]  overflow-y-scroll flex-col py-4 px-2   gap-2 text-gray-500">
+        <div ref={containerRef} className="flex w-full h-full  overflow-y-scroll flex-col py-4 px-2   gap-2 text-gray-500">
           {messages?.map((message, idx: number) => {
             const isUserSender = isEqual(message?.sender, user);
             const isExpanded = expandedMessages?.includes(idx);

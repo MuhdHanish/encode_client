@@ -28,7 +28,7 @@ const TabTwo: React.FC = () => {
           chats?.map((chat, idx) => (
             <div
               className="w-full h-fit flex  p-3 items-center justify-center gap-5 border rounded-md cursor-pointer"
-              onClick={()=>goToChat(chat)}
+              onClick={() => goToChat(chat)}
               key={idx}
             >
               <div className="flex w-full h-fit gap-3 items-center">
@@ -49,16 +49,26 @@ const TabTwo: React.FC = () => {
                         ?.username
                     }
                   </div>
-                  <div className="text-[11px] w-fit">
-                    {((chat.latestMessage as Message)?.content?.slice(
-                      0,
-                      11
-                    ) as string) + "..."}
-                  </div>
+                  {chat?.latestMessage && (
+                    <div className="text-[11px] w-fit">
+                      {(chat?.latestMessage as Message)?.content?.length as number > 11 &&
+                        ((chat?.latestMessage as Message)?.content?.slice(
+                        0,
+                        11
+                      ) as string) + "..."}
+                      {(chat?.latestMessage as Message)?.content?.length as number < 11 &&
+                        ((chat?.latestMessage as Message)?.content)}
+                    </div>
+                  )}
+                  {!chat?.latestMessage && (
+                    <div className="text-[11px] w-fit text-gray-400 ">
+                      chat is empty !
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="flex items-center text-[10px] gap-2">
-                <button className="p-1   border border-transparent rounded-md text-transparent  -z-10">
+                <button className="p-1   border border-transparent rounded-md text-transparent -z-10">
                   Unfollow
                 </button>
                 <button className="p-1 border border-transparent rounded-md text-transparent -z-10">

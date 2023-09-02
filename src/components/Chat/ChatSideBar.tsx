@@ -52,7 +52,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({ chats, currentUser }) => {
               onClick={()=>{setChat(chat)}}
               key={index}
             >
-              <div className="flex w-full h-fit gap-3 items-center">
+              <div className="flex w-full h-fit gap-3 items-center py-1">
                 <div className="flex w-7 h-7 ">
                   <img
                     className="rounded"
@@ -70,18 +70,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({ chats, currentUser }) => {
                         ?.username
                     }
                   </div>
-                  { chat?.latestMessage && <div className="text-[11px] w-fit">
-                    {(chat?.latestMessage as Message)?.content?.length as number > 11 &&
-                        ((chat?.latestMessage as Message)?.content?.slice(
-                        0,
-                        11
-                      ) as string) + "..."}
-                      {(chat?.latestMessage as Message)?.content?.length as number < 11 &&
-                        ((chat?.latestMessage as Message)?.content)}  
-                  </div>}
-                  { !chat?.latestMessage && <div className="text-[11px] w-fit text-gray-400 ">
-                    chat is empty !
-                  </div>}
+                  
                 </div>
               </div>
             </div>

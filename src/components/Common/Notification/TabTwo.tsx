@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/store';
-import { Message } from '../../../dtos/Message';
 import { User } from '../../../dtos/User';
 import { getChatUser } from '../../../utils/chatUtils';
 import { Chat } from '../../../dtos/Chat';
@@ -49,29 +48,13 @@ const TabTwo: React.FC = () => {
                         ?.username
                     }
                   </div>
-                  {chat?.latestMessage && (
-                    <div className="text-[11px] w-fit">
-                      {(chat?.latestMessage as Message)?.content?.length as number > 11 &&
-                        ((chat?.latestMessage as Message)?.content?.slice(
-                        0,
-                        11
-                      ) as string) + "..."}
-                      {(chat?.latestMessage as Message)?.content?.length as number < 11 &&
-                        ((chat?.latestMessage as Message)?.content)}
-                    </div>
-                  )}
-                  {!chat?.latestMessage && (
-                    <div className="text-[11px] w-fit text-gray-400 ">
-                      chat is empty !
-                    </div>
-                  )}
                 </div>
               </div>
               <div className="flex items-center text-[10px] gap-2">
-                <button className="p-1   border border-transparent rounded-md text-transparent -z-10">
+                <button className="p-1   border border-transparent rounded-md text-transparent -z-10" disabled>
                   Unfollow
                 </button>
-                <button className="p-1 border border-transparent rounded-md text-transparent -z-10">
+                <button className="p-1 border border-transparent rounded-md text-transparent -z-10" disabled> 
                   Message
                 </button>
               </div>

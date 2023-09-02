@@ -31,13 +31,22 @@ const TabOne: React.FC<Props> = ({ currentUser }) => {
         )
       );
       dispatch(setSelectedChat(chatToSet as Chat));
+      if (currentUser.role === "student") {
+        return navigate(`/chat`);
+      } else {
+        return navigate(`/tutor/chat`);
+      }
     } else {
-      createChat(userId).then((res) => { if (res) (dispatch(setSelectedChat(res as Chat))) }).catch(err => console.log(err));
-    }
-    if (currentUser.role === "student") {
-      return navigate(`/chat`);
-    } else {
-      return navigate(`/tutor/chat`);
+      createChat(userId).then((res) => {
+        if (res) {
+          dispatch(setSelectedChat(res as Chat));
+          if (currentUser.role === "student") {
+            return navigate(`/chat`);
+          } else {
+            return navigate(`/tutor/chat`);
+          }
+        }
+      }).catch(err => console.log(err));
     }
   };  
 

@@ -35,7 +35,7 @@ const SendMessage: React.FC<SendMessageProps> = ({selectedChat,setMessages,messa
         <input
           type="text"
           value={content}
-          onChange={(e)=>setContent(e.target.value)}
+          onChange={(event)=>setContent(event.target.value)}
           placeholder="send message"
           className="appearance-none text-[15px] w-full bg-white border rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-primary"
         />

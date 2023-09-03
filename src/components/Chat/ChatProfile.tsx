@@ -2,10 +2,10 @@ import React from 'react';
 import { User } from '../../dtos/User';
 
 interface ChatProfileProps {
-  user: User
+  user: User;
 }
 
-const ChatProfile:React.FC<ChatProfileProps> = ({user}) => {
+const ChatProfile: React.FC<ChatProfileProps> = ({ user}) => {
   return (
       <div className="flex w-full h-fit px-3 p-2 border-b shadow-sm ">
         <div className="flex w-fit h-fit ">

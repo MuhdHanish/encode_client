@@ -51,7 +51,7 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses, selectedLangua
   setFilteredCourseList(filteredList);
   }, [searchQuery, courses, selectedOption, selectedLevel, selectedLanguage]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const postPerPage = 8;
+  const postPerPage = 9;
   const lastPostIndex = currentPage * postPerPage;
   const firstPostIndex = lastPostIndex - postPerPage;
   const [currentPosts, setCurrentPosts] = useState<Course[] | []>([]);

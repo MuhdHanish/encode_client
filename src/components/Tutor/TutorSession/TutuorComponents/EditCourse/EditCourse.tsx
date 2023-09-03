@@ -86,7 +86,7 @@ const EditCourse: React.FC = () => {
                           );
                       }}
                     >
-                      {course.description}
+                      {course.description?.slice(0,180)as string+"..."}
                     </div>
                     <div className="flex  w-full h-fit   justify-end text-[13px]">
                       <button
@@ -106,7 +106,7 @@ const EditCourse: React.FC = () => {
             </div>
           </div>
         </>
-      )}{ !loading && courses?.length < 0 && (
+      )}{ !loading && !courses?.length && (
         <>
           <div className="flex w-full flex-col md:flex-row h-screen justify-center items-center  p-5 overflow-hidden">
             <div className="flex w-full h-full justify-center items-center flex-col">

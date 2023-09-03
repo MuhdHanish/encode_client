@@ -58,7 +58,7 @@ const TutorDashboard: React.FC = () => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState<string>("");
   useEffect(() => {
-    const filteredList = courses.filter((course) => {
+    const filteredList = courses?.filter((course) => {
       const coursenameMatch = course.coursename
         ?.toLowerCase()
         .includes(searchQuery.toLowerCase());
@@ -95,7 +95,7 @@ const TutorDashboard: React.FC = () => {
   const firstPostIndex = lastPostIndex - postPerPage;
   const [currentPosts, setCurrentPosts] = useState<Course[] | []>([]);
   useEffect(() => {
-    setCurrentPosts(filteredCourseList.slice(firstPostIndex, lastPostIndex));
+    setCurrentPosts(filteredCourseList?.slice(firstPostIndex, lastPostIndex));
   }, [filteredCourseList, firstPostIndex, lastPostIndex]);
 
   useEffect(() => {
@@ -114,7 +114,7 @@ const TutorDashboard: React.FC = () => {
         </span>
       </div>
       {loading && <Loader />}
-      {!loading && courses?.length > 0 && (
+      {!loading && courses?.length  && (
         <>
           <div className=" grid md:grid-cols-3 gap-5">
             <div className="col-span-1 flex flex-col gap-10">
@@ -145,8 +145,8 @@ const TutorDashboard: React.FC = () => {
               />
             </div>
             <div className="grid grid-cols-1  lg:grid-cols-4 gap-4 w-full  p-5 ">
-              {currentPosts.length > 0 ? (
-                currentPosts.map((course, idx) => (
+              {currentPosts?.length > 0 ? (
+                currentPosts?.map((course, idx) => (
                   <div key={idx} className="flex flex-col relative">
                     <div
                       className="flex absolute z-10 w-fit right-0 p-0.5  top-1  cursor-pointer "
@@ -204,7 +204,7 @@ const TutorDashboard: React.FC = () => {
                 <span>No course found !</span>
               )}
             </div>
-            {filteredCourseList.length > postPerPage && (
+            {filteredCourseList?.length > postPerPage && (
               <div className="flex w-full p-5 justify-center items-end ">
                 <Pagination
                   postsPerPage={postPerPage}
@@ -217,7 +217,7 @@ const TutorDashboard: React.FC = () => {
           </div>
         </>
       )}{
-        !loading&& courses?.length < 0 &&(
+        !loading&& !courses?.length  &&(
         <>
           <div className="flex w-full flex-col md:flex-row h-screen justify-center items-center  p-5 overflow-hidden">
             <div className="flex w-full h-full justify-center items-center flex-col">

@@ -72,7 +72,6 @@ const googleLogin = async (credentialResponse: GoogleCredentialResponse): Promis
     return Promise.resolve(user as User);
   } catch (error) {
     return Promise.reject(error);
-
   }
 };
 

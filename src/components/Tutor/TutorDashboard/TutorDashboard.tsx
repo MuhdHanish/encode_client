@@ -17,7 +17,6 @@ import Pagination from "../../Common/Pagination/Pagination";
 import { useNavigate } from "react-router-dom";
 import { setSelectedCourse } from "../../../redux/userSlice/userSlice";
 import TutorGraph from "./TutorGraph/TutorGraph";
-import ConfirmationComponent from "../../Common/Confirmation/Confirmation";
 import SearchInput from "../../Common/SearchInput/SearchInput";
 import CourseFilterByStatus from "./TuturoCourseCard/CourseFilterByStatus/CourseFilterByStatus";
 import noProgressImage from "../../../assets/progressPage/progressPage.png";
@@ -175,24 +174,12 @@ const TutorDashboard: React.FC = () => {
                           view course
                         </div>
                         {course.status ? (
-                          <div className="flex w-full h-fit text-danger  justify-start items-center hover:bg-red-100 transition duration-300  px-2 py-1">
-                            <ConfirmationComponent
-                              id={course._id as string}
-                              message={"Unlist"}
-                              onConfirm={unlistCourse}
-                            >
+                          <div onClick={()=>{unlistCourse(course._id as string);}} className="flex w-full h-fit text-danger  justify-start items-center hover:bg-red-100 transition duration-300  px-2 py-1">
                               unlist
-                            </ConfirmationComponent>
                           </div>
                         ) : (
-                          <div className="flex w-full h-fit text-green-400 justify-start items-center hover:bg-green-100 transition duration-300  px-2 py-1">
-                            <ConfirmationComponent
-                              id={course._id as string}
-                              message={"List"}
-                              onConfirm={listCourse}
-                            >
+                          <div onClick={()=>{listCourse(course._id as string);}} className="flex w-full h-fit text-green-400 justify-start items-center hover:bg-green-100 transition duration-300  px-2 py-1">
                               list
-                            </ConfirmationComponent>
                           </div>
                         )}
                       </div>

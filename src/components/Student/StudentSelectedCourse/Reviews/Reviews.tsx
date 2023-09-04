@@ -8,7 +8,6 @@ import { isEqual } from "lodash/fp";
 import { PiDotsThreeVerticalBold } from 'react-icons/pi';
 import { deleteTheReview } from '../../../../utils/reviewUtils';
 import { toast } from "react-toastify";
-import ConfirmationComponent from '../../../Common/Confirmation/Confirmation';
 
 
 interface ReivewsProps {
@@ -47,10 +46,8 @@ const Reviews: React.FC<ReivewsProps> = ({ review, setEdit, setReviewAgain, cour
         isOpen && 
         <div className='absolute bg-white w-fit h-fit flex flex-col border rounded-md shadow-md top-1.5 right-5 cursor-pointer' onMouseLeave={()=>setIsOpen(false)}>
             <div className="flex border-b p-1 hover:bg-slate-100" onClick={()=>setEdit?.(review)}>edit</div>
-            <div className="flex  p-1 hover:bg-red-100">
-              <ConfirmationComponent id={review._id as string} message='Delete' onConfirm={deleteReview}>
+            <div className="flex  p-1 hover:bg-red-100" onClick={()=>{deleteReview(review._id as string)}}>
               delete
-              </ConfirmationComponent>
             </div>
         </div>
       }

@@ -3,7 +3,6 @@ import { User } from "../../../dtos/User";
 import { Course } from "../../../dtos/Course";
 import { BsArrowRightShort } from "react-icons/bs";
 import { Language } from "../../../dtos/Language";
-import ConfirmationAlert from "../Confirmation/Confirmation";
 
 interface UserCardProps {
   user: User,
@@ -30,18 +29,18 @@ export const UsersCard:React.FC<UserCardProps> = ({user,blockUser,unBlockUser}) 
          {user.status ? (
            <button
              className="text-danger shadow-sm "
+             onClick={()=>{blockUser(user._id)}}
            >
-           <ConfirmationAlert id={user._id}  message="Block" onConfirm={blockUser}>
+           
                Block
-            </ConfirmationAlert>
+
            </button>
          ) : (
            <button
              className="text-green-400 shadow-sm "
+             onClick={()=>{unBlockUser(user._id)}}
              >
-            <ConfirmationAlert id={user._id}  message="Unblock" onConfirm={unBlockUser}>
              Unblock
-            </ConfirmationAlert>
            </button>
          )}
        </div>
@@ -85,18 +84,16 @@ export const LanguageCard: React.FC<LangaugeCardProps> = ({ language, list, unLi
               {language.status ? (
                 <button
                   className="text-danger shadow-sm"
+                  onClick={()=>{unList(language._id as string)}}
                 >
-                  <ConfirmationAlert id={language?._id as string}  message="Unlist" onConfirm={unList}>
                     Unlist
-                    </ConfirmationAlert>
                 </button>
               ) : (
                 <button
                   className="text-green-400 shadow-sm "
+                  onClick={()=>{list(language._id as string)}}
                 >
-                  <ConfirmationAlert id={language?._id as string}  message="List" onConfirm={list}>
                       List
-                  </ConfirmationAlert>
                 </button>
               )}
             </div>

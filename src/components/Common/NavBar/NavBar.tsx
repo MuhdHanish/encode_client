@@ -1,6 +1,6 @@
 import React from "react";                            
 import { NavBarDropDown } from "../NavBarDropDown/NavBarDropDown";
-
+import LogoSmall from "../../../assets/logo/Encode-logo.png"
 import { NavLink } from "react-router-dom";
 import { Notification } from "../Notification/Notification";
 
@@ -11,7 +11,9 @@ interface NavProps {
 const NavBar: React.FC<NavProps> = ({ isTutor }) => {
   return (
     <div className=" px-5  h-[75px]  w-full   bg-transparent shadow-md  flex items-center justify-between bg-white">
-      <div></div>
+      <div className={"w-20 mt-2"}>
+        <img src={LogoSmall} alt={"Logo"} className={"object-contain h-full"} />
+      </div>
       <div className=" h-full flex gap-8 justify-center  items-center text-[14px] font-medium ">
         <NavLink
           to={isTutor ? "/tutor" : "/"}
@@ -35,7 +37,7 @@ const NavBar: React.FC<NavProps> = ({ isTutor }) => {
       </div>
       <div className="flex items-center gap-7">
         <div className="cursor-pointer">
-         <Notification/>
+          <Notification />
         </div>
         <NavBarDropDown />
       </div>

@@ -3,6 +3,7 @@
     "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true
   },

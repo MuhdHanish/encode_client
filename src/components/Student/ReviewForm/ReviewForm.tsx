@@ -8,7 +8,7 @@ import { updateTheReview } from "../../../utils/reviewUtils";
 
 interface Props {
   courseId: string;
-  setReviewAgain: (value: string) => void;
+  setReviewAgain?: (value: string) => void;
   edit?: Review
   setEdit?:(value:Review|null) => void
 }
@@ -36,7 +36,7 @@ const ReviewForm: React.FC<Props> = ({ courseId, setReviewAgain, edit , setEdit}
       ? postReview(courseId, reviewState.review, rating)
           .then((res) => {
             if (res) {
-              setErr(""), setReviewAgain(courseId);
+              setErr(""), setReviewAgain && setReviewAgain(courseId);
               toast.success("Review submited successfully!", {
                 position: "top-right",
                 autoClose: 3000,
@@ -54,7 +54,7 @@ const ReviewForm: React.FC<Props> = ({ courseId, setReviewAgain, edit , setEdit}
       : updateTheReview(edit?._id as string, reviewState?.review, rating, edit?.course as string)
         .then((res) => {
             if (res) {
-              setErr(""), setReviewAgain(courseId); setEdit?.(null);
+              setErr(""), setReviewAgain && setReviewAgain(courseId); setEdit?.(null);
               toast.success("Review edited successfully!", {
                 position: "top-right",
                 autoClose: 3000,

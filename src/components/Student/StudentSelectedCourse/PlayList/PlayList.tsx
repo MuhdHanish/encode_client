@@ -14,8 +14,8 @@ interface Props {
   course: Course;
   selectedChapter: number;
   setSelectedChapter: (idx: number) => void;
-  reviews: Review[] | null;
-  setReviewAgain: (id: string) => void;
+  reviews?: Review[] | null;
+  setReviewAgain?: (id: string) => void;
 }
 
 const PlayList: React.FC<Props> = ({ course, selectedChapter, setSelectedChapter, reviews, setReviewAgain }) => {

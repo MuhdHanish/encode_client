@@ -1,4 +1,4 @@
-import "./init"
+import "./Init"
 import { User } from "./dtos/User";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { useDispatch} from "react-redux";

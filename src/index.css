@@ -57,28 +57,6 @@ a.active {
   @apply  border-primary;
 }
 
-.my-swal {
-  font-size: 12px; /* Decrease the font size for the whole dialog */
-}
-
-.my-swal .swal2-title {
-  font-size: 16px; /* Decrease the font size for the title */
-}
-
-.my-swal .swal2-content {
-  font-size: 14px; /* Decrease the font size for the content */
-}
-
-.my-swal .swal2-actions .swal2-confirm {
-  font-size: 14px; /* Decrease the font size for the confirm button */
-  width: 128px;
-  padding: 6px 12px; /* Decrease the padding for the confirm button */
-}
-
-.my-swal .swal2-actions .swal2-cancel {
-  font-size: 14px; /* Decrease the font size for the cancel button */
-  padding: 6px 12px; /* Decrease the padding for the cancel button */
-}
 
 @keyframes spin-50 {
   0% {

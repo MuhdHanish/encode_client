@@ -29,8 +29,6 @@
     "redux-persist": "^6.0.0",
     "sass": "^1.66.1",
     "socket.io-client": "^4.7.2",
-    "sweetalert2": "^11.7.27",
-    "sweetalert2-react-content": "^5.0.7",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
